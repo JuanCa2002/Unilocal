@@ -1,3 +1,15 @@
 <resources>
+    <!--Textos referentes al activity_main -->
     <string name="app_name">Unilocal</string>
+    <string name="txt_busqueda">Escriba el lugar que quiere buscar</string>
+    <string name="txt_registro">Ir al registro</string>
+    <string name="txt_login">Ir a login</string>
+
+    <!--Textos referentes al activity_login -->
+    <string name="txt_correo">Escriba su correo:</string>
+    <string name="txt_password">Escriba su contraseña:</string>
+    <string name="txt_iniciar_sesion">Iniciar sesion</string>
+    <string name="txt_registrarse">Registrarse</string>
+
+
 </resources>

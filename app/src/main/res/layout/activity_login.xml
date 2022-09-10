@@ -18,23 +18,23 @@
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:inputType="textEmailAddress"
-        android:hint="Escriba su correo:" />
+        android:hint="@string/txt_correo" />
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:inputType="textPassword"
-        android:hint="Escriba su contraseña:" />
+        android:hint="@string/txt_password" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="Iniciar sesion"></Button>
+        android:text="@string/txt_iniciar_sesion"></Button>
 
     <Button
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:text="Registrarse"></Button>
+        android:text="@string/txt_registrarse"></Button>
 
     
 

@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.RegistroActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ToggleButton
+        android:id="@+id/boton_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Apagado"
+        android:textOff="Encedido"/>
+
+    <Switch
+        android:id="@+id/boton_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Apagado"
+        android:textOff="Encedido"/>
+
+    <ImageButton
+        android:id="@+id/btn_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher_round"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/boton_flotante"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_check_24"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/boton_flotante_extend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hacer algo" />
+
+</LinearLayout>

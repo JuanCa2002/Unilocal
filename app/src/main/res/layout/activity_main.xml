@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:hint="Escriba el lugar que quiere buscar"
+        android:hint="@string/txt_busqueda"
         android:drawableRight="@mipmap/ic_launcher_round"
         android:gravity="center"
         android:background="@color/white"
@@ -31,7 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        android:text="Ir a login"/>
+        android:text="@string/txt_login"/>
 
     <Button
         android:id="@+id/boton_registro"
@@ -40,7 +40,7 @@
         android:onClick="irRegistro"
         android:layout_above="@id/boton_login"
         android:layout_alignStart="@id/boton_login"
-        android:text="Ir al registro"/>
+        android:text="@string/txt_registro"/>
 
 
 </RelativeLayout>
