@@ -2,13 +2,11 @@ package com.example.unilocal.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ToggleButton
-import com.example.unilocal.R
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityRegistroBinding
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.unilocal.models.User
 import com.google.android.material.snackbar.Snackbar
 
 class RegistroActivity : AppCompatActivity() {
@@ -20,48 +18,52 @@ class RegistroActivity : AppCompatActivity() {
         binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.botonToggle.setOnClickListener {escucharEventoToggle()}
-
-        binding.botonSwitch.setOnClickListener {escucharEventoSwitch()}
-
-        binding.btnImage.setOnClickListener{escucharEventoImage()}
-
-        binding.botonFlotante.setOnClickListener{escucharEventoFlotante()}
-
-        binding.botonFlotanteExtend.setOnClickListener{escucharEventoFlotanteExtend()}
+        binding.btnRegistro.setOnClickListener{ registraUsuario()}
     }
 
-    fun escucharEventoToggle(){
-        if(binding.botonToggle.isChecked){
-            mostrarMensaje(binding.botonToggle,"Boton activo")
+    fun registraUsuario(){
+        val name = binding.userName.text.toString()
+        val nickname = binding.nicknameUsuario.text.toString()
+        val email = binding.emailUsuario.text.toString()
+        val password = binding.userPassword.text.toString()
+
+        if(name.isEmpty()){
+            binding.nameLayout.error = "Es obligatorio"
         }
         else{
-            mostrarMensaje(binding.botonToggle,"Boton inactivo")
+            binding.nameLayout.error = null
         }
-    }
-
-    fun escucharEventoSwitch(){
-        if(binding.botonSwitch.isChecked){
-            mostrarMensaje(binding.botonSwitch,"Boton switch activo")
+        if(nickname.isEmpty()){
+            binding.nicknameLayout.error = "Es obligatorio"
         }
         else{
-            mostrarMensaje(binding.botonToggle,"Boton switch inactivo")
+            if (nickname.length >10){
+                binding.nicknameUsuario.error = "Maximo son 10 caracteres"
+            }
+            else {
+                binding.nicknameLayout.error = null
+            }
         }
+        if(email.isEmpty()){
+            binding.emailLayout.error = "Es obligatorio"
+        }
+        else{
+            binding.emailLayout.error = null
+        }
+        if(password.isEmpty()){
+            binding.passwordLayout.error = "Es obligatorio"
+        }
+        else{
+            binding.passwordLayout.error = null
+        }
+
+        if(name.isNotEmpty() && email.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty()){
+            val user = User(1, name, nickname, email, password)
+            Usuarios.agregar(user)
+            Log.w(MainActivity::class.java.simpleName, "Se registro correctamente")
+            Log.w(MainActivity::class.java.simpleName, Usuarios.listar().toString())
+        }
+
     }
 
-    fun escucharEventoImage(){
-        mostrarMensaje(binding.btnImage, "Boton de la imagen")
-    }
-
-    fun escucharEventoFlotante(){
-        mostrarMensaje(binding.botonFlotante, "Boton flotante ")
-    }
-
-    fun escucharEventoFlotanteExtend(){
-        mostrarMensaje(binding.botonFlotanteExtend, "Boton flotante con texto")
-    }
-
-    fun mostrarMensaje(view: View, mensaje:String){
-        Snackbar.make(this, view, mensaje, Snackbar.LENGTH_LONG ).show()
-    }
 }

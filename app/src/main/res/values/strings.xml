@@ -11,5 +11,9 @@
     <string name="txt_iniciar_sesion">Iniciar sesion</string>
     <string name="txt_registrarse">Registrarse</string>
 
+    <!-- Textos referentes al activity registro-->
+    <string name="txt_user_name">Escriba su nombre</string>
+    <string name="txt_nickname">Escriba su nombre de usuario</string>
+
 
 </resources>

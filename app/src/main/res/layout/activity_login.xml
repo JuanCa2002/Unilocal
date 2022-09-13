@@ -14,24 +14,53 @@
         android:layout_marginBottom="50dp"
         android:src="@mipmap/ic_launcher_round"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_layout"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:inputType="textEmailAddress"
-        android:hint="@string/txt_correo" />
+        android:layout_height="70dp">
 
-    <EditText
+        <EditText
+            android:id="@+id/email_usuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_forms"
+            android:inputType="textEmailAddress"
+            android:hint="@string/txt_correo" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
         android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:inputType="textPassword"
-        android:hint="@string/txt_password" />
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="70dp">
+
+        <EditText
+            android:id="@+id/password_usuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_forms"
+            android:inputType="textPassword"
+            android:hint="@string/txt_password" />
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btn_login"
         android:layout_width="200dp"
         android:layout_height="60dp"
+        android:layout_marginTop="40dp"
         android:text="@string/txt_iniciar_sesion"></Button>
 
     <Button
+        android:id="@+id/btn_registro"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:text="@string/txt_registrarse"></Button>
