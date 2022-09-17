@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 
 import com.example.unilocal.R
@@ -52,8 +53,13 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun registrar(){
+
+    fun registrar() {
         val intent = Intent(this, RegistroActivity::class.java)
+    }
+
+    fun irADetalles(v:View){
+        val intent = Intent(this, DetalleLugarActivity::class.java)
         startActivity(intent)
     }
 }
