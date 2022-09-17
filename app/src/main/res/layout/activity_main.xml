@@ -33,14 +33,7 @@
         android:layout_marginBottom="40dp"
         android:text="@string/txt_login"/>
 
-    <Button
-        android:id="@+id/boton_registro"
-        android:layout_width="130dp"
-        android:layout_height="60dp"
-        android:onClick="irRegistro"
-        android:layout_above="@id/boton_login"
-        android:layout_alignStart="@id/boton_login"
-        android:text="@string/txt_registro"/>
+
 
 
 </RelativeLayout>

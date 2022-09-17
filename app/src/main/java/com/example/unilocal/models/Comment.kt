@@ -7,6 +7,5 @@ class Comment (var id:Int,
                var text:String,
                var idUser:Int,
                var idPlace:Int,
-               var qualification: Int,
-               var creationDate: LocalDateTime) {
+               var qualification: Int, ) {
 }

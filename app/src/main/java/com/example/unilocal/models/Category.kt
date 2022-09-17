@@ -1,5 +1,6 @@
 package com.example.unilocal.models
 
 class Category(var id:Int,
-               var name:String) {
+               var name:String,
+               var icon:String) {
 }
