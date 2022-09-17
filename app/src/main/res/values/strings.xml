@@ -10,6 +10,8 @@
     <string name="txt_password">Escriba su contraseña:</string>
     <string name="txt_iniciar_sesion">Iniciar sesion</string>
     <string name="txt_registrarse">Registrarse</string>
+    <string name="txt_password_Forget">¿Olvidaste tu contraseña?</string>
+    <string name="txt_titulo_login">Ingresa para acceder a todos los beneficios</string>
 
     <!-- Textos referentes al activity registro-->
     <string name="txt_user_name">Escriba su nombre</string>
