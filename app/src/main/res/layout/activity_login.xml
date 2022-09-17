@@ -63,7 +63,6 @@
         android:id="@+id/btn_registro"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:textColor="@color/prueba"
         android:text="@string/txt_registrarse"></Button>
 
     
