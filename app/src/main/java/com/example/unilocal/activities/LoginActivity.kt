@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnLogin.setOnClickListener { login() }
+        binding.btnRegistro.setOnClickListener{
+           registrar()
+        }
     }
 
     fun login() {
@@ -46,5 +50,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun registrar(){
+        val intent = Intent(this, RegistroActivity::class.java)
+        startActivity(intent)
     }
 }

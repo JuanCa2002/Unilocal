@@ -11,25 +11,37 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:src="@mipmap/ic_launcher_round"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crea tu cuenta"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        >
+    </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_layout"
         style="@style/til_form">
 
-    <EditText
+        <EditText
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/fondo_forms"
         android:inputType="text"
         android:hint="@string/txt_user_name" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nickname_layout"
-        style="@style/til_form">
+        style="@style/til_form"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">>
 
         <EditText
             android:id="@+id/nickname_usuario"
@@ -42,7 +54,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_layout"
-        style="@style/til_form">
+        style="@style/til_form"
+        app:startIconDrawable="@drawable/ic_baseline_email_24">>
 
         <EditText
             android:id="@+id/email_usuario"
@@ -54,23 +67,56 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/birthday_layout"
+        style="@style/til_form"
+        app:startIconDrawable="@drawable/ic_baseline_cake_24">
+
+        <EditText
+            android:id="@+id/user_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+            android:background="@drawable/fondo_forms"
+            android:inputType="text"
+            android:hint="@string/txt_birthday" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layout"
-        style="@style/til_form">
+        style="@style/til_form"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <EditText
             android:id="@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/fondo_forms"
+            android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
             android:inputType="textPassword"
             android:hint="@string/txt_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirm_password_layout"
+        style="@style/til_form">
+
+        <EditText
+            android:id="@+id/user_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_forms"
+            android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+            android:inputType="textPassword"
+            android:hint="@string/txt_password_confirm" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn_registro"
+        android:layout_marginTop="10dp"
         android:layout_width="200dp"
+        android:textColor="@color/black"
         android:layout_height="60dp"
-        android:backgroundTint="@color/teal_200"
+        android:backgroundTint="@color/color1"
         android:text="@string/txt_registrarse"></Button>
 
 </LinearLayout>

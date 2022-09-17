@@ -14,6 +14,8 @@
     <!-- Textos referentes al activity registro-->
     <string name="txt_user_name">Escriba su nombre</string>
     <string name="txt_nickname">Escriba su nombre de usuario</string>
+    <string name="txt_birthday">Escriba su cumpleaños</string>
+    <string name="txt_password_confirm">Confirme su contraseña</string>
 
 
 </resources>
