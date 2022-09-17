@@ -1,8 +1,10 @@
 package com.example.unilocal.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 
 import com.example.unilocal.R
@@ -46,5 +48,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun irADetalles(v:View){
+        val intent = Intent(this, DetalleLugarActivity::class.java)
+        startActivity(intent)
     }
 }

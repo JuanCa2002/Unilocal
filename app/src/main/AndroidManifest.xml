@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Unilocal"
         tools:targetApi="31">
         <activity
-            android:name=".DetalleLugarActivity"
+            android:name=".activities.DetalleLugarActivity"
             android:exported="false" />
         <activity
             android:name=".activities.RegistroActivity"
