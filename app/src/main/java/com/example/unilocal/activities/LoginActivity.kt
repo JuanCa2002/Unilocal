@@ -57,9 +57,10 @@ class LoginActivity : AppCompatActivity() {
     fun registrar() {
         val intent = Intent(this, RegistroActivity::class.java)
     }
+
+
     fun irADetalles(v:View){
         val intent = Intent(this, DetalleLugarActivity::class.java)
-
         startActivity(intent)
     }
 }
