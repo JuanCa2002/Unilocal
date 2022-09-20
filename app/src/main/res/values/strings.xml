@@ -30,5 +30,9 @@
     <string name="txt_obligatorio">Es obligatorio</string>
     <string name="txt_maximo_caracteres">Maximo son 10 caracteres</string>
 
+    <!-- Textos referentes al activity crear moderador -->
+    <string name="txt_crear_moderador">Crear moderador</string>
+    <string name="txt_btn_crear">Crear</string>
+
 
 </resources>

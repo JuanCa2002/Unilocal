@@ -6,11 +6,12 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/drawable/fondo_forms.xml" value="0.116" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/drawable/font_search.xml" value="0.116" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.116" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_lugar.xml" value="0.22" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_lugar.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_moderador.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_registro.xml" value="0.22" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_registro.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_resultado_busqueda.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_layout.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.116" />

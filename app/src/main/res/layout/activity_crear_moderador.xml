@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activities.CrearModeradorActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/txt_crear_moderador"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"></TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_person_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_layout"
+            style="@style/til_form"
+            android:layout_width="321dp">
+
+            <EditText
+                android:id="@+id/moderator_name"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/txt_user_name"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nickname_layout"
+        style="@style/til_form">
+
+        <EditText
+            android:id="@+id/nickname_moderator"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_forms"
+            android:hint="@string/txt_nickname"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_email_24"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            style="@style/til_form"
+            android:layout_width="318dp">
+
+            <EditText
+                android:id="@+id/moderator_email"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/txt_correo"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_location_on_24"/>
+
+        <Spinner
+            android:id="@+id/department_place"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="145dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/municipality_moderator"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="150dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="50dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:src="@drawable/ic_baseline_cake_24" />
+
+       <com.google.android.material.textfield.TextInputLayout
+           android:id="@+id/birthday_layout"
+           style="@style/til_form"
+           android:layout_width="319dp">
+
+           <EditText
+               android:id="@+id/moderator_birthday"
+               android:layout_width="300dp"
+               android:layout_height="match_parent"
+               android:layout_marginStart="0dp"
+               android:background="@drawable/fondo_forms"
+               android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+               android:hint="@string/txt_birthday"
+               android:inputType="text" />
+       </com.google.android.material.textfield.TextInputLayout>
+
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_lock_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
+            style="@style/til_form"
+            android:layout_width="316dp">
+
+            <EditText
+                android:id="@+id/moderator_password"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+                android:hint="@string/txt_password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirm_password_layout"
+        style="@style/til_form">
+
+        <EditText
+            android:id="@+id/moderator_password_confirm"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/fondo_forms"
+            android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+            android:hint="@string/txt_password_confirm"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_registro"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/color1"
+        android:text="@string/txt_btn_crear"
+        android:textColor="@color/black"></Button>
+
+</LinearLayout>
