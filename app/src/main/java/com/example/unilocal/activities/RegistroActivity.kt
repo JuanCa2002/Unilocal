@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityRegistroBinding
 import com.example.unilocal.models.User
@@ -30,41 +31,41 @@ class RegistroActivity : AppCompatActivity() {
         val confirmPassword = binding.userPasswordConfirm.text.toString()
 
         if(confirmPassword.isEmpty()){
-            binding.nameLayout.error = "Es obligatorio"
+            binding.nameLayout.error = getString(R.string.txt_obligatorio)
         }else{
             binding.nameLayout.error = null
         }
 
         if(birthday.isEmpty()){
-            binding.nameLayout.error = "Es obligatorio"
+            binding.nameLayout.error = getString(R.string.txt_obligatorio)
         }else{
             binding.nameLayout.error = null
         }
         if(name.isEmpty()){
-            binding.nameLayout.error = "Es obligatorio"
+            binding.nameLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.nameLayout.error = null
         }
         if(nickname.isEmpty()){
-            binding.nicknameLayout.error = "Es obligatorio"
+            binding.nicknameLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             if (nickname.length >10){
-                binding.nicknameUsuario.error = "Maximo son 10 caracteres"
+                binding.nicknameUsuario.error = getString(R.string.txt_maximo_caracteres)
             }
             else {
                 binding.nicknameLayout.error = null
             }
         }
         if(email.isEmpty()){
-            binding.emailLayout.error = "Es obligatorio"
+            binding.emailLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.emailLayout.error = null
         }
         if(password.isEmpty()){
-            binding.passwordLayout.error = "Es obligatorio"
+            binding.passwordLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.passwordLayout.error = null

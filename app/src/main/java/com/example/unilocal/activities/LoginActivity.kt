@@ -30,14 +30,14 @@ class LoginActivity : AppCompatActivity() {
         val correo = binding.emailUsuario.text
         val password = binding.passwordUsuario.text
         if(correo.isEmpty()){
-            binding.emailLayout.error = "Obligatorio"
+            binding.emailLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.emailLayout.error = null
         }
 
         if(password.isEmpty()){
-            binding.passwordLayout.error = "Obligatorio"
+            binding.passwordLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.passwordLayout.error = null
@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun registrar() {
         val intent = Intent(this, RegistroActivity::class.java)
+        startActivity(intent)
     }
 
     fun irADetalles(v:View){
