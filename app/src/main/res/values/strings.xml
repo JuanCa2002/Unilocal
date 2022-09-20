@@ -20,6 +20,7 @@
     <string name="txt_password_confirm">Confirme su contraseña</string>
 
     <!-- Textos referentes al activity crear lugar -->
+    <string name="txt_titulo_lugar">Creta tu nuevo establecimiento</string>
     <string name="txt_place_name">Nombre del lugar</string>
     <string name="txt_place_description">Descripcion del lugar</string>
     <string name="txt_place_phone">Telefono del lugar</string>
@@ -29,6 +30,10 @@
     <!-- Textos de validaciones -->
     <string name="txt_obligatorio">Es obligatorio</string>
     <string name="txt_maximo_caracteres">Maximo son 10 caracteres</string>
+
+    <!-- Textos referentes al activity crear moderador -->
+    <string name="txt_crear_moderador">Crear moderador</string>
+    <string name="txt_btn_crear">Crear</string>
 
 
 </resources>

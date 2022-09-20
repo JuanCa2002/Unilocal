@@ -30,10 +30,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_200"/>
+            android:background="@color/purple_200" />
 
     </RelativeLayout>
 
