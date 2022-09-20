@@ -1,9 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.CrearLugarActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        tools:context=".activities.CrearLugarActivity">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/ic_launcher_round"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crea tu cuenta"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            >
+        </TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/place_name_layout"
+            style="@style/til_form">
+
+            <EditText
+                android:id="@+id/place_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fondo_forms"
+                android:inputType="text"
+                android:hint="@string/txt_place_name" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/place_phone_layout"
+            style="@style/til_form">
+
+            <EditText
+                android:id="@+id/place_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fondo_forms"
+                android:inputType="phone"
+                android:hint="@string/txt_place_phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Spinner
+            android:id="@+id/city_place"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/category_place"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/address_place_layout"
+            style="@style/til_form">
+
+            <EditText
+                android:id="@+id/address_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fondo_forms"
+                android:inputType="text"
+                android:hint="@string/txt_address_place" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/place_description_layout"
+            style="@style/til_form">
+
+            <EditText
+                android:id="@+id/place_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/fondo_forms"
+                android:gravity="left"
+                android:hint="@string/txt_place_description"
+                android:lines="8" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_create_place"
+            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:textColor="@color/black"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/color1"
+            android:text="@string/txt_create_place"></Button>
+
+    </LinearLayout>
+
+</ScrollView>

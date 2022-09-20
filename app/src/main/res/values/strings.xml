@@ -1,7 +1,7 @@
 <resources>
     <!--Textos referentes al activity_main -->
     <string name="app_name">Unilocal</string>
-    <string name="txt_busqueda">Escriba el lugar que quiere buscar</string>
+    <string name="txt_busqueda">Nombre lugar</string>
     <string name="txt_registro">Ir al registro</string>
     <string name="txt_login">Ir a login</string>
 
@@ -18,6 +18,17 @@
     <string name="txt_nickname">Escriba su nombre de usuario</string>
     <string name="txt_birthday">Escriba su cumpleaños</string>
     <string name="txt_password_confirm">Confirme su contraseña</string>
+
+    <!-- Textos referentes al activity crear lugar -->
+    <string name="txt_place_name">Nombre del lugar</string>
+    <string name="txt_place_description">Descripcion del lugar</string>
+    <string name="txt_place_phone">Telefono del lugar</string>
+    <string name="txt_create_place">Crear lugar</string>
+    <string name="txt_address_place">Direccion del lugar</string>
+
+    <!-- Textos de validaciones -->
+    <string name="txt_obligatorio">Es obligatorio</string>
+    <string name="txt_maximo_caracteres">Maximo son 10 caracteres</string>
 
 
 </resources>
