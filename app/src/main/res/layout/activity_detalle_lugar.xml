@@ -6,26 +6,88 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.DetalleLugarActivity">
-    
-    <View
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="#DFDFDF"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre del lugar"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@color/black"></View>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calificacion promedio"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Categoria"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"></ImageView>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="80dp"
+                android:layout_marginLeft="15dp"
+                android:text="Nombre del lugar"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/imagen_detalles_lugar"
+            android:layout_marginTop="80dp"
+            android:background="@color/gray">
+
+        </View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@id/imagen_detalles_lugar"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_descipcion_lugar"
+                android:layout_width="400dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Descipcion del lugar"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/txt_calificaion"
+                android:textColor="@color/white"
+                android:layout_below="@id/txt_descipcion_lugar"
+                android:text="Calificaion promedio"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="58dp"
+                android:layout_marginBottom="0dp"
+                android:src="@drawable/ic_baseline_favorite_24" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_share_24"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,7 +96,70 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_200" />
+            android:background="@color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/comentario">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:textColorHint="@color/black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:hint="@string/txt_titulo_comentarios"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/comentario">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:id="@+id/campo_txt_comentario">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/imagen_comentario"></ImageView>
+                <com.google.android.material.textfield.TextInputLayout
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignRight="@+id/imagen_comentario">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/fondo_forms"
+                        android:inputType="text"
+                        android:text="Ingrese su comentario"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/campo_txt_comentario">
+                <Button
+                    android:id="@+id/btn_enviar"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/color1"
+                    android:textColor="@color/black"
+                    android:text="@string/txt_enviar_comentario"></Button>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
