@@ -35,5 +35,8 @@
     <string name="txt_crear_moderador">Crear moderador</string>
     <string name="txt_btn_crear">Crear</string>
 
+    <!-- Textos referentes al activity crear moderador -->
+    <string name="txt_titulo_comentarios">Comentarios</string>
+    <string name="txt_enviar_comentario">Enviar</string>
 
 </resources>

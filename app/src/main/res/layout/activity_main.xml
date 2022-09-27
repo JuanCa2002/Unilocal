@@ -50,13 +50,13 @@
         android:id="@+id/btn_login"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:text="@string/txt_login"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="40dp"
-        app:icon="@drawable/ic_baseline_check_24"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="irCrearLugar"/>
+        android:onClick="irCrearLugar"
+        android:text="@string/txt_login"
+        app:icon="@drawable/ic_baseline_check_24" />
 
 
 
