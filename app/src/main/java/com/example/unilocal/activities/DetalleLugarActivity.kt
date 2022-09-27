@@ -22,5 +22,6 @@ class DetalleLugarActivity : AppCompatActivity() {
 
         binding.namePlace.text = place!!.name
         binding.txtDescipcionLugar.text = place!!.description
+        binding.txtDireccionLugar.text = place!!.address
     }
 }
