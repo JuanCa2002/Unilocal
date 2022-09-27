@@ -20,6 +20,7 @@ class DetalleLugarActivity : AppCompatActivity() {
 
         val place = Places.obtener(codePlace)
 
-        Log.e(DetalleLugarActivity::class.java.simpleName, place.toString())
+        binding.namePlace.text = place!!.name
+        binding.txtDescipcionLugar.text = place!!.description
     }
 }

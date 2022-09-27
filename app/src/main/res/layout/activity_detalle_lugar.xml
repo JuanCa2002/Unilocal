@@ -27,6 +27,7 @@
                 android:src="@mipmap/ic_launcher"></ImageView>
 
             <TextView
+                android:id="@+id/name_place"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="80dp"
@@ -58,6 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Descipcion del lugar"
                 android:textColor="@color/white" />
+
 
             <TextView
                 android:layout_width="200dp"
