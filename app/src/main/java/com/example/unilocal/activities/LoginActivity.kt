@@ -8,8 +8,11 @@ import android.view.View
 import android.widget.Toast
 
 import com.example.unilocal.R
+import com.example.unilocal.bd.Persons
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityLoginBinding
+import com.example.unilocal.models.Moderator
+import com.example.unilocal.models.User
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
@@ -44,8 +47,16 @@ class LoginActivity : AppCompatActivity() {
         }
         if (correo.isNotEmpty() && password.isNotEmpty()) {
             try {
-                val usuario = Usuarios.login(correo.toString(), password.toString())
-                Log.d(MainActivity::class.java.simpleName, "Informacion correcta")
+                val persona = Persons.login(correo.toString(), password.toString())
+                if(persona !=null){
+                    when(persona){
+                        is User -> startActivity( Intent(this, MainActivity::class.java) )
+                        is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
+                    }
+                }else{
+                    Log.d(MainActivity::class.java.simpleName, "los datos son erroneos")
+                }
+
             } catch (e: Exception) {
                 Log.d(MainActivity::class.java.simpleName, "los datos son erroneos")
             }

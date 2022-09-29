@@ -15,6 +15,7 @@ import com.example.unilocal.databinding.ActivityCrearLugarBinding
 import com.example.unilocal.models.Category
 import com.example.unilocal.models.City
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
 import java.text.FieldPosition
 
 class CrearLugarActivity : AppCompatActivity() {
@@ -100,13 +101,12 @@ class CrearLugarActivity : AppCompatActivity() {
         }
 
         if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
-            val newPlace = Place(7,name,description,1,false,idCategory,0f,address,0f,idCity)
+            val newPlace = Place(7,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
 
             val phones:ArrayList<String> = ArrayList()
             phones.add(phone)
             newPlace.phones= phones
             Places.crear(newPlace)
-            Log.e(CrearLugarActivity::class.java.simpleName, Places.listarRechazados().toString())
         }
     }
 }

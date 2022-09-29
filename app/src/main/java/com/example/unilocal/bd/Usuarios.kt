@@ -7,9 +7,9 @@ object Usuarios {
     private val usuarios:ArrayList<User> = ArrayList()
 
     init {
-        usuarios.add(User(1,"Juan","Nexus","Juan@gmail.com","1234","22/08/2022"))
-        usuarios.add(User(2,"Jaime","Jai","Jaime@gmail.com","1238","22/09/2022"))
-        usuarios.add(User(3,"Laura","Lau","Lau@gmail.com","1235","22/07/2022"))
+        usuarios.add(User(1,"Juan","Nexus","Juan@gmail.com","1234"))
+        usuarios.add(User(2,"Jaime","Jai","Jaime@gmail.com","1238"))
+        usuarios.add(User(3,"Laura","Lau","Lau@gmail.com","1235"))
     }
 
     fun listar():ArrayList<User>{
@@ -20,7 +20,7 @@ object Usuarios {
         usuarios.add(user)
     }
 
-    fun login(email: String, password: String): User {
-        return usuarios.first() { u -> u.email == email && u.password == password }
+    fun login(email: String, password: String): User? {
+        return usuarios.firstOrNull{ u -> u.correo == email && u.password == password }
     }
 }

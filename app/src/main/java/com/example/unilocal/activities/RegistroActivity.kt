@@ -72,7 +72,7 @@ class RegistroActivity : AppCompatActivity() {
         }
 
         if(name.isNotEmpty() && email.isNotEmpty() && birthday.isEmpty() && confirmPassword.isEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty()){
-            val user = User(1, name, nickname, email, password,birthday)
+            val user = User(1, name, nickname, email, password)
             Usuarios.agregar(user)
             Log.w(MainActivity::class.java.simpleName, "Se registro correctamente")
             Log.w(MainActivity::class.java.simpleName, Usuarios.listar().toString())

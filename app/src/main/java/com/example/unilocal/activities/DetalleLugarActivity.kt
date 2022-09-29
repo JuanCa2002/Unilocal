@@ -20,8 +20,11 @@ class DetalleLugarActivity : AppCompatActivity() {
 
         val place = Places.obtener(codePlace)
 
-        binding.namePlace.text = place!!.name
-        binding.txtDescipcionLugar.text = place!!.description
-        binding.txtDireccionLugar.text = place!!.address
+        if(place != null){
+            binding.namePlace.text = place!!.name
+            //Hay que agregar un campo de telefono.
+            binding.txtDescipcionLugar.text = place!!.description
+            binding.txtDireccionLugar.text = place!!.address
+        }
     }
 }
