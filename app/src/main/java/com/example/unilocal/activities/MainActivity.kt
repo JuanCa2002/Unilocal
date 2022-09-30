@@ -1,6 +1,8 @@
 package com.example.unilocal.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +37,14 @@ class MainActivity : AppCompatActivity() {
 
     fun irCrearLugar(view:View){
         val intent = Intent(this, CrearLugarActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun cerrarSesion(view: View){
+        val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().commit()
+
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 

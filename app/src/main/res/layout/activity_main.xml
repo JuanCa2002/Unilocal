@@ -36,6 +36,18 @@
         android:text="@string/txt_login"
         app:icon="@drawable/ic_baseline_check_24" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_cerrarSesion"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/btn_login"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="cerrarSesion"
+        android:text="Cerrar sesion"
+        app:icon="@drawable/ic_baseline_check_24" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/barra_inferior"
         android:layout_width="match_parent"
