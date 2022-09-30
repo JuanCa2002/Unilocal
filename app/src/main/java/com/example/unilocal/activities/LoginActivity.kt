@@ -12,6 +12,7 @@ import com.example.unilocal.R
 import com.example.unilocal.bd.Persons
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityLoginBinding
+import com.example.unilocal.models.Administrator
 import com.example.unilocal.models.Moderator
 import com.example.unilocal.models.User
 import java.lang.Exception
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         if(email!!.isNotEmpty() && type!!.isNotEmpty()){
             when(type){
+                "Administrador" -> startActivity(Intent(this, GestionModeratorActivity::class.java))
                 "Usuario" -> startActivity( Intent(this, MainActivity::class.java) )
                 "Moderador"-> startActivity( Intent(this, ModeratorActivity::class.java) )
             }
@@ -75,11 +77,13 @@ class LoginActivity : AppCompatActivity() {
                     sharedPreferences.commit()
 
                     when(persona){
+                        is Administrator -> startActivity(Intent(this, GestionModeratorActivity::class.java))
                         is User -> startActivity( Intent(this, MainActivity::class.java) )
                         is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
                     }
                 }else{
                     Log.d(MainActivity::class.java.simpleName, "los datos son erroneos")
+
                 }
 
             } catch (e: Exception) {

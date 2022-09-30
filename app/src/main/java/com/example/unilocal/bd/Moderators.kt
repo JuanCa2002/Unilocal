@@ -8,8 +8,8 @@ object Moderators {
     private val moderators:ArrayList<Moderator> = ArrayList()
 
     init {
-        moderators.add(Moderator(1,"Helen","Helen@gmail.com","1234"))
-        moderators.add(Moderator(2,"Sandro","SandroBestoModerador@hotmail.com","1414"))
+        moderators.add(Moderator(1,"Helen","helen","Helen@gmail.com","1234"))
+        moderators.add(Moderator(2,"Sandro","san","SandroBestoModerador@hotmail.com","1414"))
     }
 
     fun obtener(id:Int): Moderator?{
