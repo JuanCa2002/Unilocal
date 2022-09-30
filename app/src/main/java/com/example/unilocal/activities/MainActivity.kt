@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     fun changeFragments(valor:Int){
         val fragment:Fragment
         if(valor ==  1){
-           fragment = InicioFragment()
+            fragment = InicioFragment()
         }else if(valor == 2){
             fragment = MyPlacesFragment()
         }else{
@@ -60,6 +60,6 @@ class MainActivity : AppCompatActivity() {
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
            .addToBackStack("fragmento_$valor")
            .commit()
-
     }
+
 }

@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_home"
-        android:icon="@drawable/icon_search"
-        android:title="Inicio"/>
 
     <item
         android:id="@+id/menu_favorites"
-        android:icon="@drawable/icon_search"
-        android:title="favoritos"/>
+        android:icon="@drawable/ic_baseline_favorite_black_24"
+        android:title="Favoritos"/>
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/ic_baseline_house_24"
+        android:title="Inicio" />
 
     <item
         android:id="@+id/menu_my_places"
-        android:icon="@drawable/icon_search"
+        android:icon="@drawable/ic_baseline_location_city_24"
         android:title="Mis lugares"/>
 
 </menu>

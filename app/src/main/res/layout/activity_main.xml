@@ -14,8 +14,8 @@
     <FrameLayout
         android:id="@+id/contenido_principal"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@color/green" />
+        android:layout_height="match_parent"
+        android:background="@drawable/imagen_fondo_inicio" />
 
     <fragment
         android:id="@+id/barra_superior"
@@ -28,30 +28,31 @@
         android:id="@+id/btn_login"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
         android:layout_above="@+id/barra_inferior"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/blue"
         android:onClick="irCrearLugar"
-        android:text="@string/txt_login"
-        app:icon="@drawable/ic_baseline_check_24" />
+        app:icon="@drawable/ic_baseline_add_business_24" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_cerrarSesion"
         android:layout_width="180dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
         android:layout_above="@+id/btn_login"
+        android:layout_alignParentRight="true"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         android:onClick="cerrarSesion"
-        android:text="Cerrar sesion"
-        app:icon="@drawable/ic_baseline_check_24" />
+        android:backgroundTint="@color/red"
+        app:icon="@drawable/logout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/barra_inferior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:layout_alignParentBottom="true"
         app:menu="@menu/barra_inferior" />
 
