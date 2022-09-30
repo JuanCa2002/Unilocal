@@ -11,52 +11,37 @@
         android:layout_height="match_parent"
         android:background="#a6eca8" />
 
-    <LinearLayout
-        android:id="@+id/caja_busqueda_menu"
+    <FrameLayout
+        android:id="@+id/contenido_principal"
         android:layout_width="match_parent"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/font_search">
+        android:background="@color/green"
+        android:layout_height="400dp"/>
 
-        <Button
-            android:id="@+id/btn_menu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/font_awesome_6_free_solid_900"
-            android:textSize="22sp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="\uf0c9"/>
+    <fragment
+        android:id="@+id/barra_superior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
 
-        <EditText
-            android:id="@+id/txt_busqueda"
-            android:layout_width="290dp"
-            android:layout_height="50dp"
-            android:hint="@string/txt_busqueda"
-            android:imeOptions="actionSearch"
-            android:singleLine="true"
-            android:paddingStart="10dp"
-            android:paddingEnd="15dp"
-            android:background="@null"
-            android:drawableEnd="@drawable/icon_search" />
-
-    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_login"
-        android:layout_width="150dp"
+        android:layout_width="180dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/barra_inferior"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:onClick="irCrearLugar"
         android:text="@string/txt_login"
         app:icon="@drawable/ic_baseline_check_24" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/barra_inferior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/barra_inferior" />
 
 
 

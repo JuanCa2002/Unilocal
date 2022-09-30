@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,12 +21,26 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.btnLogin.setOnClickListener { login() }
-        binding.btnRegistro.setOnClickListener{
-           registrar()
+
+        val sp = getSharedPreferences("sesion",Context.MODE_PRIVATE)
+
+        val email = sp.getString("correo_usuario","")
+        val type = sp.getString("tipo_usuario","")
+
+        if(email!!.isNotEmpty() && type!!.isNotEmpty()){
+            when(type){
+                "Usuario" -> startActivity( Intent(this, MainActivity::class.java) )
+                "Moderador"-> startActivity( Intent(this, ModeratorActivity::class.java) )
+            }
+            finish()
+
+        }else{
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            binding.btnLogin.setOnClickListener { login() }
+            binding.btnRegistro.setOnClickListener{ registrar() }
         }
+
     }
 
     fun login() {
@@ -48,7 +63,17 @@ class LoginActivity : AppCompatActivity() {
         if (correo.isNotEmpty() && password.isNotEmpty()) {
             try {
                 val persona = Persons.login(correo.toString(), password.toString())
+
                 if(persona !=null){
+
+                    val type = if(persona is User) "Usuario" else if(persona is Moderator) "Moderador" else "Administrador"
+
+                    val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE).edit()
+                    sharedPreferences.putString("correo_usuario", persona.correo)
+                    sharedPreferences.putString("tipo_usuario",type)
+
+                    sharedPreferences.commit()
+
                     when(persona){
                         is User -> startActivity( Intent(this, MainActivity::class.java) )
                         is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
@@ -71,8 +96,5 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    fun irADetalles(v:View){
-        val intent = Intent(this, DetalleLugarActivity::class.java)
-        startActivity(intent)
-    }
+
 }

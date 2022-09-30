@@ -38,5 +38,7 @@
     <!-- Textos referentes al activity crear moderador -->
     <string name="txt_titulo_comentarios">Comentarios</string>
     <string name="txt_enviar_comentario">Enviar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
