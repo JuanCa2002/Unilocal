@@ -14,8 +14,8 @@
     <FrameLayout
         android:id="@+id/contenido_principal"
         android:layout_width="match_parent"
-        android:background="@color/green"
-        android:layout_height="400dp"/>
+        android:layout_height="400dp"
+        android:background="@color/green" />
 
     <fragment
         android:id="@+id/barra_superior"
