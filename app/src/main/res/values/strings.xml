@@ -47,4 +47,12 @@
     <string name="txt_correo_detalle_mod">Correo</string>
     <string name="txt_ciudad_detalle_mod">Ciudad</string>
 
+    <!-- Textos referentes al activity detalle lugar usaurio -->
+    <string name="txt_nombre_detalle_usuario">Nombre</string>
+    <string name="txt_horario_detalle_usuario">Horario</string>
+    <string name="txt_telefono_detalle_usuario">Telefono</string>
+    <string name="txt_categoria_detalle_usuario">Catergoria</string>
+    <string name="txt_descripcion_detalle_usuario">Descripcion</string>
+    <string name="txt_guardar_cambios_detalle_usuario">Guardar Cambios</string>
+
 </resources>
