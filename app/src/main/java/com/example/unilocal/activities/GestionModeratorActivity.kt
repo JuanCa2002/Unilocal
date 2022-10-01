@@ -22,7 +22,7 @@ class GestionModeratorActivity : AppCompatActivity() {
         val adapter = ModeratorAdapter(moderators)
         binding.listModerators.adapter = adapter
         binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-
+        Log.e("GestionModeratorActivity",moderators.toString())
 
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
+import com.example.unilocal.activities.DatallesModeradorActivity
 import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.GestionModeratorActivity
 import com.example.unilocal.models.Moderator
@@ -45,7 +46,9 @@ class ModeratorAdapter(var moderators:ArrayList<Moderator>): RecyclerView.Adapte
         }
 
         override fun onClick(p0: View?) {
-            val intent = Intent(name.context, GestionModeratorActivity::class.java)
+            val intent = Intent(name.context, DatallesModeradorActivity::class.java)
+            intent.putExtra("position",adapterPosition)
+            intent.putExtra("code", codeModerator)
             name.context.startActivity(intent)
         }
     }

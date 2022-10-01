@@ -1,5 +1,6 @@
 package com.example.unilocal.bd
 
+import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.models.Moderator
 
 
@@ -21,8 +22,10 @@ object Moderators {
         return moderators
     }
 
-    fun login(email:String, password:String): Moderator {
-        val response = moderators.first{a -> a.correo == email && a.password == password}
-        return response
+    fun deleteModerator(id:Int){
+        val moderator = moderators.firstOrNull{m-> m.id== id}
+        if(moderator != null){
+            moderators.remove(moderator)
+        }
     }
 }

@@ -41,10 +41,10 @@
                 android:src="@mipmap/ic_launcher_round"></ImageView>
 
             <TextView
+                android:id="@+id/main_name_mod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_perfil"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="21dp"
                 android:text="Nombre de la persona"
                 android:textColor="@color/black"
@@ -67,14 +67,14 @@
             style="@style/til_form"
             android:layout_width="wrap_content">
 
-            <EditText
+            <TextView
                 android:id="@+id/moderator_name"
                 android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
+                android:layout_height="50dp"
+                android:gravity="center|start"
+                android:padding="10dp"
                 android:background="@drawable/fondo_forms"
-                android:hint="@string/txt_nombre_detalle_mod"
-                android:inputType="text" />
+                android:text="@string/txt_nombre_detalle_mod"/>
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -93,14 +93,14 @@
             style="@style/til_form"
             android:layout_width="wrap_content">
 
-            <EditText
+            <TextView
                 android:id="@+id/nickname"
                 android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
+                android:layout_height="50dp"
+                android:gravity="center|start"
+                android:padding="10dp"
                 android:background="@drawable/fondo_forms"
-                android:hint="@string/txt_nickname_detalle_mod"
-                android:inputType="text" />
+                android:text="@string/txt_nickname_detalle_mod"/>
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -119,14 +119,14 @@
             style="@style/til_form"
             android:layout_width="wrap_content">
 
-            <EditText
+            <TextView
                 android:id="@+id/mod_email"
                 android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="0dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:gravity="center|start"
                 android:background="@drawable/fondo_forms"
-                android:hint="@string/txt_correo_detalle_mod"
-                android:inputType="textEmailAddress" />
+                android:text="@string/txt_correo_detalle_mod"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

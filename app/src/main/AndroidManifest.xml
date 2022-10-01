@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Unilocal"
         tools:targetApi="31">
         <activity
-            android:name=".DatallesModeradorActivity"
+            android:name=".activities.DatallesModeradorActivity"
             android:exported="false" />
         <activity
             android:name=".activities.GestionModeratorActivity"
