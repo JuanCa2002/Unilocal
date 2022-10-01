@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.DatallesModeradorActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/parte_arriba">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color5"></View>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_eliminar"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/red"
+            app:icon="@drawable/ic_baseline_delete_24" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/btn_eliminar"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_perfil"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="50dp"
+                android:src="@mipmap/ic_launcher_round"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_perfil"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="21dp"
+                android:text="Nombre de la persona"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/txt_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/parte_arriba">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nombre_moderador_layout"
+            style="@style/til_form"
+            android:layout_width="wrap_content">
+
+            <EditText
+                android:id="@+id/moderator_name"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/txt_nombre_detalle_mod"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txt_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/txt_nombre">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nickname_layout"
+            style="@style/til_form"
+            android:layout_width="wrap_content">
+
+            <EditText
+                android:id="@+id/nickname"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/txt_nickname_detalle_mod"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/txt_correo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/txt_nickname">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            style="@style/til_form"
+            android:layout_width="wrap_content">
+
+            <EditText
+                android:id="@+id/mod_email"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/txt_correo_detalle_mod"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/spinner_ciudad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/txt_correo">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/txt_ciudad_detalle_mod"
+            android:textColorHint="@color/black"
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:id="@+id/department_place"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/municipality_moderator"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="50dp"
+            android:background="@drawable/fondo_forms"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

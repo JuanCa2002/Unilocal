@@ -38,7 +38,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="80dp"
                     android:text="Nombre del lugar"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
             <View

@@ -41,4 +41,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Textos referentes al activity detalles moderador -->
+    <string name="txt_nombre_detalle_mod">Nombre</string>
+    <string name="txt_nickname_detalle_mod">Nombre de usuario</string>
+    <string name="txt_correo_detalle_mod">Correo</string>
+    <string name="txt_ciudad_detalle_mod">Ciudad</string>
+
 </resources>
