@@ -46,6 +46,10 @@ object Places {
        return places.filter { l->l.status == status }.toCollection(ArrayList())
    }
 
+    fun listByUser(codeUser: Int):ArrayList<Place>{
+        return places.filter { l->l.idCreator== codeUser }.toCollection(ArrayList())
+    }
+
     fun obtener(id:Int): Place?{
         return places.firstOrNull { l -> l.id == id }
     }

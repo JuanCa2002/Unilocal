@@ -18,6 +18,7 @@ import com.example.unilocal.fragments.MyPlacesFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+     var codeUser: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.barraInferior.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.menu_home -> changeFragments(1)
-                R.id.menu_favorites -> changeFragments(2)
+                R.id.menu_favorites -> changeFragments(1)
+                R.id.menu_home -> changeFragments(2)
                 R.id.menu_my_places -> changeFragments(3)
             }
             true
         }
+        codeUser = intent.extras!!.getInt("code")
+        Log.e("MainActivity",codeUser.toString())
 
     }
 
@@ -49,17 +52,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeFragments(valor:Int){
-        val fragment:Fragment
+        var fragment:Fragment
         if(valor ==  1){
-            fragment = InicioFragment()
-        }else if(valor == 2){
-            fragment = MyPlacesFragment()
-        }else{
             fragment = FavoritesFragment()
+        }else if(valor == 2){
+            val bundle:Bundle = Bundle()
+            bundle.putInt("code", codeUser)
+            fragment = InicioFragment()
+            fragment.bundle = bundle
+        }else{
+            val bundle:Bundle = Bundle()
+            bundle.putInt("code", codeUser)
+            fragment = MyPlacesFragment()
+            fragment.bundle = bundle
+            binding.btnCerrarSesion.hide()
+            binding.btnLogin.hide()
+
         }
+//        val intent = Intent(this,MyPlacesFragment::class.java)
+//        intent.putExtra("code",codeUser)
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
            .addToBackStack("fragmento_$valor")
            .commit()
     }
+
 
 }
