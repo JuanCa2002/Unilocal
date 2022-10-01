@@ -11,19 +11,6 @@
         android:layout_height="match_parent"
         android:background="#a6eca8" />
 
-    <FrameLayout
-        android:id="@+id/contenido_principal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/imagen_fondo_inicio" />
-
-    <fragment
-        android:id="@+id/barra_superior"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
-
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_login"
         android:layout_width="180dp"
@@ -46,6 +33,19 @@
         android:onClick="cerrarSesion"
         android:backgroundTint="@color/red"
         app:icon="@drawable/logout" />
+
+    <FrameLayout
+        android:id="@+id/contenido_principal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imagen_fondo_inicio" />
+
+    <fragment
+        android:id="@+id/barra_superior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/barra_inferior"

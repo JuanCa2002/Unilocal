@@ -27,11 +27,15 @@ class LoginActivity : AppCompatActivity() {
 
         val email = sp.getString("correo_usuario","")
         val type = sp.getString("tipo_usuario","")
+        val code = sp.getInt("id",0)
 
-        if(email!!.isNotEmpty() && type!!.isNotEmpty()){
+
+        if(email!!.isNotEmpty() && type!!.isNotEmpty() && code!= null){
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("code",code)
             when(type){
                 "Administrador" -> startActivity(Intent(this, GestionModeratorActivity::class.java))
-                "Usuario" -> startActivity( Intent(this, MainActivity::class.java) )
+                "Usuario" -> startActivity( intent )
                 "Moderador"-> startActivity( Intent(this, ModeratorActivity::class.java) )
             }
             finish()
@@ -73,12 +77,15 @@ class LoginActivity : AppCompatActivity() {
                     val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE).edit()
                     sharedPreferences.putString("correo_usuario", persona.correo)
                     sharedPreferences.putString("tipo_usuario",type)
+                    sharedPreferences.putInt("id",persona.id)
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("code",persona.id)
 
                     sharedPreferences.commit()
 
                     when(persona){
-                        is Administrator -> startActivity(Intent(this, GestionModeratorActivity::class.java))
-                        is User -> startActivity( Intent(this, MainActivity::class.java) )
+                        is Administrator -> startActivity(Intent(this, GestionModeratorActivity::class.java)  )
+                        is User -> startActivity(intent )
                         is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
                     }
                 }else{
