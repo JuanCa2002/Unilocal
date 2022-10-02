@@ -51,6 +51,7 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
             if(origen == "Busqueda"){
                 val intent = Intent(name.context, DetalleLugarActivity::class.java)
                 intent.putExtra("code", codePlace)
+                intent.putExtra("pos",adapterPosition)
                 name.context.startActivity(intent)
             }else{
                 val intent = Intent(name.context, DetalleLugarUsuarioActivity::class.java)

@@ -5,6 +5,7 @@ class User(id: Int, nombre: String, var nickname:String, correo: String, passwor
     override fun toString(): String {
         return "Usuario(nickname='$nickname') ${super.toString()}"
     }
+    var favorities: ArrayList<Int> = ArrayList()
 }
 
 

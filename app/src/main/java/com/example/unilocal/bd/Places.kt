@@ -42,6 +42,9 @@ object Places {
         places.add(place6)
     }
 
+    fun list():ArrayList<Place>{
+        return places
+    }
    fun listByStatus(status: StatusPlace):ArrayList<Place>{
        return places.filter { l->l.status == status }.toCollection(ArrayList())
    }

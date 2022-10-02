@@ -54,10 +54,16 @@ class MainActivity : AppCompatActivity() {
     fun changeFragments(valor:Int){
         var fragment:Fragment
         if(valor ==  1){
+            val bundle:Bundle = Bundle()
+            bundle.putInt("code", codeUser)
             fragment = FavoritesFragment()
+            fragment.bundle = bundle
+            binding.btnCerrarSesion.hide()
+            binding.btnLogin.hide()
         }else if(valor == 2){
             val bundle:Bundle = Bundle()
             bundle.putInt("code", codeUser)
+            finish()
             fragment = InicioFragment()
             fragment.bundle = bundle
         }else{
@@ -69,8 +75,7 @@ class MainActivity : AppCompatActivity() {
             binding.btnLogin.hide()
 
         }
-//        val intent = Intent(this,MyPlacesFragment::class.java)
-//        intent.putExtra("code",codeUser)
+
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
            .addToBackStack("fragmento_$valor")
            .commit()

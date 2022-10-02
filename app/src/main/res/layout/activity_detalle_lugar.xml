@@ -87,6 +87,7 @@
                     android:textColor="@color/white" />
 
                 <ImageView
+                    android:id="@+id/btn_favorito"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
