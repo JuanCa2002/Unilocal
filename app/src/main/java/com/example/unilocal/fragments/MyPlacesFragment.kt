@@ -27,7 +27,7 @@ class MyPlacesFragment : Fragment() {
         binding = FragmentMyPlacesBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
         placesByUser = Places.listByUser(code!!)
-        val adapter = PlaceAdapter(placesByUser)
+        val adapter = PlaceAdapter(placesByUser,"user")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         return binding.root

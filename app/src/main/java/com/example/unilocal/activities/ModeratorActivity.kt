@@ -29,7 +29,7 @@ class ModeratorActivity : AppCompatActivity() {
 
         places = Places.listByStatus(StatusPlace.SIN_REVISAR)
 
-        adapterPlace = PlaceAdapter(places)
+        adapterPlace = PlaceAdapter(places,"Busqueda")
         binding.listPlaces.adapter = adapterPlace
         binding.listPlaces.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 

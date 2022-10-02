@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
 import com.example.unilocal.activities.DetalleLugarActivity
+import com.example.unilocal.activities.DetalleLugarUsuarioActivity
 import com.example.unilocal.models.Place
 
-class PlaceAdapter(var places:ArrayList<Place>):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_layout,parent, false)
@@ -47,9 +48,17 @@ class PlaceAdapter(var places:ArrayList<Place>):RecyclerView.Adapter<PlaceAdapte
         }
 
         override fun onClick(p0: View?) {
-            val intent = Intent(name.context, DetalleLugarActivity::class.java)
-            intent.putExtra("code", codePlace)
-            name.context.startActivity(intent)
+            if(origen == "Busqueda"){
+                val intent = Intent(name.context, DetalleLugarActivity::class.java)
+                intent.putExtra("code", codePlace)
+                name.context.startActivity(intent)
+            }else{
+                val intent = Intent(name.context, DetalleLugarUsuarioActivity::class.java)
+                intent.putExtra("pos",adapterPosition)
+                intent.putExtra("code", codePlace)
+                name.context.startActivity(intent)
+            }
+
         }
     }
 }

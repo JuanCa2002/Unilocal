@@ -56,14 +56,14 @@
                 style="@style/til_form"
                 android:layout_width="313dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:hint="@string/txt_nombre_detalle_usuario">
 
                 <EditText
                     android:id="@+id/nombre_local_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/fondo_forms"
-                    android:hint="@string/txt_nombre_detalle_usuario"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -86,14 +86,14 @@
                 style="@style/til_form"
                 android:layout_width="313dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:hint="@string/txt_horario_detalle_usuario">
 
                 <EditText
                     android:id="@+id/horario_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/fondo_forms"
-                    android:hint="@string/txt_horario_detalle_usuario"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -116,14 +116,14 @@
                 style="@style/til_form"
                 android:layout_width="313dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:hint="@string/txt_telefono_detalle_usuario">
 
                 <EditText
                     android:id="@+id/telefono_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/fondo_forms"
-                    android:hint="@string/txt_telefono_detalle_usuario"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -146,6 +146,36 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/campo_direccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/campo_horario"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_directions_24"></ImageView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/campo_direccion_layout"
+                style="@style/til_form"
+                android:layout_width="313dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:hint="@string/txt_direccion_detalle_usuario">
+
+                <EditText
+                    android:id="@+id/direccion_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fondo_forms"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout

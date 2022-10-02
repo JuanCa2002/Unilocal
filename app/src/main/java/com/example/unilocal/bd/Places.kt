@@ -78,4 +78,20 @@ object Places {
 
     }
 
+    fun deletePlace(codePlace:Int){
+        val place = places.firstOrNull{p -> p.id == codePlace}
+        if(place!=null){
+            places.remove(place)
+        }
+
+    }
+
+    fun updatePlace(codePlace: Int, place: Place){
+        val placeExist = places.firstOrNull{p-> p.id == codePlace}
+        val index = places.indexOf(placeExist)
+        if(placeExist!=null){
+            places.set(index,place)
+        }
+    }
+
 }

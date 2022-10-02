@@ -26,7 +26,7 @@ class ResultadoBusquedaActivity : AppCompatActivity() {
             Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
         }
 
-        val adapter = PlaceAdapter(placesCoincidences)
+        val adapter = PlaceAdapter(placesCoincidences,"Busqueda")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 
