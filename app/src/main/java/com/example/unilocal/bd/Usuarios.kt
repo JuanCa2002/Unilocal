@@ -1,5 +1,6 @@
 package com.example.unilocal.bd
 
+import com.example.unilocal.models.Place
 import com.example.unilocal.models.User
 
 object Usuarios {
@@ -31,6 +32,14 @@ object Usuarios {
     fun getListFavorites(id:Int):ArrayList<Int>{
         val usuario= usuarios.firstOrNull{u -> u.id== id}
         return usuario!!.favorities
+    }
+
+    fun getListFavoritesUser(lista:ArrayList<Place>, idUser:Int){
+        lista.clear()
+        val usuario= usuarios.firstOrNull{u -> u.id== idUser}
+        if(usuario!=null){
+            lista.addAll( usuario.favorities.map {id -> Places.obtener(id)!!  }.toCollection(ArrayList()))
+        }
     }
 
     fun agregarFavoritos(id:Int,idPlace:Int){

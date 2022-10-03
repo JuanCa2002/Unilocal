@@ -6,10 +6,9 @@
     android:background="@color/white"
     tools:context=".fragments.InicioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@drawable/imagen_fondo_inicio"/>
 
 </FrameLayout>

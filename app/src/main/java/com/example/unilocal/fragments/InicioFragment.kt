@@ -26,9 +26,7 @@ class InicioFragment : Fragment() {
     ): View? {
         binding = FragmentInicioBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
-        val intent = Intent(activity, MainActivity::class.java)
-        intent.putExtra("code",code)
-        startActivity(intent)
+
         return binding.root
     }
 

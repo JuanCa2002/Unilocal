@@ -70,18 +70,20 @@ class DetalleLugarActivity : AppCompatActivity() {
     }
 
     fun agregarFavoritos(){
+        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_red))
         Usuarios.agregarFavoritos(codeUser,codePlace)
-        val intent = Intent(this, DetalleLugarActivity::class.java)
-        intent.putExtra("code",codePlace)
-        finish()
-        startActivity(intent)
+//        val intent = Intent(this, DetalleLugarActivity::class.java)
+//        intent.putExtra("code",codePlace)
+//        finish()
+//        startActivity(intent)
     }
 
     fun eliminarFavoritos(){
+        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24))
         Usuarios.eliminarFavoritos(codeUser,codePlace)
-        val intent = Intent(this, DetalleLugarActivity::class.java)
-        intent.putExtra("code",codePlace)
-        finish()
-        startActivity(intent)
+//        val intent = Intent(this, DetalleLugarActivity::class.java)
+//        intent.putExtra("code",codePlace)
+//        finish()
+//        startActivity(intent)
     }
 }

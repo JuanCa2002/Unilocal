@@ -19,8 +19,8 @@ import com.example.unilocal.models.Place
 
 class FavoritesFragment : Fragment() {
     lateinit var binding: FragmentFavoritesBinding
-    lateinit var places: ArrayList<Place>
-    var placesFavorites: ArrayList<Place> = ArrayList()
+    var places: ArrayList<Place> = ArrayList()
+    lateinit var adapter: PlaceAdapter
     var code:Int? = -1
     var bundle:Bundle = Bundle()
 
@@ -31,19 +31,25 @@ class FavoritesFragment : Fragment() {
     ): View? {
         binding = FragmentFavoritesBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
-        places = Places.list()
-        val usuario = Usuarios.getUser(code!!)
-        for (i in usuario!!.favorities){
-            for (j in places){
-                if(j.id == i){
-                    placesFavorites.add(j)
-                }
-            }
+
+        if(code!=null) {
+            Usuarios.getListFavoritesUser(places, code!!)
+            //Log.e("FavoritesFragment", placesFavorites.toString())
+            adapter = PlaceAdapter(places, "Busqueda")
+            binding.listFavorites.adapter = adapter
+            binding.listFavorites.layoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         }
-        Log.e("FavoritesFragment", placesFavorites.toString())
-        val adapter = PlaceAdapter(placesFavorites,"Busqueda")
-        binding.listFavorites.adapter = adapter
-        binding.listFavorites.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        if(code!=null) {
+            Usuarios.getListFavoritesUser(places, code!!)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
 }
