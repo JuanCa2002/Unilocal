@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import com.example.unilocal.R
+import com.example.unilocal.activities.MainActivity
 import com.example.unilocal.activities.ResultadoBusquedaActivity
 import com.example.unilocal.databinding.FragmentMenuPrincipalBinding
 
@@ -32,7 +33,10 @@ class MenuPrincipalFragment : Fragment() {
             }
             true
         }
-
+        binding.btnMenu.setOnClickListener {
+            (requireActivity() as MainActivity).abrirMenu()
+        }
         return binding.root
     }
+
 }

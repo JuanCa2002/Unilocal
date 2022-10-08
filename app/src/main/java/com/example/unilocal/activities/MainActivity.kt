@@ -10,9 +10,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.unilocal.R
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityMainBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private var MENU_INICIO = "Inicio"
     private var MENU_MIS_LUGARES = "Mis lugares"
     private var MENU_FAVORITOS = "favoritos"
+    private lateinit var sharedPreferences:SharedPreferences
      var codeUser: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,14 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
+        val codeUser = sharedPreferences.getInt("id",-1)
+        if(codeUser != -1){
+            val usuario = Usuarios.getUser(codeUser)
+            val header = binding.navigationView.getHeaderView(0)
+            header.findViewById<TextView>(R.id.name_user_session).text = usuario!!.nombre
+            header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
+        }
         changeFragments(2,MENU_INICIO)
 
         binding.barraInferior.setOnItemSelectedListener {
@@ -41,10 +52,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
             true
         }
-        val menuBoton: Button = findViewById(R.id.btn_menu)
-        menuBoton.setOnClickListener {  abrirMenu()}
-        codeUser = intent.extras!!.getInt("code")
-        Log.e("MainActivity",codeUser.toString())
+        //val menuBoton: Button = findViewById(R.id.btn_menu)
+        //menuBoton.setOnClickListener {  abrirMenu()}
+        binding.navigationView.setNavigationItemSelectedListener (this)
 
     }
 
@@ -53,8 +63,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         startActivity(intent)
     }
 
+
     fun cerrarSesion(view: View){
-        val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
         sharedPreferences.edit().clear().commit()
 
         val intent = Intent(this, LoginActivity::class.java)
@@ -95,6 +105,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         when(item.itemId){
             R.id.navHome -> Log.e("MainActivity","Dandole al boton home")
         }
+        item.isChecked = true
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

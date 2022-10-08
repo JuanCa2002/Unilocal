@@ -55,5 +55,7 @@
     <string name="txt_categoria_detalle_usuario">Catergoria</string>
     <string name="txt_descripcion_detalle_usuario">Descripcion</string>
     <string name="txt_guardar_cambios_detalle_usuario">Guardar Cambios</string>
+    <string name="abierto">Abierto</string>
+    <string name="cerrado">Cerrado</string>
 
 </resources>

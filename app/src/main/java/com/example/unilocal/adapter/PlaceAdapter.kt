@@ -47,11 +47,22 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
         }
 
         fun bind(place:Place){
+
+            val estaAbierto = place.estaAbierto()
+
+            if(estaAbierto){
+                status.setTextColor( ContextCompat.getColor(itemView.context, R.color.green ) )
+                schedule.text = "Cierra a las ${place.obtenerHoraCierre()}"
+            }else{
+                status.setTextColor( ContextCompat.getColor(itemView.context, R.color.red ) )
+                schedule.text = "Abre el ${place.obtenerHoraApertura()}"
+            }
+
+            status.text = if(estaAbierto){status.context.getString(R.string.abierto) }else{ status.context.getString(R.string.cerrado) }
+
             category.text = Categories.getById(place.idCategory)!!.icon
             name.text = place.name
             address.text = place.address
-            status.text = "Abierto"
-            schedule.text = "Cierra a las 2"
             codePlace = place.id
 
             val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
