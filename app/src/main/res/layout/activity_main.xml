@@ -11,44 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#a6eca8" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/btn_create_place"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_above="@+id/barra_inferior"
-            android:layout_marginEnd="180dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/blue"
-            android:onClick="irCrearLugar"
-            app:icon="@drawable/ic_baseline_add_business_24" />
-
-
         <FrameLayout
             android:id="@+id/contenido_principal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/barra_inferior" />
 
         <fragment
-        android:id="@+id/barra_superior"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
+            android:id="@+id/barra_superior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/barra_inferior"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/barra_inferior" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/barra_inferior"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/barra_inferior" />
 
     </RelativeLayout>
 

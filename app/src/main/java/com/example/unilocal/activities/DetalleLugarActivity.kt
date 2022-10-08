@@ -9,81 +9,37 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.unilocal.R
 import com.example.unilocal.adapter.PlaceAdapter
+import com.example.unilocal.adapter.ViewPagerAdapter
 import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityDetalleLugarBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.models.Place
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetalleLugarActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetalleLugarBinding
     var codePlace:Int = -1
-    lateinit var placeAdapter: PlaceAdapter
-    lateinit var favorites: ArrayList<Int>
-    var placesFavorites: ArrayList<Place> = ArrayList()
-    var pos:Int = -1
-    var codeUser:Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sp = getSharedPreferences("sesion", Context.MODE_PRIVATE)
-
-        codeUser = sp.getInt("id",0)
-
-        favorites = Usuarios.getListFavorites(codeUser)
-
-        val places = Places.list()
-        val usuario = Usuarios.getUser(codeUser!!)
-        for (i in usuario!!.favorities){
-            for (j in places){
-                if(j.id == i){
-                    placesFavorites.add(j)
-                }
-            }
-        }
-
-        placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
-
         codePlace = intent.extras!!.getInt("code")
 
-        pos = intent.extras!!.getInt("position")
-
-        val place = Places.obtener(codePlace)
-
-        if(place != null){
+        if(codePlace != 0){
+            val place = Places.obtener(codePlace)
             binding.namePlace.text = place!!.name
-            //Hay que agregar un campo de telefono.
-            binding.txtDescipcionLugar.text = place!!.description
-            binding.txtDireccionLugar.text = place!!.address
+            binding.viewPaper.adapter = ViewPagerAdapter(this, codePlace)
+            TabLayoutMediator(binding.tabs, binding.viewPaper){tab, pos ->
+                when(pos){
+                    0 -> tab.text = "Informacion lugar"
+                    1 -> tab.text = "Comentarios"
+                }
+            }.attach()
         }
-        val favorito = favorites.firstOrNull{f -> f == codePlace}
-        if(favorito != null){
-            binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_red))
-            binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
 
-        }else{
-            binding.btnFavorito.setOnClickListener{agregarFavoritos()}
-        }
     }
 
-    fun agregarFavoritos(){
-        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_red))
-        Usuarios.agregarFavoritos(codeUser,codePlace)
-//        val intent = Intent(this, DetalleLugarActivity::class.java)
-//        intent.putExtra("code",codePlace)
-//        finish()
-//        startActivity(intent)
-    }
-
-    fun eliminarFavoritos(){
-        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24))
-        Usuarios.eliminarFavoritos(codeUser,codePlace)
-//        val intent = Intent(this, DetalleLugarActivity::class.java)
-//        intent.putExtra("code",codePlace)
-//        finish()
-//        startActivity(intent)
-    }
 }

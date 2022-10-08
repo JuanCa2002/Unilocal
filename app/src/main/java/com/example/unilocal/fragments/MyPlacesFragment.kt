@@ -1,5 +1,6 @@
 package com.example.unilocal.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.R
+import com.example.unilocal.activities.CrearLugarActivity
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentMyPlacesBinding
@@ -31,5 +33,11 @@ class MyPlacesFragment : Fragment() {
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         return binding.root
+    }
+
+
+    fun irCrearLugar(){
+        val intent = Intent(activity, CrearLugarActivity::class.java)
+        startActivity(intent)
     }
 }

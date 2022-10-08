@@ -21,6 +21,9 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
+    private var MENU_INICIO = "Inicio"
+    private var MENU_MIS_LUGARES = "Mis lugares"
+    private var MENU_FAVORITOS = "favoritos"
      var codeUser: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,14 +31,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        changeFragments(2)
-        binding.btnCreatePlace.hide()
+        changeFragments(2,MENU_INICIO)
 
         binding.barraInferior.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.menu_favorites -> changeFragments(1)
-                R.id.menu_home -> changeFragments(2)
-                R.id.menu_my_places -> changeFragments(3)
+                R.id.menu_favorites -> changeFragments(1,MENU_FAVORITOS)
+                R.id.menu_home -> changeFragments(2,MENU_INICIO)
+                R.id.menu_my_places -> changeFragments(3,MENU_MIS_LUGARES)
             }
             true
         }
@@ -59,32 +61,29 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         startActivity(intent)
     }
 
-    fun changeFragments(valor:Int){
+    fun changeFragments(valor:Int, nombre:String){
         var fragment:Fragment
         if(valor ==  1){
             val bundle:Bundle = Bundle()
             bundle.putInt("code", codeUser)
             fragment = FavoritesFragment()
             fragment.bundle = bundle
-            binding.btnCreatePlace.hide()
         }else if(valor == 2){
             val bundle:Bundle = Bundle()
             bundle.putInt("code", codeUser)
             fragment = InicioFragment()
             fragment.bundle = bundle
-            binding.btnCreatePlace.hide()
         }else{
             val bundle:Bundle = Bundle()
             bundle.putInt("code", codeUser)
             fragment = MyPlacesFragment()
             fragment.bundle = bundle
-            binding.btnCreatePlace.show()
 
 
         }
 
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
-           .addToBackStack("fragmento_$valor")
+           .addToBackStack(nombre)
            .commit()
     }
 
@@ -97,6 +96,20 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             R.id.navHome -> Log.e("MainActivity","Dandole al boton home")
         }
         return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val count = supportFragmentManager.backStackEntryCount
+
+        if(count > 0){
+            val nombre = supportFragmentManager.getBackStackEntryAt(count-1).name
+            when(nombre){
+                MENU_FAVORITOS -> binding.barraInferior.menu.getItem(0).isChecked = true
+                MENU_INICIO -> binding.barraInferior.menu.getItem(1).isChecked = true
+                MENU_MIS_LUGARES -> binding.barraInferior.menu.getItem(2).isChecked = true
+            }
+        }
     }
 
 

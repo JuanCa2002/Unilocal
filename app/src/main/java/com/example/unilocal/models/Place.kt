@@ -25,4 +25,15 @@ class Place (var id:Int,
     }
 
 
+    fun obtenerCalificacionPromedio(comentarios:ArrayList<Comment>):Int{
+        var promedio = 0
+        if(comentarios.size >0) {
+            val suma = comentarios.stream().map { c -> c.qualification }
+                .reduce { suma, valor -> suma + valor }.get()
+            promedio = suma / comentarios.size
+        }
+      return promedio
+    }
+
+
 }

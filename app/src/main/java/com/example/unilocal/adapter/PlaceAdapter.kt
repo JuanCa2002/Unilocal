@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
 import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.DetalleLugarUsuarioActivity
+import com.example.unilocal.bd.Categories
+import com.example.unilocal.bd.Comments
 import com.example.unilocal.models.Place
+import org.w3c.dom.Text
 
 class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
 
@@ -31,7 +37,9 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
         val address:TextView = itemView.findViewById(R.id.address_place)
         val status:TextView = itemView.findViewById(R.id.status_place)
         val schedule:TextView = itemView.findViewById(R.id.schedule_place)
+        val category:TextView = itemView.findViewById(R.id.icon_place)
         val image:ImageView = itemView.findViewById(R.id.image_place)
+        val stars:LinearLayout = itemView.findViewById(R.id.list_stars)
         var codePlace:Int = 0
 
         init {
@@ -39,11 +47,17 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
         }
 
         fun bind(place:Place){
+            category.text = Categories.getById(place.idCategory)!!.icon
             name.text = place.name
             address.text = place.address
             status.text = "Abierto"
             schedule.text = "Cierra a las 2"
             codePlace = place.id
+
+            val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
+            for (i in 0..qualification){
+                (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))
+            }
 
         }
 

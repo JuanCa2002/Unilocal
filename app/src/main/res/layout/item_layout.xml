@@ -20,15 +20,79 @@
             android:layout_height="wrap_content"
             android:layout_weight="70">
 
-            <TextView
-                android:id="@+id/name_place"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del lugar"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/icon_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/name_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del lugar"
+                    android:layout_marginBottom="5dp"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/list_stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:textColor="@color/black"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/s_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:text="\uf005"/>
+
+                <TextView
+                    android:id="@+id/s_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:text="\uf005"/>
+
+                <TextView
+                    android:id="@+id/s_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:text="\uf005"/>
+
+                <TextView
+                    android:id="@+id/s_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:text="\uf005"/>
+
+                <TextView
+                    android:id="@+id/s_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/font_awesome_6_free_solid_900"
+                    android:text="\uf005"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/qualification_place"

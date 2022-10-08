@@ -9,11 +9,11 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_lugar.xml" value="0.18" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_moderador.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_datalles_moderador.xml" value="0.33" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.25" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar_usuario.xml" value="0.18" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_gestion_moderator.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_main.xml" value="0.2462962962962963" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_moderator.xml" value="0.33" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_navigation_principal.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_registro.xml" value="0.1" />
@@ -22,14 +22,17 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/app_bar_navigation2.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation2.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_comments_place.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_favorites.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_gallery.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_info_place.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_inicio.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_menu_principal.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_slideshow.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/header.xml" value="0.1852355072463768" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_layout.xml" value="0.22" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_comment_layout.xml" value="0.22" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_layout.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_moderator_layout.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/nav_header_navigation.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/nav_header_navigation2.xml" value="0.17074275362318841" />
