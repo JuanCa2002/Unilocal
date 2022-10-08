@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         setContentView(binding.root)
 
         sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
-        val codeUser = sharedPreferences.getInt("id",-1)
+        codeUser = sharedPreferences.getInt("id",-1)
         if(codeUser != -1){
             val usuario = Usuarios.getUser(codeUser)
             val header = binding.navigationView.getHeaderView(0)

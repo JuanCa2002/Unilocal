@@ -29,6 +29,7 @@ class MyPlacesFragment : Fragment() {
         binding = FragmentMyPlacesBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
         placesByUser = Places.listByUser(code!!)
+        Log.e("Lugares",code.toString())
         val adapter = PlaceAdapter(placesByUser,"user")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)

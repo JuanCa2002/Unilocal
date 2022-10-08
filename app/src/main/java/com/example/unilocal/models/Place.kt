@@ -76,7 +76,7 @@ class Place (var id:Int,
         for(schedule in schedules){
             pos = schedule.dayOfWeek.indexOf(DayWeek.values()[dia-1])
             mensaje = if(pos != -1){
-                "${schedule.dayOfWeek[pos+1].toString().lowercase()}  a las ${schedule.startTime}:00"
+                "${schedule.dayOfWeek[pos-1].toString().lowercase()}  a las ${schedule.startTime}:00"
             }else{
                 "${schedule.dayOfWeek[0].toString().lowercase()}  a las ${schedule.startTime}:00"
             }
