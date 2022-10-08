@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_favorites"
+        android:icon="@drawable/ic_baseline_warning_24"
+        android:title="Pendientes"/>
+
+    <item
+        android:id="@+id/menu_my_places"
+        android:icon="@drawable/ic_baseline_app_registration_24"
+        android:title="Registro"/>
+</menu>

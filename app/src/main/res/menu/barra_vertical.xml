@@ -13,4 +13,15 @@
             android:title="favoritos" />
     </group>
 
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="Más opciones">
+        <menu>
+            <item
+                android:id="@+id/menu_cerrar_sesion"
+                android:title="Cerrar sesion" />
+
+       </menu>
+    </item>
+
 </menu>

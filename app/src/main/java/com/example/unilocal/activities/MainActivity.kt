@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
             true
         }
-        //val menuBoton: Button = findViewById(R.id.btn_menu)
-        //menuBoton.setOnClickListener {  abrirMenu()}
         binding.navigationView.setNavigationItemSelectedListener (this)
 
     }
@@ -64,8 +62,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
 
-    fun cerrarSesion(view: View){
+    fun cerrarSesion(){
         sharedPreferences.edit().clear().commit()
+        finish()
 
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
@@ -104,6 +103,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navHome -> Log.e("MainActivity","Dandole al boton home")
+            R.id.menu_cerrar_sesion -> cerrarSesion()
         }
         item.isChecked = true
         binding.drawerLayout.closeDrawer(GravityCompat.START)
