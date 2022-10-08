@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/black"
     tools:context=".fragments.InfoPlaceFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="280dp"
         android:layout_below="@id/imagen_detalles_lugar">
 
         <View
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -65,42 +67,43 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/btn_favorito"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_baseline_favorite_24" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_baseline_share_24" />
+
         <TextView
             android:id="@+id/txt_descipcion_lugar"
-            android:layout_width="400dp"
+            android:layout_width="380dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
             android:text="Descipcion del lugar"
             android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/txt_direccion_lugar"
-            android:layout_width="400dp"
+            android:layout_width="380dp"
             android:layout_height="30dp"
             android:layout_below="@id/txt_descipcion_lugar"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:text="Direccion"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/btn_favorito"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginRight="58dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/ic_baseline_favorite_24" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_baseline_share_24" />
-
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
 
