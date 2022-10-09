@@ -95,13 +95,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/qualification_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Calificacion"/>
-
-            <TextView
                 android:id="@+id/address_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
