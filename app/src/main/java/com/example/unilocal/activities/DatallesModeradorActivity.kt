@@ -12,6 +12,7 @@ import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.Moderators
 import com.example.unilocal.databinding.ActivityDatallesModeradorBinding
+
 import com.example.unilocal.models.Moderator
 
 class DatallesModeradorActivity : AppCompatActivity() {

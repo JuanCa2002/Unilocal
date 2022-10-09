@@ -1,6 +1,7 @@
 package com.example.unilocal.activities
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -83,14 +84,16 @@ class CrearModeradorActivity : AppCompatActivity() {
             binding.confirmPasswordLayout.error = null
         }
 
-        if(confirmPassword == password){
+        if(confirmPassword != password){
             binding.confirmPasswordLayout.error = "Las contraseñas no coinciden"
             binding.passwordLayout.error = "Las contraseñas no coinciden"
         }
 
-        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && idCity != -1 ){
+        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != -1 ){
            val moderator = Moderator(Moderators.listar().size+1, nombre, nickname,correo,password)
            Moderators.createModerator(moderator)
+            val intent = Intent(this, GestionModeratorActivity::class.java)
+            startActivity(intent)
         }
     }
 

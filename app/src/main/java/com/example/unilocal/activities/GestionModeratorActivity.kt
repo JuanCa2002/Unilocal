@@ -40,12 +40,12 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
 
-
         val adapter = ModeratorAdapter(moderators)
         binding.listModerators.adapter = adapter
         binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 
         binding.navigationView.setNavigationItemSelectedListener(this)
+        binding.btnCreateModerator.setOnClickListener { irCrearModerator() }
     }
 
     fun abrirMenu(){
@@ -57,6 +57,11 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         finish()
 
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun irCrearModerator(){
+        val intent = Intent(this, CrearModeradorActivity::class.java)
         startActivity(intent)
     }
 
