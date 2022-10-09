@@ -63,10 +63,17 @@
         android:layout_marginTop="20dp"
         android:layout_below="@id/parte_arriba">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_person_24"></ImageView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nombre_moderador_layout"
             style="@style/til_form"
-            android:layout_width="wrap_content">
+            android:layout_width="313dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/moderator_name"
@@ -86,13 +93,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/txt_nombre">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_person_pin_24"></ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nickname_layout"
             style="@style/til_form"
-            android:layout_width="wrap_content">
+            android:layout_width="313dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/nickname"
@@ -110,24 +124,31 @@
         android:id="@+id/txt_correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@id/txt_nickname"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/txt_nickname">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_email_24"></ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_layout"
             style="@style/til_form"
-            android:layout_width="wrap_content">
+            android:layout_width="313dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/mod_email"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
-                android:gravity="center|start"
                 android:background="@drawable/fondo_forms"
-                android:text="@string/txt_correo_detalle_mod"/>
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@string/txt_correo_detalle_mod" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -135,38 +156,33 @@
         android:id="@+id/spinner_ciudad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/txt_correo"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/txt_correo">
+        android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:hint="@string/txt_ciudad_detalle_mod"
-            android:textColorHint="@color/black"
-            android:textSize="20dp"/>
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_location_on_24"></ImageView>
 
-        <Spinner
-            android:id="@+id/department_place"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/fondo_forms"
-            android:layout_marginBottom="10dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ciudad_layout"
+            style="@style/til_form"
+            android:layout_width="313dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
 
-        <Spinner
-            android:id="@+id/municipality_moderator"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_width="100dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="50dp"
-            android:background="@drawable/fondo_forms"
-            android:layout_marginBottom="10dp"/>
+            <TextView
+                android:id="@+id/department_place"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@drawable/fondo_forms"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@string/txt_ciudad_detalles_mod" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
 
 </RelativeLayout>

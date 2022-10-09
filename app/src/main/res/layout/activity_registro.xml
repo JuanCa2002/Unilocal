@@ -104,21 +104,28 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_cake_24"></ImageView>
+            android:src="@drawable/ic_baseline_location_on_24"></ImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/birthday_layout"
             style="@style/til_form"
             android:layout_width="313dp">
 
-            <EditText
+            <Spinner
+                android:id="@+id/department_place"
+                android:layout_width="313dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/fondo_forms" />
+
+            <!--<EditText
                 android:id="@+id/user_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
                 android:background="@drawable/fondo_forms"
                 android:inputType="text"
-                android:hint="@string/txt_birthday" />
+                android:hint="@string/txt_birthday" /> -->
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
