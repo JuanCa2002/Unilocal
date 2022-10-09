@@ -1,5 +1,6 @@
 package com.example.unilocal.bd
 
+import android.util.Log
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.User
 
@@ -8,9 +9,9 @@ object Usuarios {
     private val usuarios:ArrayList<User> = ArrayList()
 
     init {
-        usuarios.add(User(1,"Juan","Nexus","Juan@gmail.com","1234"))
-        usuarios.add(User(2,"Jaime","Jai","Jaime@gmail.com","1238"))
-        usuarios.add(User(3,"Laura","Lau","Lau@gmail.com","1235"))
+        usuarios.add(User(1,"Juan","Nexus","Juan@gmail.com","1234",4))
+        usuarios.add(User(2,"Jaime","Jai","Jaime@gmail.com","1238",4))
+        usuarios.add(User(3,"Laura","Lau","Lau@gmail.com","1235",3))
     }
 
     fun listar():ArrayList<User>{
@@ -23,6 +24,14 @@ object Usuarios {
 
     fun agregar(user:User){
         usuarios.add(user)
+    }
+
+    fun updateUser( user: User,id: Int){
+        var userExist = usuarios.firstOrNull{u -> u.id == id}
+        if(userExist!= null){
+            var index = usuarios.indexOf(userExist)
+            usuarios.set(index, user)
+        }
     }
 
     fun login(email: String, password: String): User? {
