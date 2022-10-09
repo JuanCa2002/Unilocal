@@ -30,23 +30,24 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/btn_eliminar"
-            android:gravity="center">
+            android:layout_below="@id/btn_eliminar">
 
             <ImageView
                 android:id="@+id/img_perfil"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="150dp"
+                android:foregroundGravity="center"
                 android:src="@mipmap/ic_launcher_round"></ImageView>
 
             <TextView
                 android:id="@+id/main_name_mod"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_perfil"
-                android:layout_marginTop="21dp"
-                android:text="Nombre de la persona"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="150dp"
+                android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"></TextView>
