@@ -28,4 +28,8 @@ object Moderators {
             moderators.remove(moderator)
         }
     }
+
+    fun createModerator(moderator: Moderator){
+        moderators.add(moderator)
+    }
 }
