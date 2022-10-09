@@ -63,5 +63,7 @@
     <string name="txt_correo_usuario_detalles_usuario">Correo</string>
     <string name="txt_fecha_nacimiento_usuario_detalles_usuario">Fecha de nacimiento</string>
     <string name="txt_guardar_cambios_boton_detalles_usuario">Guardar Cambios</string>
+    <string name="txt_descripcion_fragment_info_place">Descipcion del lugar</string>
+    <string name="txt_direccion_fragment_info_place">Direccionr</string>
 
 </resources>

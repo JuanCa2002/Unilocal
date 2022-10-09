@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/black"
+    android:backgroundTint="@color/white"
     tools:context=".fragments.InfoPlaceFragment">
 
     <RelativeLayout
@@ -14,7 +14,7 @@
         <View
             android:layout_width="wrap_content"
             android:layout_height="400dp"
-            android:background="@color/black"></View>
+            android:background="@color/white"></View>
 
         <LinearLayout
             android:id="@+id/list_stars"
@@ -71,39 +71,70 @@
             android:id="@+id/btn_favorito"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="60dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_baseline_favorite_24" />
+            android:layout_marginRight="60dp"
+            android:src="@drawable/ic_baseline_favorite_black_24" />
 
         <ImageView
+            android:id="@+id/iconos"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_baseline_share_24" />
+            android:src="@drawable/ic_baseline_share_black_24" />
 
-        <TextView
-            android:id="@+id/txt_descipcion_lugar"
-            android:layout_width="380dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
-            android:text="Descipcion del lugar"
-            android:textColor="@color/white" />
+        <LinearLayout
+            android:id="@+id/descripcion_lugar"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/iconos"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_direccion_lugar"
-            android:layout_width="380dp"
-            android:layout_height="30dp"
-            android:layout_below="@id/txt_descipcion_lugar"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Direccion"
-            android:textColor="@color/white"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_library_books_24"></ImageView>
+
+            <TextView
+                android:id="@+id/txt_descripcion_lugar"
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/txt_descripcion_fragment_info_place"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/direccion_lugar"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/descripcion_lugar">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_house_24"></ImageView>
+
+            <TextView
+                android:id="@+id/txt_direccion_lugar"
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/txt_direccion_fragment_info_place"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
