@@ -63,8 +63,6 @@ class CrearLugarActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
-
-
         }
     }
 

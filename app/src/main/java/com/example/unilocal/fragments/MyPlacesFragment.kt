@@ -12,13 +12,15 @@ import com.example.unilocal.R
 import com.example.unilocal.activities.CrearLugarActivity
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.Places
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentMyPlacesBinding
 import com.example.unilocal.models.Place
 
 
 class MyPlacesFragment : Fragment() {
     lateinit var binding: FragmentMyPlacesBinding
-    lateinit var placesByUser: ArrayList<Place>
+    var placesByUser: ArrayList<Place> = ArrayList()
+    lateinit var adapter: PlaceAdapter
     var code:Int? = -1
     var bundle:Bundle = Bundle()
     override fun onCreateView(
@@ -28,9 +30,8 @@ class MyPlacesFragment : Fragment() {
     ): View? {
         binding = FragmentMyPlacesBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
-        placesByUser = Places.listByUser(code!!)
-        Log.e("Lugares",code.toString())
-        val adapter = PlaceAdapter(placesByUser,"user")
+        placesByUser = Places.listByUser(code!!, placesByUser)
+        adapter = PlaceAdapter(placesByUser,"user")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         return binding.root
@@ -40,5 +41,14 @@ class MyPlacesFragment : Fragment() {
     fun irCrearLugar(){
         val intent = Intent(activity, CrearLugarActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(code!=null) {
+            Log.e("places",placesByUser.toString())
+            placesByUser = Places.listByUser(code!!, placesByUser)
+            adapter.notifyDataSetChanged()
+        }
     }
 }

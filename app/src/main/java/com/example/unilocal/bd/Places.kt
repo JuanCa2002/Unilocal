@@ -50,8 +50,10 @@ object Places {
        return places.filter { l->l.status == status }.toCollection(ArrayList())
    }
 
-    fun listByUser(codeUser: Int):ArrayList<Place>{
-        return places.filter { l->l.idCreator== codeUser }.toCollection(ArrayList())
+    fun listByUser(codeUser: Int,lista:ArrayList<Place>):ArrayList<Place>{
+        lista.clear()
+        lista.addAll(places.filter { l->l.idCreator== codeUser }.toCollection(ArrayList()))
+        return lista
     }
 
     fun obtener(id:Int): Place?{
