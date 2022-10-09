@@ -15,6 +15,7 @@ import com.example.unilocal.databinding.ActivityLoginBinding
 import com.example.unilocal.models.Administrator
 import com.example.unilocal.models.Moderator
 import com.example.unilocal.models.User
+import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
@@ -89,12 +90,12 @@ class LoginActivity : AppCompatActivity() {
                         is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
                     }
                 }else{
-                    Log.d(MainActivity::class.java.simpleName, "los datos son erroneos")
+                    Snackbar.make(binding.root,"Los datos ingresados son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
 
                 }
 
             } catch (e: Exception) {
-                Log.d(MainActivity::class.java.simpleName, "los datos son erroneos")
+                Snackbar.make(binding.root,"Los datos ingresados son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
             }
 
         }

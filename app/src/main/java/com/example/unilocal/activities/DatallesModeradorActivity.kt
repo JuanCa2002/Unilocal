@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
+import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Moderators
 import com.example.unilocal.databinding.ActivityDatallesModeradorBinding
 
@@ -34,6 +35,8 @@ class DatallesModeradorActivity : AppCompatActivity() {
         moderator = Moderators.obtener(codeModerator)
 
         if(moderator != null){
+            var city = Cities.obtener(moderator!!.idCity)
+            binding.cityPlace.text = city!!.name
             binding.moderatorName.text = moderator!!.nombre
             binding.nickname.text = moderator!!.nickname
             binding.modEmail.text = moderator!!.correo
