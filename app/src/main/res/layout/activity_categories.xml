@@ -17,37 +17,44 @@
             android:id="@+id/list_places_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/filtro"/>
+            android:layout_below="@+id/filtro"
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:id="@+id/filtro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:layout_marginTop="100dp"
-            android:gravity="center">
+            android:background="@color/light_gray">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
                 android:text="Categoria"
                 android:textColor="@color/black"
-                android:layout_marginRight="20dp"/>
+                android:textSize="18dp"
+                android:textStyle="bold"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/birthday_layout"
                 style="@style/til_form"
                 android:layout_width="150dp"
-                android:layout_marginRight="40dp"
-                android:layout_alignParentRight="true">
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical">
 
                 <Spinner
                     android:id="@+id/categories"
-                    android:layout_width="313dp"
+                    android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/fondo_forms" />
+                    android:layout_gravity="center"
+                    android:background="@drawable/fondo_forms"
+                    android:paddingLeft="10dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,9 +62,12 @@
                 android:id="@+id/filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/blue"
-                android:text="Filtrar"
-                android:textColor="@color/black"/>
+                android:text="@string/btn_fltrar_categories"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <fragment

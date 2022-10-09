@@ -66,5 +66,6 @@
     <string name="txt_descripcion_fragment_info_place">Descipcion del lugar</string>
     <string name="txt_direccion_fragment_info_place">Direccionr</string>
     <string name="txt_ciudad_detalles_mod">Ciudad</string>
+    <string name="btn_fltrar_categories">Filtrar</string>
 
 </resources>
