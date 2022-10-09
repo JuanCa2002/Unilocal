@@ -91,7 +91,7 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.navHome -> Log.e("MainActivity","Dandole al boton home")
+            R.id.navPerfil -> Log.e("MainActivity","Dandole al boton home")
             R.id.menu_cerrar_sesion -> cerrarSesion()
         }
         item.isChecked = true

@@ -77,7 +77,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
 
     fun loadCategories(){
         categories = Categories.listar()
-        Log.e("category nueva", place!!.idCategory.toString())
         var category = Categories.getById(place!!.idCategory)
         var position = categories.indexOf(category)
         var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)

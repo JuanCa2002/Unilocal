@@ -3,14 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navHome"
-            android:title="home" />
+            android:id="@+id/navPerfil"
+            android:title="Mi perfil" />
         <item
-            android:id="@+id/navMisNegocios"
-            android:title="negocios" />
-        <item
-            android:id="@+id/navFavoritos"
-            android:title="favoritos" />
+            android:id="@+id/navCategorias"
+            android:title="Categorias" />
     </group>
 
     <item

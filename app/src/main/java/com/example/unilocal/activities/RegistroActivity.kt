@@ -27,7 +27,7 @@ class RegistroActivity : AppCompatActivity() {
         val nickname = binding.nicknameUsuario.text.toString()
         val email = binding.emailUsuario.text.toString()
         val password = binding.userPassword.text.toString()
-        val birthday = binding.userBirthday.text.toString()
+        //val birthday = binding.userBirthday.text.toString()
         val confirmPassword = binding.userPasswordConfirm.text.toString()
 
         if(confirmPassword.isEmpty()){
@@ -36,11 +36,11 @@ class RegistroActivity : AppCompatActivity() {
             binding.nameLayout.error = null
         }
 
-        if(birthday.isEmpty()){
-            binding.nameLayout.error = getString(R.string.txt_obligatorio)
-        }else{
-            binding.nameLayout.error = null
-        }
+//        if(birthday.isEmpty()){
+//            binding.nameLayout.error = getString(R.string.txt_obligatorio)
+//        }else{
+//            binding.nameLayout.error = null
+//        }
         if(name.isEmpty()){
             binding.nameLayout.error = getString(R.string.txt_obligatorio)
         }
@@ -71,7 +71,7 @@ class RegistroActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
 
-        if(name.isNotEmpty() && email.isNotEmpty() && birthday.isEmpty() && confirmPassword.isEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty()){
+        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty()){
             val user = User(1, name, nickname, email, password)
             Usuarios.agregar(user)
             Log.w(MainActivity::class.java.simpleName, "Se registro correctamente")
