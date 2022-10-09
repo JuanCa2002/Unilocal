@@ -2,6 +2,7 @@ package com.example.unilocal.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -70,7 +71,7 @@ class InfoPlaceFragment : Fragment() {
                 (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
             }
             //Hay que agregar un campo de telefono.
-            binding.txtDescipcionLugar.text = place!!.description
+            binding.txtDescripcionLugar.text = place!!.description
             binding.txtDireccionLugar.text = place!!.address
         }
         val favorito = favorites.firstOrNull{f -> f == codePlace}
@@ -92,7 +93,13 @@ class InfoPlaceFragment : Fragment() {
     }
 
     fun eliminarFavoritos(){
+<<<<<<< HEAD
         binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_24))
+=======
+        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(),
+            R.drawable.ic_baseline_favorite_black_24
+        ))
+>>>>>>> alejo
         binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         Usuarios.eliminarFavoritos(codeUser,codePlace)
     }

@@ -15,7 +15,7 @@
         android:id="@+id/name_user_session"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:textSize="22sp"
         android:layout_marginStart="10dp"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_marginStart="10dp"
         android:text="Correo"></TextView>
