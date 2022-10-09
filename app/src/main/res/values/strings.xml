@@ -57,5 +57,11 @@
     <string name="txt_guardar_cambios_detalle_usuario">Guardar Cambios</string>
     <string name="abierto">Abierto</string>
     <string name="cerrado">Cerrado</string>
+    <string name="ingresar_comentario">Ingrese su comentario</string>
+    <string name="txt_nickname_detalles_usuario">Nickname</string>
+    <string name="txt_nombre_usuario_detalles_usuario">Nombre</string>
+    <string name="txt_correo_usuario_detalles_usuario">Correo</string>
+    <string name="txt_fecha_nacimiento_usuario_detalles_usuario">Fecha de nacimiento</string>
+    <string name="txt_guardar_cambios_boton_detalles_usuario">Guardar Cambios</string>
 
 </resources>

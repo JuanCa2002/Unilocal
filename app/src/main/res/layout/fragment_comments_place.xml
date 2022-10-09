@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CommentsPlaceFragment">
+    tools:context=".fragments.CommentsPlaceFragment"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,19 +25,18 @@
                     android:id="@+id/imagen_comentario"></ImageView>
                 <com.google.android.material.textfield.TextInputLayout
                     app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
                     android:layout_width="300dp"
                     android:layout_height="70dp"
                     android:layout_marginLeft="10dp"
                     android:layout_alignRight="@+id/imagen_comentario">
 
-                    <EditText
+                     <EditText
                         android:id="@+id/message_comment"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@drawable/fondo_forms"
                         android:inputType="text"
-                        android:text="Ingrese su comentario"/>
+                        android:hint="@string/ingresar_comentario"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
