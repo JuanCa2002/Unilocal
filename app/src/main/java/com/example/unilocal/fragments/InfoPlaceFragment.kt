@@ -93,13 +93,9 @@ class InfoPlaceFragment : Fragment() {
     }
 
     fun eliminarFavoritos(){
-<<<<<<< HEAD
-        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_24))
-=======
         binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(),
             R.drawable.ic_baseline_favorite_black_24
         ))
->>>>>>> alejo
         binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         Usuarios.eliminarFavoritos(codeUser,codePlace)
     }
