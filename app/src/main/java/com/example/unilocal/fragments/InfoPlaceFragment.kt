@@ -59,7 +59,7 @@ class InfoPlaceFragment : Fragment() {
 
         placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
 
-        pos = requireActivity().intent.extras!!.getInt("position")
+        //pos = requireActivity().intent.extras!!.getInt("position")
 
         val place = Places.obtener(codePlace)
 

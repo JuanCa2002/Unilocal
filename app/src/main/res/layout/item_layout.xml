@@ -130,7 +130,6 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
         <ImageView
@@ -138,7 +137,7 @@
             android:layout_width="0dp"
             android:src="@mipmap/ic_launcher_round"
             android:layout_height="wrap_content"
-            android:layout_weight="30"/>
+            android:layout_weight="30" />
 
     </LinearLayout>
 

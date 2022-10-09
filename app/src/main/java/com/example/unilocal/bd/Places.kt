@@ -1,6 +1,7 @@
 package com.example.unilocal.bd
 
 import android.util.Log
+import android.view.Display
 import com.example.unilocal.models.Comment
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.Schedule
@@ -73,9 +74,10 @@ object Places {
         return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
     }
 
-    fun changeStatus(codePlace:Int, status: StatusPlace){
+    fun changeStatus(codePlace:Int, status: StatusPlace, codeModerator: Int){
         val place = places.firstOrNull{p -> p.id == codePlace}
         if(place!=null){
+            place.idModeratorReview = codeModerator
             place.status= status
         }
 
@@ -87,6 +89,14 @@ object Places {
             places.remove(place)
         }
 
+    }
+
+    fun placesAcceptedByModerator(codeModerator:Int):ArrayList<Place>{
+        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
+    }
+
+    fun placesDeclinedByModerator(codeModerator:Int):ArrayList<Place>{
+        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.RECHAZADO}.toCollection(ArrayList())
     }
 
     fun updatePlace(codePlace: Int, place: Place){

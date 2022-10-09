@@ -22,6 +22,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/app_bar_navigation2.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation2.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_aceptados.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_comments_place.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_favorites.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_gallery.xml" value="0.17074275362318841" />
@@ -29,7 +30,10 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_inicio.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_menu_principal.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_pendientes_place.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_pending_place.xml" value="0.1852355072463768" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_rechazados.xml" value="0.1852355072463768" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_registre.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_slideshow.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/header.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_comment_layout.xml" value="0.22" />

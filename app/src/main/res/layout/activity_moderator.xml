@@ -4,11 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".activities.ModeratorActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_places"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <FrameLayout
+            android:id="@+id/contenido_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/barra_inferior_moderator" />
+
+        <fragment
+            android:id="@+id/barra_superior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/barra_inferior_moderator"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/barra_inferior_moderator" />
 
 </RelativeLayout>
