@@ -85,11 +85,21 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.navPerfil -> Log.e("MainActivity","Dandole al boton home")
+            R.id.navPerfil -> abrirPerfil()
             R.id.menu_cerrar_sesion -> cerrarSesion()
+            R.id.navCategorias -> abrirCategorias()
         }
         item.isChecked = true
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    fun abrirPerfil(){
+        val intent = Intent(this, DetallesUsuarioActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun abrirCategorias(){
+        val intent = Intent(this, CategoriesActivity::class.java)
+        startActivity(intent)
     }
 }
