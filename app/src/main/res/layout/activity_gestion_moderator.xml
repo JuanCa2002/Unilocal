@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/drawerLayout"
+    tools:openDrawer="end"
     tools:context=".activities.GestionModeratorActivity">
-
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/list_moderators"
+   <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent" />
+       android:layout_height="match_parent"
+       android:orientation="vertical">
 
-</LinearLayout>
+      <fragment
+          android:id="@+id/barra_superior"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/list_moderators"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+   </LinearLayout>
+
+   <com.google.android.material.navigation.NavigationView
+       android:id="@+id/navigation_view"
+       android:layout_gravity="start"
+       android:fitsSystemWindows="true"
+       app:menu="@menu/barra_vertical"
+       app:headerLayout="@layout/header"
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

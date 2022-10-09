@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityMainBinding
+
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.fragments.MyPlacesFragment

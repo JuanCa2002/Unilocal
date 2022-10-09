@@ -79,6 +79,7 @@ class InfoPlaceFragment : Fragment() {
             binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
 
         }else{
+            //Log.e("prueba","se agrego")
             binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         }
         return binding.root
@@ -86,11 +87,13 @@ class InfoPlaceFragment : Fragment() {
 
     fun agregarFavoritos(){
         binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_red))
+        binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
         Usuarios.agregarFavoritos(codeUser,codePlace)
     }
 
     fun eliminarFavoritos(){
         binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_24))
+        binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         Usuarios.eliminarFavoritos(codeUser,codePlace)
     }
 
@@ -104,4 +107,6 @@ class InfoPlaceFragment : Fragment() {
 
         }
     }
+
+
 }

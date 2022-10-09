@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
+    android:id="@+id/drawerLayout"
+    tools:openDrawer="end"
     tools:context=".activities.ModeratorActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/contenido_principal"
@@ -28,5 +34,15 @@
             android:paddingTop="10dp"
             android:layout_alignParentBottom="true"
             app:menu="@menu/barra_inferior_moderator" />
+        </RelativeLayout>
 
-</RelativeLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:menu="@menu/barra_vertical"
+            app:headerLayout="@layout/header"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
