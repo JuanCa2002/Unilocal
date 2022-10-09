@@ -82,30 +82,29 @@
                 android:src="@drawable/ic_baseline_schedule_24"></ImageView>
 
             <LinearLayout
-                    android:id="@+id/campo_descripcion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_below="@id/campo_categoria"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                android:id="@+id/campo_descripcion"
+                android:layout_width="313dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/campo_categoria"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/descripcion_layout"
-                        style="@style/til_form"
-                        android:layout_width="300dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/descripcion_layout"
+                    style="@style/til_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/descripcion_edit"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="10dp">
-
-                        <EditText
-                            android:id="@+id/descripcion_edit"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/fondo_forms"
-                            android:hint="@string/txt_descripcion_detalle_usuario"
-                            android:inputType="text" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+                        android:background="@drawable/fondo_forms"
+                        android:hint="@string/txt_descripcion_detalle_usuario"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -163,6 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Spinner
@@ -171,7 +171,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="25dp"
                 android:hint="@string/txt_categoria_detalle_usuario"
-                android:layout_marginTop="10dp"
+
                 android:background="@drawable/fondo_forms"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"/>
