@@ -60,9 +60,30 @@ class InfoPlaceFragment : Fragment() {
 
         placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
 
-        //pos = requireActivity().intent.extras!!.getInt("position")
-
         val place = Places.obtener(codePlace)
+
+        var telefonos = ""
+
+        if(place!!.phones.isNotEmpty()) {
+            for (tel in place.phones) {
+                telefonos += "$tel, "
+            }
+            telefonos = telefonos.substring(0, telefonos.length - 2)
+        }else{
+            telefonos = "No hay teléfono"
+        }
+
+        binding.phonePlace.text = telefonos
+
+        var horarios = ""
+
+        for( horario in place!!.schedules ){
+            for(dia in horario.dayOfWeek){
+                horarios += "${dia.toString().lowercase().replaceFirstChar { it.uppercase() }}: ${horario.startTime}:00 - ${horario.finishTime}:00\n"
+            }
+        }
+
+        binding.schedulePlace.text = horarios
 
         if(place != null){
 
@@ -70,7 +91,6 @@ class InfoPlaceFragment : Fragment() {
             for (i in 0..qualification){
                 (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
             }
-            //Hay que agregar un campo de telefono.
             binding.txtDescripcionLugar.text = place!!.description
             binding.txtDireccionLugar.text = place!!.address
         }
@@ -80,7 +100,6 @@ class InfoPlaceFragment : Fragment() {
             binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
 
         }else{
-            //Log.e("prueba","se agrego")
             binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         }
         return binding.root
