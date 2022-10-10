@@ -26,6 +26,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
     var code:Int = -1
+    lateinit var adapter: PlaceAdapter
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var placesCoincidences:ArrayList<Place>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +60,13 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         }
 
         if(textSearch.isNotEmpty()){
-            placesCoincidences= Places.buscarNombre(textSearch)
+            placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences)
             Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
         }
         binding.navigationView.setNavigationItemSelectedListener (this)
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-        val adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 
@@ -101,5 +102,14 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     fun abrirCategorias(){
         val intent = Intent(this, CategoriesActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("textxo",textSearch.toString())
+        if(textSearch.isNotEmpty()) {
+            placesCoincidences= Places.buscarNombre(textSearch,placesCoincidences)
+            adapter.notifyDataSetChanged()
+        }
     }
 }
