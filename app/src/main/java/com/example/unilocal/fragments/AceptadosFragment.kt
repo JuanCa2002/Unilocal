@@ -18,9 +18,9 @@ import com.example.unilocal.models.Place
 
 class AceptadosFragment : Fragment() {
     lateinit var binding: FragmentAceptadosBinding
-    var codeModerator: Int = -1
     lateinit var adapterPlace: PlaceAdapter
     lateinit var places: ArrayList<Place>
+    var codeModerator: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,6 @@ class AceptadosFragment : Fragment() {
             val fragment = AceptadosFragment()
             fragment.arguments = args
             return fragment
-
         }
     }
 }

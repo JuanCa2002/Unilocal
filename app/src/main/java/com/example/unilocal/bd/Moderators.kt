@@ -18,7 +18,6 @@ object Moderators {
         return moderators.firstOrNull{a -> a.id == id }
     }
 
-
     fun listar():ArrayList<Moderator>{
         return moderators
     }

@@ -25,5 +25,4 @@
             android:src="@drawable/ic_baseline_add_business_24"
             android:layout_alignParentRight="true" />
 
-
 </RelativeLayout>

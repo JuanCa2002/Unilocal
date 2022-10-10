@@ -30,7 +30,6 @@ class CrearModeradorActivity : AppCompatActivity() {
         binding.btnRegistro.setOnClickListener { createModerator() }
     }
 
-
     fun loadCities(){
         cities = Cities.listar()
         var adapter= ArrayAdapter(this, android.R.layout.simple_spinner_item,cities)
@@ -41,7 +40,6 @@ class CrearModeradorActivity : AppCompatActivity() {
                 cityPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
@@ -85,8 +83,8 @@ class CrearModeradorActivity : AppCompatActivity() {
         }
 
         if(confirmPassword != password){
-            binding.confirmPasswordLayout.error = "Las contraseñas no coinciden"
-            binding.passwordLayout.error = "Las contraseñas no coinciden"
+            binding.confirmPasswordLayout.error = getString(R.string.txt_contrasenas_incorrectas)
+            binding.passwordLayout.error = getString(R.string.txt_contrasenas_incorrectas)
         }
 
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != -1 ){
@@ -96,6 +94,5 @@ class CrearModeradorActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
 }

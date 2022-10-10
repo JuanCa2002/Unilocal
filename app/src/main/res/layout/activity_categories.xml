@@ -36,7 +36,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="Categoria"
+                android:text="@string/txt_categoria_Categories"
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold"/>

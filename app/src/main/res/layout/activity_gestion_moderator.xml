@@ -26,7 +26,6 @@
           android:layout_height="wrap_content"
           class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
 
-
       <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/btn_create_moderator"
           android:layout_width="180dp"
@@ -46,4 +45,5 @@
        app:headerLayout="@layout/header"
        android:layout_width="wrap_content"
        android:layout_height="match_parent"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

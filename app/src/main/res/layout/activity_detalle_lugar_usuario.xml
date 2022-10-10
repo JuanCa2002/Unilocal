@@ -217,6 +217,6 @@
             android:backgroundTint="@color/color2"
             android:text="@string/txt_guardar_cambios_detalle_usuario"></Button>
 
-
     </LinearLayout>
+
 </ScrollView>

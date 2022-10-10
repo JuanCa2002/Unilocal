@@ -25,21 +25,18 @@ class DetalleLugarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         codePlace = intent.extras!!.getInt("code")
-
         if(codePlace != 0){
             val place = Places.obtener(codePlace)
             binding.namePlace.text = place!!.name
             binding.viewPaper.adapter = ViewPagerAdapter(this, codePlace)
             TabLayoutMediator(binding.tabs, binding.viewPaper){tab, pos ->
                 when(pos){
-                    0 -> tab.text = "Informacion lugar"
-                    1 -> tab.text = "Comentarios"
+                    0 -> tab.text = getString(R.string.txt_info_lugar)
+                    1 -> tab.text = getString(R.string.txt_comentario)
                 }
             }.attach()
         }
-
     }
 
 }

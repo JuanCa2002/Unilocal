@@ -22,6 +22,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
     var cityPosition: Int = -1
     var tipo: String? = ""
     var code: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetallesUsuarioBinding.inflate(layoutInflater)
@@ -58,7 +59,6 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                 cityPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }

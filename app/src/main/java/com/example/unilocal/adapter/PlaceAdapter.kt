@@ -59,12 +59,10 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
             }
 
             status.text = if(estaAbierto){status.context.getString(R.string.abierto) }else{ status.context.getString(R.string.cerrado) }
-
             category.text = Categories.getById(place.idCategory)!!.icon
             name.text = place.name
             address.text = place.address
             codePlace = place.id
-
             val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
             for (i in 0..qualification){
                 (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))

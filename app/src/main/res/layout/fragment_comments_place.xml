@@ -13,82 +13,83 @@
         android:orientation="vertical">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:id="@+id/campo_txt_comentario">
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:id="@+id/imagen_comentario"></ImageView>
-                <com.google.android.material.textfield.TextInputLayout
-                    app:boxStrokeWidth="0dp"
-                    android:layout_width="300dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignRight="@+id/imagen_comentario">
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/campo_txt_comentario">
 
-                     <EditText
-                        android:id="@+id/message_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@drawable/fondo_forms"
-                        android:inputType="text"
-                        android:hint="@string/ingresar_comentario"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/imagen_comentario"></ImageView>
+            <com.google.android.material.textfield.TextInputLayout
+                app:boxStrokeWidth="0dp"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignRight="@+id/imagen_comentario">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/message_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/fondo_forms"
+                    android:inputType="text"
+                    android:hint="@string/ingresar_comentario"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
-                android:id="@+id/list_stars"
+            android:id="@+id/list_stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/s_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="25dp"
-                android:orientation="horizontal">
+                android:textSize="19dp"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                android:text="\uf005"/>
 
-                <TextView
-                    android:id="@+id/s_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:text="\uf005"/>
+            <TextView
+                android:id="@+id/s_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                android:text="\uf005"/>
 
-                <TextView
-                    android:id="@+id/s_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:text="\uf005"/>
+            <TextView
+                android:id="@+id/s_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                android:text="\uf005"/>
 
-                <TextView
-                    android:id="@+id/s_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:text="\uf005"/>
+            <TextView
+                android:id="@+id/s_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                android:text="\uf005"/>
 
-                <TextView
-                    android:id="@+id/s_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:text="\uf005"/>
-
-                <TextView
-                    android:id="@+id/s_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="19dp"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:text="\uf005"/>
+            <TextView
+                android:id="@+id/s_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:fontFamily="@font/font_awesome_6_free_solid_900"
+                android:text="\uf005"/>
 
             </LinearLayout>
 
@@ -131,9 +132,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Aun no hay comentarios"
+                android:text="@string/txt_no_hay_comentarios"
                 android:textSize="20dp"
                 android:visibility="gone" />
+
         </FrameLayout>
+
     </LinearLayout>
+
 </LinearLayout>

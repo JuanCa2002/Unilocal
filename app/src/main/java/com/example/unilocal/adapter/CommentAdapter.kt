@@ -27,7 +27,6 @@ class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<Comm
     override fun getItemCount() = comments.size
 
     inner class ViewHolder(var itemView: View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
-
         val nickname: TextView = itemView.findViewById(R.id.nickname_user)
         val date: TextView = itemView.findViewById(R.id.date_comment)
         val text: TextView = itemView.findViewById(R.id.text_comment)
@@ -43,7 +42,6 @@ class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<Comm
             date.text = simpleDateFormat.format(comment.creationDate.time)
             text.text = comment.text
             codePlace = comment.idPlace
-
         }
 
         override fun onClick(p0: View?) {

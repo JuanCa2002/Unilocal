@@ -20,10 +20,11 @@ import com.example.unilocal.models.Moderator
 import com.google.android.material.navigation.NavigationView
 
 class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var sharedPreferences: SharedPreferences
     lateinit var binding: ActivityGestionModeratorBinding
     lateinit var moderators : ArrayList<Moderator>
     var codeAdministrador: Int = -1
-    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGestionModeratorBinding.inflate(layoutInflater)
@@ -39,11 +40,9 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         moderators = Moderators.listar()
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-
         val adapter = ModeratorAdapter(moderators)
         binding.listModerators.adapter = adapter
         binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-
         binding.navigationView.setNavigationItemSelectedListener(this)
         binding.btnCreateModerator.setOnClickListener { irCrearModerator() }
     }
@@ -55,7 +54,6 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
     fun cerrarSesion(){
         sharedPreferences.edit().clear().commit()
         finish()
-
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }

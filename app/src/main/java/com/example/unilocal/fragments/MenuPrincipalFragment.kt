@@ -21,7 +21,6 @@ class MenuPrincipalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMenuPrincipalBinding.inflate(inflater,container,false)
-
         binding.txtBusqueda.setOnEditorActionListener { textView, i, keyEvent ->
             if(i == EditorInfo.IME_ACTION_SEARCH){
                 val textSearch = binding.txtBusqueda.text.toString()

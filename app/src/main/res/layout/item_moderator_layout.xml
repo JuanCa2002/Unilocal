@@ -31,7 +31,7 @@
                 android:id="@+id/name_moderator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre Moderador"
+                android:text="@string/txt_nombre_mod_item_mod"
                 android:layout_marginBottom="5dp"
                 android:textStyle="bold"
                 android:textSize="25sp"
@@ -42,14 +42,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Nickname"/>
+                android:text="@string/txt_nickname_item_mod"/>
 
             <TextView
                 android:id="@+id/email_moderator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Correo"/>
-
+                android:text="@string/txt_correo_item_mod"/>
 
         </LinearLayout>
 

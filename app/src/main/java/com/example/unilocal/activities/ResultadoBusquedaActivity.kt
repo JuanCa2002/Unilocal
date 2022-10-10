@@ -23,11 +23,12 @@ import com.example.unilocal.models.Place
 import com.google.android.material.navigation.NavigationView
 
 class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
+    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var placesCoincidences:ArrayList<Place>
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
     var code:Int = -1
-    private lateinit var sharedPreferences: SharedPreferences
-    lateinit var placesCoincidences:ArrayList<Place>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultadoBusquedaBinding.inflate(layoutInflater)
@@ -35,7 +36,6 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
         textSearch = intent.extras!!.getString("txt_search","")
         placesCoincidences = ArrayList()
-
         var typeUser = sharedPreferences.getString("tipo_usuario","")
         code = sharedPreferences.getInt("id",-1)
         if(code != -1){
@@ -55,7 +55,6 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
                 header.findViewById<TextView>(R.id.name_user_session).text = administrator!!.nombre
                 header.findViewById<TextView>(R.id.email_user_session).text = administrator!!.correo
             }
-
         }
 
         if(textSearch.isNotEmpty()){
@@ -68,13 +67,11 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         val adapter = PlaceAdapter(placesCoincidences,"Busqueda")
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-
     }
 
     fun cerrarSesion(){
         sharedPreferences.edit().clear().commit()
         finish()
-
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }

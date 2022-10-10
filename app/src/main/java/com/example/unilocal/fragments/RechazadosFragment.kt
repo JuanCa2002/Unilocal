@@ -46,7 +46,6 @@ class RechazadosFragment : Fragment() {
             val fragment = RechazadosFragment()
             fragment.arguments = args
             return fragment
-
         }
     }
 

@@ -39,12 +39,13 @@
                     android:id="@+id/name_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del lugar"
+                    android:text="@string/txt_nombre_lugar_item_lugar"
                     android:layout_marginBottom="5dp"
                     android:textStyle="bold"
                     android:textSize="25sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/list_stars"
                 android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
                 android:id="@+id/address_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direccion"/>
+                android:text="@string/txt_direccion_item_lugar"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -111,15 +112,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Abierto"/>
+                    android:text="@string/txt_abierto_item_lugar"/>
 
                 <TextView
                     android:id="@+id/schedule_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="Horario"/>
-
+                    android:text="@string/txt_horario_item_lugar"/>
 
             </LinearLayout>
 
@@ -133,6 +133,5 @@
             android:layout_weight="30" />
 
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

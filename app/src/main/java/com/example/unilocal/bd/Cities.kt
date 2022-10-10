@@ -12,7 +12,6 @@ object Cities {
         cities.add(City(3,"Cali"))
         cities.add(City(4,"Bogota"))
         cities.add(City(5,"Medellin"))
-
     }
 
     fun listar():ArrayList<City>{

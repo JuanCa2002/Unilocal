@@ -35,7 +35,6 @@ class RegistroActivity : AppCompatActivity() {
         val email = binding.emailUsuario.text.toString()
         val password = binding.userPassword.text.toString()
         val idCity = cities[cityPosition].id
-        //val birthday = binding.userBirthday.text.toString()
         val confirmPassword = binding.userPasswordConfirm.text.toString()
 
         if(confirmPassword.isEmpty()){
@@ -44,17 +43,13 @@ class RegistroActivity : AppCompatActivity() {
             binding.nameLayout.error = null
         }
 
-//        if(birthday.isEmpty()){
-//            binding.nameLayout.error = getString(R.string.txt_obligatorio)
-//        }else{
-//            binding.nameLayout.error = null
-//        }
         if(name.isEmpty()){
             binding.nameLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.nameLayout.error = null
         }
+
         if(nickname.isEmpty()){
             binding.nicknameLayout.error = getString(R.string.txt_obligatorio)
         }
@@ -66,12 +61,14 @@ class RegistroActivity : AppCompatActivity() {
                 binding.nicknameLayout.error = null
             }
         }
+
         if(email.isEmpty()){
             binding.emailLayout.error = getString(R.string.txt_obligatorio)
         }
         else{
             binding.emailLayout.error = null
         }
+
         if(password.isEmpty()){
             binding.passwordLayout.error = getString(R.string.txt_obligatorio)
         }
@@ -84,7 +81,6 @@ class RegistroActivity : AppCompatActivity() {
             Usuarios.agregar(user)
             startActivity(Intent(this, LoginActivity::class.java))
         }
-
     }
 
     fun loadCities(){
@@ -97,9 +93,7 @@ class RegistroActivity : AppCompatActivity() {
                 cityPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
-
 }

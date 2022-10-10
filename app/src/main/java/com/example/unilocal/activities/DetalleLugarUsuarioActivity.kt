@@ -20,16 +20,17 @@ import com.example.unilocal.models.*
 
 class DetalleLugarUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetalleLugarUsuarioBinding
+    lateinit var placeAdapter: PlaceAdapter
+    lateinit var cities: ArrayList<City>
+    lateinit var categories: ArrayList<Category>
     var codePlace:Int = -1
     var codeUser:Int = -1
     var pos: Int = -1
     var categoryPosition: Int = -1
-    lateinit var placeAdapter: PlaceAdapter
-    lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
-    lateinit var categories: ArrayList<Category>
     var place: Place? = null
     var placesByUser: ArrayList<Place> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleLugarUsuarioBinding.inflate(layoutInflater)
@@ -41,7 +42,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         placesByUser = Places.listByUser(codeUser, placesByUser)
         placeAdapter = PlaceAdapter(placesByUser,"usuario")
         place = Places.obtener(codePlace)
-
         if(place != null){
             binding.nombreLayout.hint = place!!.name
             binding.telefonoLayout.hint = "311"
@@ -57,10 +57,10 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
 
     fun deletePlace(){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Eliminar Lugar")
-        builder.setMessage("¿Esta seguro de eliminar este lugar?")
+        builder.setTitle(R.string.txt_eliminar_lugar)
+        builder.setMessage(R.string.txt_eliminar_lugar_pregunta)
 
-        builder.setPositiveButton("Si") { dialogInterface, which ->
+        builder.setPositiveButton(R.string.txt_si) { dialogInterface, which ->
             Places.deletePlace(codePlace)
             placesByUser.remove(place)
             placeAdapter.notifyItemRemoved(pos)
@@ -68,8 +68,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             intent.putExtra("code",codeUser)
             startActivity(intent)
         }
-
-        builder.setNeutralButton("Cancel"){dialogInterface , which -> }
+        builder.setNeutralButton(R.string.txt_cancel){dialogInterface , which -> }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
@@ -87,9 +86,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 categoryPosition = p2
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
@@ -107,7 +104,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
                 cityPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }

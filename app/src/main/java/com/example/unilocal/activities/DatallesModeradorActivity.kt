@@ -47,17 +47,15 @@ class DatallesModeradorActivity : AppCompatActivity() {
 
     fun deleteModerator(){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Eliminar moderador")
-        builder.setMessage("¿Esta seguro de eliminar este moderador?")
-
-        builder.setPositiveButton("Si"){dialogInterface, which ->
+        builder.setTitle(R.string.txt_eliminar_mod)
+        builder.setMessage(R.string.txt_eliminar_mod_pregunta)
+        builder.setPositiveButton(R.string.txt_si){dialogInterface, which ->
             Moderators.deleteModerator(codeModerator)
             moderators.remove(moderator)
             moderatorAdapter.notifyItemRemoved(pos)
             startActivity(Intent(this, GestionModeratorActivity::class.java))
         }
-
-        builder.setNeutralButton("Cancel"){dialogInterface , which -> }
+        builder.setNeutralButton(R.string.txt_cancel){dialogInterface , which -> }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()

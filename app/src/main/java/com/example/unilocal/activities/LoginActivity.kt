@@ -23,13 +23,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val sp = getSharedPreferences("sesion",Context.MODE_PRIVATE)
-
         val email = sp.getString("correo_usuario","")
         val type = sp.getString("tipo_usuario","")
         val code = sp.getInt("id",0)
-
 
         if(email!!.isNotEmpty() && type!!.isNotEmpty() && code!= null){
             val intent = Intent(this, MainActivity::class.java)
@@ -40,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
                 "Moderador"-> startActivity( Intent(this, ModeratorActivity::class.java) )
             }
             finish()
-
         }else{
             binding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -51,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login() {
-
         val correo = binding.emailUsuario.text
         val password = binding.passwordUsuario.text
         if(correo.isEmpty()){
@@ -72,41 +67,31 @@ class LoginActivity : AppCompatActivity() {
                 val persona = Persons.login(correo.toString(), password.toString())
 
                 if(persona !=null){
-
                     val type = if(persona is User) "Usuario" else if(persona is Moderator) "Moderador" else "Administrador"
-
                     val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE).edit()
                     sharedPreferences.putString("correo_usuario", persona.correo)
                     sharedPreferences.putString("tipo_usuario",type)
                     sharedPreferences.putInt("id",persona.id)
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("code",persona.id)
-
                     sharedPreferences.commit()
-
                     when(persona){
                         is Administrator -> startActivity(Intent(this, GestionModeratorActivity::class.java)  )
                         is User -> startActivity(intent )
                         is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
                     }
                 }else{
-                    Snackbar.make(binding.root,"Los datos ingresados son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
-
+                    Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
                 }
-
             } catch (e: Exception) {
-                Snackbar.make(binding.root,"Los datos ingresados son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
             }
-
         }
     }
-
 
     fun registrar() {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
     }
-
-
 
 }

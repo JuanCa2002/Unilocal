@@ -15,7 +15,6 @@ object Places {
         val horario2 = Schedule(2, Schedules.obtenerEntresSemana(),9,20)
         val horario3 = Schedule(3, Schedules.obtenerFinSemana(),14,23)
 
-
     init {
         val place1= Place(1,"Los cucos","Muy genial",1,StatusPlace.ACEPTADO,2,48.3434f,"Cra 15 #3-56",82.455f,1)
         place1.schedules.add(horario2)
@@ -43,12 +42,13 @@ object Places {
         places.add(place6)
     }
 
+
     fun list():ArrayList<Place>{
         return places
     }
-   fun listByStatus(status: StatusPlace):ArrayList<Place>{
-       return places.filter { l->l.status == status }.toCollection(ArrayList())
-   }
+    fun listByStatus(status: StatusPlace):ArrayList<Place>{
+           return places.filter { l->l.status == status }.toCollection(ArrayList())
+    }
 
     fun listByUser(codeUser: Int,lista:ArrayList<Place>):ArrayList<Place>{
         lista.clear()

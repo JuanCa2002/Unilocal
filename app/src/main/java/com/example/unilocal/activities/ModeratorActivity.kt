@@ -32,11 +32,11 @@ import com.google.android.material.snackbar.Snackbar
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+    private lateinit var sharedPreferences: SharedPreferences
+    private var MENU_PENDIENTES = "Pendiente"
+    private var MENU_REGISTRO = "Registro"
     lateinit var binding: ActivityModeratorBinding
     var codeModerator: Int = -1
-    private var MENU_PENDIENTES = "Pendiente"
-    private lateinit var sharedPreferences: SharedPreferences
-    private var MENU_REGISTRO = "Registro"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +61,7 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         binding.navigationView.setNavigationItemSelectedListener (this)
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-
     }
-
 
     fun changeFragments(valor:Int, nombre:String){
         var fragment: Fragment
@@ -72,7 +70,6 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }else{
             fragment = RegistreFragment.newInstance(codeModerator)
         }
-
         supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
             .addToBackStack(nombre)
             .commit()

@@ -21,11 +21,11 @@ import com.google.android.material.snackbar.Snackbar
 
 class CommentsPlaceFragment : Fragment() {
     lateinit var binding: FragmentCommentsPlaceBinding
+    lateinit var adapter: CommentAdapter
+    private var colorPorDefecto:Int = 0
     var comments:ArrayList<Comment> = ArrayList()
     var codigoLugar: Int = 0
-    lateinit var adapter: CommentAdapter
     var codeUser:Int = 0
-    private var colorPorDefecto:Int = 0
     var estrellas: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +34,7 @@ class CommentsPlaceFragment : Fragment() {
             codigoLugar = requireArguments().getInt("id_lugar")
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,9 +52,7 @@ class CommentsPlaceFragment : Fragment() {
         val sp = requireActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE)
         codeUser = sp.getInt("id",0)
         val place = Places.obtener(codigoLugar)
-
         binding.btnEnviar.setOnClickListener { makeComment() }
-
         for(i in 0 until binding.listStars.childCount){
             (binding.listStars[i] as TextView).setOnClickListener { presionarEstrella(i)}
         }
@@ -67,13 +66,11 @@ class CommentsPlaceFragment : Fragment() {
             val comentario = Comment(text,codeUser,codigoLugar,estrellas)
            Comments.crearComentario(comentario)
            limpiarFormulario()
-           Snackbar.make(binding.root,"Se ha enviado el comentario",Snackbar.LENGTH_LONG).show()
-
+           Snackbar.make(binding.root,R.string.txt_comentario_enviado,Snackbar.LENGTH_LONG).show()
             comments.add(comentario)
             adapter.notifyItemInserted(comments.size-1)
-
         }else{
-            Snackbar.make(binding.root,"Debe escribir el comentario y seleccionar las estrellas",Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root,R.string.txt_advertencia_comentarios,Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -89,7 +86,6 @@ class CommentsPlaceFragment : Fragment() {
         for(i in 0..pos){
             (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(requireContext(),R.color.yellow))
         }
-
     }
 
     private fun borrarSeleccion(){

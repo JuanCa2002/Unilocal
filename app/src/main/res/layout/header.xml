@@ -11,6 +11,7 @@
        android:layout_marginTop="30dp"
        android:src="@mipmap/ic_launcher"
        android:layout_marginStart="10dp"/>
+
     <TextView
         android:id="@+id/name_user_session"
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
         android:layout_marginTop="5dp"
         android:textSize="22sp"
         android:layout_marginStart="10dp"
-        android:text="Nombre usuario"></TextView>
+        android:text="@string/txt_nombre_user_nav"></TextView>
+
     <TextView
         android:id="@+id/email_user_session"
         android:layout_width="match_parent"
@@ -28,6 +30,6 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_marginStart="10dp"
-        android:text="Correo"></TextView>
+        android:text="@string/txt_correo_nav"></TextView>
 
 </LinearLayout>

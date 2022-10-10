@@ -32,8 +32,8 @@ class RegistreFragment : Fragment() {
         binding.viewPaper.adapter = ViewPageModeratorAdapter(requireActivity(),codeModerator)
         TabLayoutMediator(binding.tabs, binding.viewPaper){tab, pos ->
             when(pos){
-                0 -> tab.text = "Aceptados"
-                1 -> tab.text = "Rechazados"
+                0 -> tab.text = getString(R.string.txt_aceptados)
+                1 -> tab.text = getString(R.string.txt_rechazados)
             }
         }.attach()
         return binding.root

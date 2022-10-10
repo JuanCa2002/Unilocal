@@ -19,8 +19,8 @@ import com.example.unilocal.models.Place
 
 class FavoritesFragment : Fragment() {
     lateinit var binding: FragmentFavoritesBinding
-    var places: ArrayList<Place> = ArrayList()
     lateinit var adapter: PlaceAdapter
+    var places: ArrayList<Place> = ArrayList()
     var code:Int? = -1
     var bundle:Bundle = Bundle()
 
@@ -40,7 +40,6 @@ class FavoritesFragment : Fragment() {
             binding.listFavorites.layoutManager =
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         }
-
         return binding.root
     }
 

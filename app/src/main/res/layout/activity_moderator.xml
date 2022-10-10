@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
 
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/barra_inferior_moderator"
             android:layout_width="match_parent"

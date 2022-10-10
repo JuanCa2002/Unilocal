@@ -23,18 +23,17 @@ import com.example.unilocal.fragments.MyPlacesFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var sharedPreferences:SharedPreferences
     private var MENU_INICIO = "Inicio"
     private var MENU_MIS_LUGARES = "Mis lugares"
     private var MENU_FAVORITOS = "favoritos"
-    private lateinit var sharedPreferences:SharedPreferences
-     var codeUser: Int = -1
+    lateinit var binding: ActivityMainBinding
+    var codeUser: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
         codeUser = sharedPreferences.getInt("id",-1)
         if(codeUser != -1){
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
         }
         changeFragments(2,MENU_INICIO)
-
         binding.barraInferior.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_favorites -> changeFragments(1,MENU_FAVORITOS)
@@ -54,7 +52,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             true
         }
         binding.navigationView.setNavigationItemSelectedListener (this)
-
     }
 
     fun irCrearLugar(view:View){
@@ -66,7 +63,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     fun cerrarSesion(){
         sharedPreferences.edit().clear().commit()
         finish()
-
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
@@ -88,10 +84,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             bundle.putInt("code", codeUser)
             fragment = MyPlacesFragment()
             fragment.bundle = bundle
-
-
         }
-
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
            .addToBackStack(nombre)
            .commit()
@@ -125,7 +118,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onBackPressed() {
         super.onBackPressed()
         val count = supportFragmentManager.backStackEntryCount
-
         if(count > 0){
             val nombre = supportFragmentManager.getBackStackEntryAt(count-1).name
             when(nombre){
@@ -135,6 +127,5 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
         }
     }
-
 
 }

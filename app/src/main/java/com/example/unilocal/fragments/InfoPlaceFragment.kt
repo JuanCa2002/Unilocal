@@ -20,11 +20,10 @@ import com.example.unilocal.models.Place
 
 
 class InfoPlaceFragment : Fragment() {
-
     lateinit var binding: FragmentInfoPlaceBinding
-    var codePlace:Int = -1
     lateinit var placeAdapter: PlaceAdapter
     lateinit var favorites: ArrayList<Int>
+    var codePlace:Int = -1
     var placesFavorites: ArrayList<Place> = ArrayList()
     var pos:Int = -1
     var codeUser:Int = -1
@@ -43,11 +42,8 @@ class InfoPlaceFragment : Fragment() {
     ): View? {
         binding = FragmentInfoPlaceBinding.inflate(inflater,container,false)
         val sp = requireActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE)
-
         codeUser = sp.getInt("id",0)
-
         favorites = Usuarios.getListFavorites(codeUser)
-
         val places = Places.list()
         val usuario = Usuarios.getUser(codeUser!!)
         for (i in usuario!!.favorities){
@@ -57,20 +53,14 @@ class InfoPlaceFragment : Fragment() {
                 }
             }
         }
-
         placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
-
-        //pos = requireActivity().intent.extras!!.getInt("position")
-
         val place = Places.obtener(codePlace)
 
         if(place != null){
-
             val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
             for (i in 0..qualification){
                 (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
             }
-            //Hay que agregar un campo de telefono.
             binding.txtDescripcionLugar.text = place!!.description
             binding.txtDireccionLugar.text = place!!.address
         }
@@ -78,9 +68,7 @@ class InfoPlaceFragment : Fragment() {
         if(favorito != null){
             binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_red))
             binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
-
         }else{
-            //Log.e("prueba","se agrego")
             binding.btnFavorito.setOnClickListener{agregarFavoritos()}
         }
         return binding.root
@@ -107,9 +95,7 @@ class InfoPlaceFragment : Fragment() {
             val fragment = InfoPlaceFragment()
             fragment.arguments = args
             return fragment
-
         }
     }
-
 
 }

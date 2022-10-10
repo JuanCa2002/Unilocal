@@ -15,6 +15,7 @@ import com.example.unilocal.models.Moderator
 import com.example.unilocal.models.Place
 
 class ModeratorAdapter(var moderators:ArrayList<Moderator>): RecyclerView.Adapter<ModeratorAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_moderator_layout,parent, false)
         return ViewHolder(v)

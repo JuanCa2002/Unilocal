@@ -29,6 +29,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     var code: Int = -1
     var places:ArrayList<Place> = ArrayList()
     var categoryPosition: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
@@ -36,7 +37,6 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         loadCategories()
         var menu = this.findViewById<Button>(com.example.unilocal.R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-
         sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
         code = sharedPreferences.getInt("id",-1)
         var typeUser = sharedPreferences.getString("tipo_usuario","")
@@ -67,7 +67,6 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         }
         binding.navigationView.setNavigationItemSelectedListener(this)
         binding.filter.setOnClickListener { loadPlacesByCategory() }
-
     }
 
     fun loadCategories(){
@@ -81,7 +80,6 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                 categoryPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
@@ -114,7 +112,6 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     fun cerrarSesion(){
         sharedPreferences.edit().clear().commit()
         finish()
-
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }

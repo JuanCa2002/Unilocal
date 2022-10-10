@@ -19,10 +19,11 @@ import com.example.unilocal.models.Place
 
 class MyPlacesFragment : Fragment() {
     lateinit var binding: FragmentMyPlacesBinding
-    var placesByUser: ArrayList<Place> = ArrayList()
     lateinit var adapter: PlaceAdapter
+    var placesByUser: ArrayList<Place> = ArrayList()
     var code:Int? = -1
     var bundle:Bundle = Bundle()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +38,6 @@ class MyPlacesFragment : Fragment() {
         return binding.root
     }
 
-
     fun irCrearLugar(){
         val intent = Intent(activity, CrearLugarActivity::class.java)
         startActivity(intent)
@@ -51,4 +51,5 @@ class MyPlacesFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
     }
+
 }

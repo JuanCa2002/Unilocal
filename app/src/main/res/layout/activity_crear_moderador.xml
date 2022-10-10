@@ -52,7 +52,6 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nickname_layout"
         style="@style/til_form">
@@ -115,35 +114,6 @@
             android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
-
-<!--   <LinearLayout-->
-<!--       android:layout_width="wrap_content"-->
-<!--       android:layout_height="wrap_content"-->
-<!--       android:orientation="horizontal">-->
-
-<!--       <ImageView-->
-<!--           android:layout_width="match_parent"-->
-<!--           android:layout_height="match_parent"-->
-<!--           android:src="@drawable/ic_baseline_cake_24" />-->
-
-<!--       <com.google.android.material.textfield.TextInputLayout-->
-<!--           android:id="@+id/birthday_layout"-->
-<!--           style="@style/til_form"-->
-<!--           android:layout_width="319dp">-->
-
-<!--           <EditText-->
-<!--               android:id="@+id/moderator_birthday"-->
-<!--               android:layout_width="300dp"-->
-<!--               android:layout_height="match_parent"-->
-<!--               android:layout_marginStart="0dp"-->
-<!--               android:background="@drawable/fondo_forms"-->
-<!--               android:drawableEnd="@drawable/ic_baseline_calendar_today_24"-->
-<!--               android:hint="@string/txt_birthday"-->
-<!--               android:inputType="text" />-->
-<!--       </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--   </LinearLayout>-->
-
 
     <LinearLayout
         android:layout_width="wrap_content"

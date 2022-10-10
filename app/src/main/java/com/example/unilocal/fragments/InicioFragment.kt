@@ -26,7 +26,6 @@ class InicioFragment : Fragment() {
     ): View? {
         binding = FragmentInicioBinding.inflate(inflater,container,false)
         code = this.bundle.getInt("code")
-
         return binding.root
     }
 

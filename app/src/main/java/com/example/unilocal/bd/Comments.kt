@@ -9,7 +9,6 @@ object Comments {
 
     private val comments:ArrayList<Comment> = ArrayList()
 
-
     init {
         comments.add(Comment("Excelente servicio y buen ambiente",1,2,5))
         comments.add(Comment("Muy demorado no volveria ",1,1,2))

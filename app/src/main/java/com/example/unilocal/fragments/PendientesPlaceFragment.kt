@@ -40,7 +40,6 @@ class PendientesPlaceFragment : Fragment() {
     ): View? {
         binding = FragmentPendientesPlaceBinding.inflate(inflater,container,false)
         places = Places.listByStatus(StatusPlace.SIN_REVISAR)
-
         adapterPlace = PlaceAdapter(places,"Busqueda")
         binding.listPlacesPending.adapter = adapterPlace
         binding.listPlacesPending.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
@@ -64,8 +63,8 @@ class PendientesPlaceFragment : Fragment() {
                         Places.changeStatus(codePlace, StatusPlace.ACEPTADO, codeModerator)
                         places.remove(place)
                         adapterPlace.notifyItemRemoved(pos)
-                        Snackbar.make(binding.listPlacesPending, "Lugar aceptado", Snackbar.LENGTH_LONG)
-                            .setAction("Deshacer", View.OnClickListener {
+                        Snackbar.make(binding.listPlacesPending, R.string.txt_lugar_aceptado, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.txt_deshacer, View.OnClickListener {
                                 Places.changeStatus(codePlace, StatusPlace.SIN_REVISAR,0)
                                 places.add(pos,place!!)
                                 adapterPlace.notifyItemInserted(pos)
@@ -75,8 +74,8 @@ class PendientesPlaceFragment : Fragment() {
                         Places.changeStatus(codePlace, StatusPlace.RECHAZADO, codeModerator)
                         places.remove(place)
                         adapterPlace.notifyItemRemoved(pos)
-                        Snackbar.make(binding.listPlacesPending, "Lugar rechazado", Snackbar.LENGTH_LONG)
-                            .setAction("Deshacer", View.OnClickListener {
+                        Snackbar.make(binding.listPlacesPending, R.string.txt_lugar_rechazado, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.txt_deshacer, View.OnClickListener {
                                 Places.changeStatus(codePlace, StatusPlace.SIN_REVISAR,0)
                                 places.add(pos,place!!)
                                 adapterPlace.notifyItemInserted(pos)
@@ -103,12 +102,11 @@ class PendientesPlaceFragment : Fragment() {
                     actionState,
                     isCurrentlyActive
                 )
-
                 RecyclerViewSwipeDecorator.Builder(c,recyclerView,viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
                     .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(),R.color.red))
-                    .addSwipeLeftLabel("Aceptar")
-                    .addSwipeRightLabel("Rechazar")
+                    .addSwipeLeftLabel(getString(R.string.txt_aceptar))
+                    .addSwipeRightLabel(getString(R.string.txt_rechazar))
                     .create()
                     .decorate()
             }
@@ -125,7 +123,6 @@ class PendientesPlaceFragment : Fragment() {
             val fragment = PendientesPlaceFragment()
             fragment.arguments = args
             return fragment
-
         }
     }
 }

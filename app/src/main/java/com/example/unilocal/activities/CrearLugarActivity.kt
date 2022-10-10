@@ -27,7 +27,6 @@ class CrearLugarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityCrearLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         loadCities()
@@ -45,7 +44,6 @@ class CrearLugarActivity : AppCompatActivity() {
                 cityPosition = p2
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
@@ -59,9 +57,7 @@ class CrearLugarActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 categoryPosition = p2
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
         }
     }
@@ -100,7 +96,6 @@ class CrearLugarActivity : AppCompatActivity() {
 
         if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
             val newPlace = Place(7,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
-
             val phones:ArrayList<String> = ArrayList()
             phones.add(phone)
             newPlace.phones= phones
