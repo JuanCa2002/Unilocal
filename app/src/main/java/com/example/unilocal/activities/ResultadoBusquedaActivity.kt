@@ -28,13 +28,8 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
     var code:Int = -1
-<<<<<<< HEAD
-
-=======
     lateinit var adapter: PlaceAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-    lateinit var placesCoincidences:ArrayList<Place>
->>>>>>> main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultadoBusquedaBinding.inflate(layoutInflater)
