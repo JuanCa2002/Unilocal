@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -95,11 +96,13 @@ class CrearLugarActivity : AppCompatActivity() {
         }
 
         if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
-            val newPlace = Place(7,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
+            val newPlace = Place(Places.list().size,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
             val phones:ArrayList<String> = ArrayList()
             phones.add(phone)
             newPlace.phones= phones
             Places.crear(newPlace)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
