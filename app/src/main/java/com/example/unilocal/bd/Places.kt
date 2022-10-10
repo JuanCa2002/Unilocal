@@ -60,8 +60,10 @@ object Places {
         return places.firstOrNull { l -> l.id == id }
     }
 
-    fun buscarNombre(nombre:String): ArrayList<Place> {
-        return places.filter { l -> l.name.lowercase().contains(nombre.lowercase()) && l.status== StatusPlace.ACEPTADO }.toCollection(ArrayList())
+    fun buscarNombre(nombre:String, lista:ArrayList<Place>): ArrayList<Place> {
+        lista.clear()
+        lista.addAll(places.filter { l -> l.name.lowercase().contains(nombre.lowercase()) && l.status== StatusPlace.ACEPTADO }.toCollection(ArrayList()))
+        return lista
     }
 
     fun crear(place:Place){

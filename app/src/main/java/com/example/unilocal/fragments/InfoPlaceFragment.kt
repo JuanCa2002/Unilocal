@@ -54,7 +54,34 @@ class InfoPlaceFragment : Fragment() {
             }
         }
         placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
         val place = Places.obtener(codePlace)
+
+        var telefonos = ""
+
+        if(place!!.phones.isNotEmpty()) {
+            for (tel in place.phones) {
+                telefonos += "$tel, "
+            }
+            telefonos = telefonos.substring(0, telefonos.length - 2)
+        }else{
+            telefonos = "No hay teléfono"
+        }
+
+        binding.phonePlace.text = telefonos
+
+        var horarios = ""
+
+        for( horario in place!!.schedules ){
+            for(dia in horario.dayOfWeek){
+                horarios += "${dia.toString().lowercase().replaceFirstChar { it.uppercase() }}: ${horario.startTime}:00 - ${horario.finishTime}:00\n"
+            }
+        }
+
+        binding.schedulePlace.text = horarios
 
         if(place != null){
             val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
