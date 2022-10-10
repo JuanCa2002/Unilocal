@@ -89,8 +89,8 @@
 
         <LinearLayout
             android:id="@+id/descripcion_lugar"
-            android:layout_width="400dp"
-            android:layout_height="100dp"
+            android:layout_width="3400dp"
+            android:layout_height="60dp"
             android:layout_below="@id/iconos"
             android:layout_marginLeft="5dp"
             android:orientation="horizontal">
@@ -108,15 +108,23 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 android:text="@string/txt_descripcion_fragment_info_place"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                android:textSize="15sp" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/direccion_lugar"
+            android:background="@color/gray" />
 
         <LinearLayout
             android:id="@+id/direccion_lugar"
             android:layout_width="match_parent"
-            android:layout_marginLeft="5dp"
             android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
             android:layout_below="@id/descripcion_lugar">
 
             <ImageView
@@ -132,6 +140,8 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
                 android:text="@string/txt_direccion_fragment_info_place"
+                android:paddingLeft="10dp"
+                android:textSize="15sp"
                 android:textColor="@color/black"/>
 
         </LinearLayout>
@@ -139,7 +149,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
             android:layout_above="@id/schedule_place_linear"
             android:background="@color/gray" />
 
@@ -150,17 +159,27 @@
             android:layout_below="@id/direccion_lugar"
             android:layout_marginLeft="5dp">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_calendar_today_24"></ImageView>
+
             <TextView
                 android:id="@+id/schedule_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:text="@string/txt_horarios_fragment_info_place"
+                android:paddingLeft="10dp"
                 android:textSize="15sp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
             android:layout_above="@id/phone_place_linear"
             android:background="@color/gray" />
 
@@ -171,12 +190,24 @@
             android:layout_below="@id/schedule_place_linear"
             android:layout_marginLeft="5dp">
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_local_phone_24"></ImageView>
+
             <TextView
                 android:id="@+id/phone_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="340dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:text="@string/txt_telefono_fragment_info_place"
+                android:paddingLeft="10dp"
                 android:textSize="15sp" />
         </LinearLayout>
+
     </RelativeLayout>
 
 </ScrollView>

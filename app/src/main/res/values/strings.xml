@@ -64,7 +64,7 @@
     <string name="txt_fecha_nacimiento_usuario_detalles_usuario">Fecha de nacimiento</string>
     <string name="txt_guardar_cambios_boton_detalles_usuario">Guardar Cambios</string>
     <string name="txt_descripcion_fragment_info_place">Descipcion del lugar</string>
-    <string name="txt_direccion_fragment_info_place">Direccionr</string>
+    <string name="txt_direccion_fragment_info_place">Direccion</string>
     <string name="txt_ciudad_detalles_mod">Ciudad</string>
     <string name="btn_fltrar_categories">Filtrar</string>
     <string name="txt_categoria_Categories">Categoria</string>
@@ -102,4 +102,6 @@
     <string name="txt_rechazar">Rechazar</string>
     <string name="txt_aceptados">Aceptados</string>
     <string name="txt_rechazados">Rechazados</string>
+    <string name="txt_horarios_fragment_info_place">Horarios</string>
+    <string name="txt_telefono_fragment_info_place">Telefono</string>
 </resources>

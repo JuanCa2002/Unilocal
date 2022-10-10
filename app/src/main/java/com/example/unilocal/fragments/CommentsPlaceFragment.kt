@@ -44,7 +44,7 @@ class CommentsPlaceFragment : Fragment() {
         colorPorDefecto = binding.s1.textColors.defaultColor
         comments = Comments.lista(codigoLugar)
         if(comments.size == 0){
-            binding.sinComentarios.visibility =View.VISIBLE
+            binding.sinComentarios.visibility = View.VISIBLE
         }
         adapter = CommentAdapter(comments)
         binding.listaComentarios.adapter= adapter

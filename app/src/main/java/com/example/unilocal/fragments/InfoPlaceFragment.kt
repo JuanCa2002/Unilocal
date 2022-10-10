@@ -54,10 +54,6 @@ class InfoPlaceFragment : Fragment() {
             }
         }
         placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
-<<<<<<< HEAD
-=======
-
->>>>>>> main
         val place = Places.obtener(codePlace)
 
         var telefonos = ""
