@@ -1,6 +1,7 @@
 package com.example.unilocal.activities
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import com.example.unilocal.databinding.ActivityMainBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.fragments.MyPlacesFragment
+import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -97,6 +99,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navPerfil -> abrirPerfil()
+            R.id.menu_cambiar_idioma -> cambiarIdioma()
             R.id.menu_cerrar_sesion -> cerrarSesion()
             R.id.navCategorias -> abrirCategorias()
         }
@@ -126,6 +129,21 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 MENU_MIS_LUGARES -> binding.barraInferior.menu.getItem(2).isChecked = true
             }
         }
+    }
+
+    fun cambiarIdioma(){
+        Idioma.selecionarIdioma(this)
+        val intent = intent
+        if (intent != null) {
+            intent.flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            finish()
+            startActivity(intent)
+        }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val localeUpdatedContext: ContextWrapper? = Idioma.cambiarIdioma(newBase!!)
+        super.attachBaseContext(localeUpdatedContext)
     }
 
 }

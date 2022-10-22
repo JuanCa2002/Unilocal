@@ -1,23 +1,23 @@
 <resources>
     <!--Textos referentes al activity_main -->
     <string name="app_name">Unilocal</string>
-    <string name="txt_busqueda">Nombre lugar</string>
-    <string name="txt_registro">Ir al registro</string>
-    <string name="txt_login">Ir a login</string>
+    <string name="txt_busqueda">Name Place</string>
+    <string name="txt_registro">Go to Register</string>
+    <string name="txt_login">Go to Login</string>
 
     <!--Textos referentes al activity_login -->
-    <string name="txt_correo">Escriba su correo:</string>
-    <string name="txt_password">Escriba su contraseña:</string>
-    <string name="txt_iniciar_sesion">Iniciar sesion</string>
-    <string name="txt_registrarse">Registrarse</string>
-    <string name="txt_password_Forget">¿Olvidaste tu contraseña?</string>
+    <string name="txt_correo">Enter your email:</string>
+    <string name="txt_password">Enter your password:</string>
+    <string name="txt_iniciar_sesion">Log in </string>
+    <string name="txt_registrarse">Register now</string>
+    <string name="txt_password_Forget">¿Did you forget your password?</string>
     <string name="txt_titulo_login">Ingresa para acceder a todos los beneficios</string>
 
     <!-- Textos referentes al activity registro-->
-    <string name="txt_user_name">Escriba su nombre</string>
-    <string name="txt_nickname">Escriba su nombre de usuario</string>
-    <string name="txt_birthday">Escriba su cumpleaños</string>
-    <string name="txt_password_confirm">Confirme su contraseña</string>
+    <string name="txt_user_name">Enter your name</string>
+    <string name="txt_nickname">Enter your username</string>
+    <string name="txt_birthday">Enter your birthday</string>
+    <string name="txt_password_confirm">Confirm your password</string>
 
     <!-- Textos referentes al activity crear lugar -->
     <string name="txt_titulo_lugar">Creta tu nuevo establecimiento</string>
@@ -54,8 +54,8 @@
     <string name="txt_categoria_detalle_usuario">Catergoria</string>
     <string name="txt_descripcion_detalle_usuario">Descripcion</string>
     <string name="txt_guardar_cambios_detalle_usuario">Guardar Cambios</string>
-    <string name="abierto">Abierto</string>
-    <string name="cerrado">Cerrado</string>
+    <string name="abierto">Open</string>
+    <string name="cerrado">Close</string>
     <string name="ingresar_comentario">Ingrese su comentario</string>
     <string name="txt_nickname_detalles_usuario">Nickname</string>
     <string name="txt_nombre_usuario_detalles_usuario">Nombre</string>
@@ -77,7 +77,7 @@
     <string name="txt_texto_item_comentario">texto</string>
     <string name="txt_nombre_lugar_item_lugar">Nombre del lugar</string>
     <string name="txt_direccion_item_lugar">Direccion</string>
-    <string name="txt_abierto_item_lugar">Abierto</string>
+    <string name="txt_abierto_item_lugar">Open</string>
     <string name="txt_horario_item_lugar">Horario</string>
     <string name="txt_nombre_mod_item_mod">Nombre Moderador</string>
     <string name="txt_nickname_item_mod">Nickname</string>
@@ -103,15 +103,11 @@
     <string name="txt_rechazados">Rechazados</string>
     <string name="txt_horarios_fragment_info_place">Horarios</string>
     <string name="txt_telefono_fragment_info_place">Telefono</string>
-
-    <!--Textos referentes al menu de la barra de navegacion-->
-    <string name="mi_perfil">Mi perfil</string>
-    <string name="categorias">Categorias</string>
-    <string name="m_s_opciones">Más opciones</string>
-    <string name="cambiar_idioma">Cambiar idioma</string>
-    <string name="cerrar_sesion">Cerrar sesion</string>
-
-    <!--Textos referentes al dialogo de agregar un nuevo horario-->
+    <string name="mi_perfil">My Profile</string>
+    <string name="categorias">Categories</string>
+    <string name="m_s_opciones">More options</string>
+    <string name="cambiar_idioma">Change Language</string>
+    <string name="cerrar_sesion">Sign Out</string>
     <string name="hora_inicio">Hora inicio</string>
     <string name="hora_cierre">Hora cierre</string>
     <string name="agregar_horario">Agregar horario</string>

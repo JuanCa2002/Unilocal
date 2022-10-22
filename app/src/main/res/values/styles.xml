@@ -8,4 +8,15 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="android:gravity">end|center_horizontal</item>
     </style>
+    <style name="spinner_form">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_marginEnd">35dp</item>
+        <item name="android:layout_marginStart">35dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="DialogoTitulo" parent="ThemeOverlay.AppCompat.Dialog.Alert"></style>
+
 </resources>

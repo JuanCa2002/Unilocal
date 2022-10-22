@@ -1,163 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_height="match_parent"
-        tools:context=".activities.CrearLugarActivity">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:src="@mipmap/ic_launcher_round"/>
-
-        <TextView
-            android:layout_width="237dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="@string/txt_titulo_lugar"
-            android:textColor="@color/black"
-            android:gravity="center|center_horizontal"
-            android:textSize="30dp"
-            android:textStyle="bold"></TextView>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_height="match_parent"
+            tools:context=".activities.CrearLugarActivity">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_house_24"></ImageView>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:src="@mipmap/ic_launcher_round"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/place_name_layout"
-                style="@style/til_form"
-                android:layout_width="313dp">
+            <TextView
+                android:layout_width="237dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/txt_titulo_lugar"
+                android:textColor="@color/black"
+                android:gravity="center|center_horizontal"
+                android:textSize="30dp"
+                android:textStyle="bold"></TextView>
 
-                <EditText
-                    android:id="@+id/place_name"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/fondo_forms"
-                    android:inputType="text"
-                    android:hint="@string/txt_place_name" />
+                    android:src="@drawable/ic_baseline_house_24"></ImageView>
 
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/place_name_layout"
+                    style="@style/til_form"
+                    android:layout_width="313dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_local_phone_24"></ImageView>
+                    <EditText
+                        android:id="@+id/place_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/fondo_forms"
+                        android:inputType="text"
+                        android:hint="@string/txt_place_name" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/place_phone_layout"
-                style="@style/til_form"
-                android:layout_width="313dp">
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/place_phone"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_local_phone_24"></ImageView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/place_phone_layout"
+                    style="@style/til_form"
+                    android:layout_width="313dp">
+
+                    <EditText
+                        android:id="@+id/place_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/fondo_forms"
+                        android:hint="@string/txt_place_phone"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_location_on_24"/>
+
+                <Spinner
+                    android:id="@+id/city_place"
+                    android:layout_width="313dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/fondo_forms"
-                    android:hint="@string/txt_place_phone"
-                    android:inputType="phone" />
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_library_books_24"/>
+
+                <Spinner
+                    android:id="@+id/category_place"
+                    android:layout_width="313dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/fondo_forms"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address_place_layout"
+                style="@style/til_form">
+
+                <EditText
+                    android:id="@+id/address_place"
+                    android:layout_width="313dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fondo_forms"
+                    android:hint="@string/txt_address_place"
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_location_on_24"/>
-
-            <Spinner
-                android:id="@+id/city_place"
-                android:layout_width="313dp"
-                android:layout_height="50dp"
+            <LinearLayout
+                android:id="@+id/list_schedules"
+                android:layout_width="350dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/fondo_forms"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/place_description_layout"
+                style="@style/til_form">
+
+                <EditText
+                    android:id="@+id/place_description"
+                    android:layout_width="313dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/fondo_forms"
+                    android:gravity="left"
+                    android:hint="@string/txt_place_description"
+                    android:lines="8" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_create_place"
+                android:layout_marginTop="10dp"
+                android:layout_width="200dp"
+                android:textColor="@color/black"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/color1"
+                android:text="@string/txt_create_place"></Button>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_library_books_24"/>
+    </ScrollView>
 
-            <Spinner
-                android:id="@+id/category_place"
-                android:layout_width="313dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/fondo_forms"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp" />
-        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/address_place_layout"
-            style="@style/til_form">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_asignar_horario"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_baseline_watch_later_24"
+        android:layout_alignParentRight="true" />
 
-            <EditText
-                android:id="@+id/address_place"
-                android:layout_width="313dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:hint="@string/txt_address_place"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/place_description_layout"
-            style="@style/til_form">
-
-            <EditText
-                android:id="@+id/place_description"
-                android:layout_width="313dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:gravity="left"
-                android:hint="@string/txt_place_description"
-                android:lines="8" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_create_place"
-            android:layout_marginTop="10dp"
-            android:layout_width="200dp"
-            android:textColor="@color/black"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/color1"
-            android:text="@string/txt_create_place"></Button>
-
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

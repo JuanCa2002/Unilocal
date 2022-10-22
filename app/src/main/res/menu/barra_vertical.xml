@@ -4,19 +4,22 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/navPerfil"
-            android:title="Mi perfil" />
+            android:title="@string/mi_perfil" />
         <item
             android:id="@+id/navCategorias"
-            android:title="Categorias" />
+            android:title="@string/categorias" />
     </group>
 
     <item
         android:id="@+id/navigation_subheader"
-        android:title="Más opciones">
+        android:title="@string/m_s_opciones">
         <menu>
             <item
+                android:id="@+id/menu_cambiar_idioma"
+                android:title="@string/cambiar_idioma" />
+            <item
                 android:id="@+id/menu_cerrar_sesion"
-                android:title="Cerrar sesion" />
+                android:title="@string/cerrar_sesion" />
 
        </menu>
     </item>

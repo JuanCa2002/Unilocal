@@ -8,31 +8,41 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import com.example.unilocal.R
 import com.example.unilocal.bd.Categories
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.ActivityCrearLugarBinding
-import com.example.unilocal.models.Category
-import com.example.unilocal.models.City
-import com.example.unilocal.models.Place
-import com.example.unilocal.models.StatusPlace
+import com.example.unilocal.fragments.DialogSchedulesFragment
+import com.example.unilocal.models.*
 import java.text.FieldPosition
 
-class CrearLugarActivity : AppCompatActivity() {
+class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorarioCreadoListener {
     lateinit var binding: ActivityCrearLugarBinding
     lateinit var categories: ArrayList<Category>
     lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
     var categoryPosition: Int = -1
+    lateinit var horarios: ArrayList<Schedule>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCrearLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        horarios = ArrayList()
         loadCities()
         loadCategories()
         binding.btnCreatePlace.setOnClickListener { createPlace() }
+        binding.btnAsignarHorario.setOnClickListener { mostrarDialogo()}
+    }
+
+    fun mostrarDialogo(){
+        val dialog = DialogSchedulesFragment()
+        dialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogoTitulo)
+        dialog.listener = this
+        dialog.show(supportFragmentManager, "Agregar")
+
     }
 
     fun loadCities(){
@@ -95,14 +105,20 @@ class CrearLugarActivity : AppCompatActivity() {
             binding.addressPlaceLayout.error = null
         }
 
-        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
+        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && horarios.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
             val newPlace = Place(Places.list().size,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
             val phones:ArrayList<String> = ArrayList()
             phones.add(phone)
             newPlace.phones= phones
+            newPlace.schedules = horarios
             Places.crear(newPlace)
+            Log.e("LUGAR CREADO",newPlace.toString())
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun elegirHorario(horario: Schedule) {
+        horarios.add(horario)
     }
 }

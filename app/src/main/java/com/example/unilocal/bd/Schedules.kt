@@ -31,4 +31,10 @@ object Schedules {
         todosDias.add(DayWeek.DOMINGO)
         return todosDias
     }
+
+    fun agregarHorario(horario:Schedule):Schedule{
+        horario.id = schedules.size +1
+        schedules.add(horario)
+        return horario
+    }
 }
