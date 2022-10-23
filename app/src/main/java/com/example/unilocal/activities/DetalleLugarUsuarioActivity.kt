@@ -132,16 +132,16 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             address = binding.campoDireccionLayout.hint.toString()
         }
 
-        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
-            val newPlace = Place(place!!.id,name,description,1,
-                place!!.status,idCategory,0f,address,0f,idCity)
-
-            val phones:ArrayList<String> = ArrayList()
-            phones.add(phone)
-            newPlace.phones= phones
-            Places.updatePlace(place!!.id, newPlace)
-            this.finish()
-        }
+//        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
+//            val newPlace = Place(place!!.id,name,description,1,
+//                place!!.status,idCategory,0f,address,0f,idCity)
+//
+//            val phones:ArrayList<String> = ArrayList()
+//            phones.add(phone)
+//            newPlace.phones= phones
+//            Places.updatePlace(place!!.id, newPlace)
+//            this.finish()
+//        }
     }
 
 }

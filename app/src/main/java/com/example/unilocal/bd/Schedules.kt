@@ -1,5 +1,6 @@
 package com.example.unilocal.bd
 
+import android.util.Log
 import com.example.unilocal.models.DayWeek
 import com.example.unilocal.models.Schedule
 
@@ -33,6 +34,7 @@ object Schedules {
     }
 
     fun agregarHorario(horario:Schedule):Schedule{
+        Log.e("Horarios",schedules.size.toString())
         horario.id = schedules.size +1
         schedules.add(horario)
         return horario

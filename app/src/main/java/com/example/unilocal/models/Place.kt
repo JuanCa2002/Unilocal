@@ -10,9 +10,8 @@ class Place (var id:Int,
              var idCreator: Int,
              var status: StatusPlace,
              var idCategory:Int,
-             var latitude: Float,
+             var position: Position,
              var address:String,
-             var length: Float,
              var idCity:Int,
 
              ) {
@@ -21,9 +20,7 @@ class Place (var id:Int,
             var images:ArrayList<String> = ArrayList()
             var schedules:ArrayList<Schedule> = ArrayList()
             var phones: List<String> = ArrayList()
-    override fun toString(): String {
-        return "Place(id=$id, name='$name', description='$description', idCreator=$idCreator, status=$status, idCategory=$idCategory, latitude=$latitude, address='$address', length=$length, idCity=$idCity, creationDate=$creationDate, schedules=$schedules)"
-    }
+
 
     fun estaAbierto():Boolean{
 
@@ -77,13 +74,17 @@ class Place (var id:Int,
         for(schedule in schedules){
             pos = schedule.dayOfWeek.indexOf(DayWeek.values()[dia-1])
             mensaje = if(pos != -1){
-                "${schedule.dayOfWeek[pos-1].toString().lowercase()}  a las ${schedule.startTime}:00"
+                "${schedule.dayOfWeek[pos+1].toString().lowercase()}  a las ${schedule.startTime}:00"
             }else{
                 "${schedule.dayOfWeek[0].toString().lowercase()}  a las ${schedule.startTime}:00"
             }
             break
         }
         return mensaje
+    }
+
+    override fun toString(): String {
+        return "Place(id=$id, name='$name', description='$description', idCreator=$idCreator, status=$status, idCategory=$idCategory, position=$position, address='$address', idCity=$idCity, idModeratorReview=$idModeratorReview, creationDate=$creationDate, images=$images, schedules=$schedules, phones=$phones)"
     }
 
 

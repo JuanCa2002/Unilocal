@@ -6,9 +6,10 @@
     android:background="@color/white"
     tools:context=".fragments.InicioFragment">
 
-    <ImageView
+    <fragment
+        android:id="@+id/mapa_principal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/imagen_fondo_inicio"/>
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

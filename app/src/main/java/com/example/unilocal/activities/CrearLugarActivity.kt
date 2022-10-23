@@ -16,15 +16,27 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.ActivityCrearLugarBinding
 import com.example.unilocal.fragments.DialogSchedulesFragment
 import com.example.unilocal.models.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import java.text.FieldPosition
 
-class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorarioCreadoListener {
+class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorarioCreadoListener,
+    OnMapReadyCallback {
     lateinit var binding: ActivityCrearLugarBinding
     lateinit var categories: ArrayList<Category>
     lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
     var categoryPosition: Int = -1
     lateinit var horarios: ArrayList<Schedule>
+    lateinit var gMap:GoogleMap
+    private val defaultLocation = LatLng(4.550923, -75.6557201)
+    private var tienePermiso = false
+    private var position:Position? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +45,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         horarios = ArrayList()
         loadCities()
         loadCategories()
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapa_crear_lugar) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         binding.btnCreatePlace.setOnClickListener { createPlace() }
         binding.btnAsignarHorario.setOnClickListener { mostrarDialogo()}
     }
@@ -106,19 +120,41 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         }
 
         if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && horarios.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
-            val newPlace = Place(Places.list().size,name,description,1,StatusPlace.SIN_REVISAR,idCategory,0f,address,0f,idCity)
-            val phones:ArrayList<String> = ArrayList()
-            phones.add(phone)
-            newPlace.phones= phones
-            newPlace.schedules = horarios
-            Places.crear(newPlace)
-            Log.e("LUGAR CREADO",newPlace.toString())
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if(position!= null){
+                Log.e("Lugar", Places.list().size.toString())
+                val newPlace = Place(Places.list().size+1,name,description,1,StatusPlace.SIN_REVISAR,idCategory,position!!,address,idCity)
+                val phones:ArrayList<String> = ArrayList()
+                phones.add(phone)
+                newPlace.phones= phones
+                newPlace.schedules = horarios
+                Places.crear(newPlace)
+                Snackbar.make(binding.root,"Lugar creado correctamente",Toast.LENGTH_LONG).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }else{
+                Snackbar.make(binding.root,"Es necesario seleccion la posicion",Toast.LENGTH_LONG).show()
+            }
         }
     }
 
     override fun elegirHorario(horario: Schedule) {
         horarios.add(horario)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        gMap = googleMap
+        gMap.uiSettings.isZoomControlsEnabled = true
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,15f))
+
+        gMap.setOnMapClickListener {
+            if(position == null){
+                position = Position()
+            }
+            position!!.lng = it.longitude
+            position!!.lat = it.latitude
+
+            gMap.clear()
+            gMap.addMarker(MarkerOptions().position(it).title("Aqui esta el lugar"))}
     }
 }
