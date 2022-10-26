@@ -7,17 +7,21 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityRegistroBinding
 import com.example.unilocal.models.City
 import com.example.unilocal.models.User
+import com.example.unilocal.sqlite.UserDbHelper
 import com.google.android.material.snackbar.Snackbar
+import java.lang.Exception
 
 class RegistroActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityRegistroBinding
+    private lateinit var db:UserDbHelper
     lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
 
@@ -27,6 +31,7 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(binding.root)
         loadCities()
         binding.btnRegistro.setOnClickListener{ registraUsuario()}
+        db = UserDbHelper(this)
     }
 
     fun registraUsuario(){
@@ -76,10 +81,17 @@ class RegistroActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
 
-        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= -1){
-            val user = User(1, name, nickname, email, password,idCity)
-            Usuarios.agregar(user)
-            startActivity(Intent(this, LoginActivity::class.java))
+        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= -1){
+
+            val user = User(0, name, nickname, email, password,idCity)
+            try {
+                //Usuarios.agregar(user)
+                db.createUser(user)
+                startActivity(Intent(this, LoginActivity::class.java))
+
+            }catch (e:Exception){
+              Snackbar.make(binding.root,e.message.toString(), Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

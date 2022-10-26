@@ -15,11 +15,13 @@ import com.example.unilocal.databinding.ActivityLoginBinding
 import com.example.unilocal.models.Administrator
 import com.example.unilocal.models.Moderator
 import com.example.unilocal.models.User
+import com.example.unilocal.sqlite.UserDbHelper
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
+    private lateinit var db: UserDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
         val email = sp.getString("correo_usuario","")
         val type = sp.getString("tipo_usuario","")
         val code = sp.getInt("id",0)
+        db = UserDbHelper(this)
+        println(db.listUsers())
 
         if(email!!.isNotEmpty() && type!!.isNotEmpty() && code!= null){
             val intent = Intent(this, MainActivity::class.java)
@@ -47,8 +51,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login() {
-        val correo = binding.emailUsuario.text
-        val password = binding.passwordUsuario.text
+        val correo = binding.emailUsuario.text.toString()
+        val password = binding.passwordUsuario.text.toString()
         if(correo.isEmpty()){
             binding.emailLayout.error = getString(R.string.txt_obligatorio)
         }
@@ -63,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
         if (correo.isNotEmpty() && password.isNotEmpty()) {
+            // Hacerlo mas adelante con la base de datos
             try {
                 val persona = Persons.login(correo.toString(), password.toString())
 
