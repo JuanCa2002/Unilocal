@@ -12,21 +12,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.example.unilocal.R
+import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.MainActivity
 import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentInicioBinding
 import com.example.unilocal.models.StatusPlace
+import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class InicioFragment : Fragment(), OnMapReadyCallback {
+class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
+    lateinit var bd:UniLocalDbHelper
     lateinit var binding: FragmentInicioBinding
     var code:Int = -1
     lateinit var gMap:GoogleMap
@@ -36,6 +40,7 @@ class InicioFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bd = UniLocalDbHelper(requireContext())
         getLocationPermission()
     }
 
@@ -65,9 +70,19 @@ class InicioFragment : Fragment(), OnMapReadyCallback {
         } catch (e: SecurityException) {
             e.printStackTrace()
         }
-        Places.listByStatus(StatusPlace.ACEPTADO).forEach{
-            gMap.addMarker(MarkerOptions().position(LatLng(it.position.lat, it.position.lng)).title(it.name).visible(true))
+        val estado = (requireActivity()as MainActivity).estadoConexion
+        Log.e("Estado ", estado.toString())
+        if(estado){
+            Places.listByStatus(StatusPlace.ACEPTADO).forEach{
+                gMap.addMarker(MarkerOptions().position(LatLng(it.position!!.lat, it.position!!.lng)).title(it.name).visible(true))!!.tag = it.id
+                bd.createPlace(it)
+            }
+        }else{
+           bd.listPlaces().forEach{
+                gMap.addMarker(MarkerOptions().position(LatLng(it.position!!.lat, it.position!!.lng)).title(it.name).visible(true))!!.tag = it.id
+           }
         }
+        gMap.setOnInfoWindowClickListener (this)
         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15F))
     }
 
@@ -106,6 +121,11 @@ class InicioFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onInfoWindowClick(p0: Marker) {
+        val intent = Intent(requireContext(), DetalleLugarActivity::class.java)
+        intent.putExtra("code",p0.tag.toString().toInt())
+        startActivity(intent)
+    }
 
 
 }

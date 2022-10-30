@@ -3,25 +3,22 @@ package com.example.unilocal.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
-import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityRegistroBinding
 import com.example.unilocal.models.City
 import com.example.unilocal.models.User
-import com.example.unilocal.sqlite.UserDbHelper
+import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 class RegistroActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityRegistroBinding
-    private lateinit var db:UserDbHelper
+    private lateinit var db:UniLocalDbHelper
     lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
 
@@ -31,7 +28,7 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(binding.root)
         loadCities()
         binding.btnRegistro.setOnClickListener{ registraUsuario()}
-        db = UserDbHelper(this)
+        db = UniLocalDbHelper(this)
     }
 
     fun registraUsuario(){

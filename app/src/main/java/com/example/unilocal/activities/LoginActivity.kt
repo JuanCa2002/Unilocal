@@ -4,24 +4,20 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 
 import com.example.unilocal.R
 import com.example.unilocal.bd.Persons
-import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityLoginBinding
 import com.example.unilocal.models.Administrator
 import com.example.unilocal.models.Moderator
 import com.example.unilocal.models.User
-import com.example.unilocal.sqlite.UserDbHelper
+import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    private lateinit var db: UserDbHelper
+    private lateinit var db: UniLocalDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         val email = sp.getString("correo_usuario","")
         val type = sp.getString("tipo_usuario","")
         val code = sp.getInt("id",0)
-        db = UserDbHelper(this)
+        db = UniLocalDbHelper(this)
         println(db.listUsers())
 
         if(email!!.isNotEmpty() && type!!.isNotEmpty() && code!= null){

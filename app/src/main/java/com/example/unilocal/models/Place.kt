@@ -1,25 +1,55 @@
 package com.example.unilocal.models
 
+import android.content.ContentValues
+import com.example.unilocal.sqlite.PlaceContract
+import com.example.unilocal.sqlite.UserContract
 import java.time.LocalDateTime
 import java.util.*
+import java.util.function.DoubleUnaryOperator
 import kotlin.collections.ArrayList
 
-class Place (var id:Int,
-             var name: String,
-             var description: String,
-             var idCreator: Int,
-             var status: StatusPlace,
-             var idCategory:Int,
-             var position: Position,
-             var address:String,
-             var idCity:Int,
+class Place () {
 
-             ) {
+    constructor( id:Int, name: String, description: String, idCreator: Int, status: StatusPlace, idCategory:Int, position: Position, address:String, idCity:Int) :this(){
+                    this.id = id
+                    this.name = name
+                    this.description = description
+                    this.idCreator = idCreator
+                    this.status = status
+                    this.idCategory = idCategory
+                    this.position = position
+                    this.address = address
+                    this.idCity = idCity
+                 }
+            var id:Int = 0
+            var name: String = ""
+            var description: String= ""
+            var idCreator: Int = 0
+            var status: StatusPlace = StatusPlace.SIN_REVISAR
+            var idCategory:Int  = 0
+            var position: Position? = null
+            var address:String = ""
+            var idCity:Int = 0
             var idModeratorReview: Int = 0
             var creationDate: Date = Date()
             var images:ArrayList<String> = ArrayList()
             var schedules:ArrayList<Schedule> = ArrayList()
             var phones: List<String> = ArrayList()
+
+    constructor(id:Int, name:String, description: String, lat: Double, lng: Double, address: String, idCategory: Int, idCreator: Int):this(){
+        this.id = id
+        this.name = name
+        this.description = description
+        val pos = Position(lat, lng)
+        this.position = pos
+        this.address = address
+        this.idCategory = idCategory
+        this.idCreator = idCreator
+    }
+
+    constructor(id:Int):this(){
+        this.id = id
+    }
 
 
     fun estaAbierto():Boolean{
@@ -81,6 +111,20 @@ class Place (var id:Int,
             break
         }
         return mensaje
+    }
+
+    fun toContentValues(): ContentValues {
+        val values = ContentValues()
+        values.put(PlaceContract.NOMBRE,id)
+        values.put(PlaceContract.NOMBRE,name)
+        values.put(PlaceContract.DESCRIPCION,description)
+        values.put(PlaceContract.DIRECCION,address)
+        values.put(PlaceContract.LAT,position?.lat)
+        values.put(PlaceContract.LNG, position?.lng)
+        values.put(PlaceContract.CATEGORIA,idCategory)
+        values.put(PlaceContract.ID_CREADOR, idCreator)
+
+        return values
     }
 
     override fun toString(): String {

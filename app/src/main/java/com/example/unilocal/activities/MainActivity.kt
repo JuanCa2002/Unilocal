@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +16,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.unilocal.R
@@ -21,6 +26,7 @@ import com.example.unilocal.databinding.ActivityMainBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.fragments.MyPlacesFragment
+import com.example.unilocal.utils.ConectionStatus
 import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
 
@@ -31,11 +37,15 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private var MENU_FAVORITOS = "favoritos"
     lateinit var binding: ActivityMainBinding
     var codeUser: Int = -1
+    var estadoConexion: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        comprobarConexionInternet()
+
         sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
         codeUser = sharedPreferences.getInt("id",-1)
         if(codeUser != -1){
@@ -145,5 +155,24 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val localeUpdatedContext: ContextWrapper? = Idioma.cambiarIdioma(newBase!!)
         super.attachBaseContext(localeUpdatedContext)
     }
+
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
+                ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager?.let {
+                it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
+            }
+        }else{
+            val request =
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request,
+                ConectionStatus(::comprobarConexion))
+        }
+    }
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
+    }
+
 
 }
