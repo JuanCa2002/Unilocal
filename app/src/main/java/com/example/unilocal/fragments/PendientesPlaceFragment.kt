@@ -56,7 +56,7 @@ class PendientesPlaceFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 var pos = viewHolder.adapterPosition
-                val codePlace = places[pos].id
+                val codePlace = places[pos].key
                 val place = Places.obtener(codePlace)
                 when(direction){
                     ItemTouchHelper.LEFT -> {
@@ -117,9 +117,9 @@ class PendientesPlaceFragment : Fragment() {
     }
 
     companion object{
-        fun newInstance(codeModerator: Int):PendientesPlaceFragment{
+        fun newInstance(codeModerator: String?):PendientesPlaceFragment{
             val args = Bundle()
-            args.putInt("code_moderator",codeModerator)
+            args.putString("code_moderator",codeModerator)
             val fragment = PendientesPlaceFragment()
             fragment.arguments = args
             return fragment

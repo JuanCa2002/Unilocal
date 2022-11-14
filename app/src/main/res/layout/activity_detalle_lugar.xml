@@ -43,14 +43,13 @@
                     android:textColor="@color/white"/>
             </LinearLayout>
 
-            <View
-                android:id="@+id/imagen_detalles_lugar"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/images_list"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginTop="80dp"
-                android:background="@color/gray">
+                android:background="@color/gray"/>
 
-            </View>
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout

@@ -15,13 +15,17 @@ import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentFavoritesBinding
 import com.example.unilocal.databinding.FragmentMyPlacesBinding
 import com.example.unilocal.models.Place
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 
 class FavoritesFragment : Fragment() {
     lateinit var binding: FragmentFavoritesBinding
     lateinit var adapter: PlaceAdapter
     var places: ArrayList<Place> = ArrayList()
-    var code:Int? = -1
+    var code:String? = ""
     var bundle:Bundle = Bundle()
 
     override fun onCreateView(
@@ -30,11 +34,9 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoritesBinding.inflate(inflater,container,false)
-        code = this.bundle.getInt("code")
-
-        if(code!=null) {
-            Usuarios.getListFavoritesUser(places, code!!)
-            //Log.e("FavoritesFragment", placesFavorites.toString())
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user!=null) {
+            code = user.uid
             adapter = PlaceAdapter(places, "Busqueda")
             binding.listFavorites.adapter = adapter
             binding.listFavorites.layoutManager =
@@ -45,10 +47,26 @@ class FavoritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if(code!=null) {
-            Usuarios.getListFavoritesUser(places, code!!)
-            adapter.notifyDataSetChanged()
-        }
+        places.clear()
+        Firebase.firestore
+            .collection("users")
+            .document(code!!)
+            .collection("favorites")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    Firebase.firestore
+                        .collection("placesF")
+                        .document(doc.id)
+                        .get()
+                        .addOnSuccessListener {l->
+                            val place = l.toObject(Place::class.java)
+                            place!!.key = l.id
+                            places.add(place)
+                            adapter.notifyDataSetChanged()
+                        }
+                }
+            }
     }
 
 }

@@ -8,8 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_below="@id/imagen_detalles_lugar">
+        android:layout_height="280dp">
 
         <View
             android:layout_width="wrap_content"

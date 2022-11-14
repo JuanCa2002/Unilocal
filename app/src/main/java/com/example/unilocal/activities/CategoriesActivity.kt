@@ -20,12 +20,16 @@ import com.example.unilocal.bd.*
 import com.example.unilocal.databinding.ActivityCategoriesBinding
 import com.example.unilocal.models.Category
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     lateinit var categories: ArrayList<Category>
     lateinit var binding: ActivityCategoriesBinding
-    private lateinit var sharedPreferences: SharedPreferences
     var code: Int = -1
     var places:ArrayList<Place> = ArrayList()
     var categoryPosition: Int = -1
@@ -37,33 +41,18 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         loadCategories()
         var menu = this.findViewById<Button>(com.example.unilocal.R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-        sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        code = sharedPreferences.getInt("id",-1)
-        var typeUser = sharedPreferences.getString("tipo_usuario","")
-        code = sharedPreferences.getInt("id",-1)
-        if(code != -1) {
-            if (typeUser == "Usuario") {
-                val usuario = Usuarios.getUser(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(com.example.unilocal.R.id.name_user_session).text =
-                    usuario!!.nombre
-                header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text =
-                    usuario!!.correo
-            } else if (typeUser == "Moderador") {
-                val moderator = Moderators.obtener(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(com.example.unilocal.R.id.name_user_session).text =
-                    moderator!!.nombre
-                header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text =
-                    moderator!!.correo
-            } else {
-                val administrator = Administrators.obtener(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(com.example.unilocal.R.id.name_user_session).text =
-                    administrator!!.nombre
-                header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text =
-                    administrator!!.correo
-            }
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            Firebase.firestore
+                .collection("users")
+                .document(userLogin.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(com.example.unilocal.R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
+                    header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text = userLogin.email
+
+                }
         }
         binding.navigationView.setNavigationItemSelectedListener(this)
         binding.filter.setOnClickListener { loadPlacesByCategory() }
@@ -110,10 +99,11 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     fun cerrarSesion(){
-        sharedPreferences.edit().clear().commit()
-        finish()
+        FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        startActivity( intent )
+        finish()
+
     }
 
     fun loadPlacesByCategory(){

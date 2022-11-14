@@ -14,8 +14,11 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import com.example.unilocal.R
 import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.MainActivity
+import com.example.unilocal.bd.Categories
+import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentInicioBinding
+import com.example.unilocal.models.Place
 import com.example.unilocal.models.StatusPlace
 import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.gms.location.LocationServices
@@ -26,6 +29,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 
 class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
@@ -71,15 +77,26 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
             e.printStackTrace()
         }
         val estado = (requireActivity()as MainActivity).estadoConexion
-        Log.e("Estado ", estado.toString())
         if(estado){
-            Places.listByStatus(StatusPlace.ACEPTADO).forEach{
-                gMap.addMarker(MarkerOptions().position(LatLng(it.position!!.lat, it.position!!.lng)).title(it.name).visible(true))!!.tag = it.id
-                bd.createPlace(it)
-            }
+
+            Firebase.firestore
+                .collection("placesF")
+                .whereEqualTo("status",StatusPlace.ACEPTADO)
+                .get()
+                .addOnSuccessListener {
+                   for(doc in it){
+                       var place = doc.toObject(Place::class.java)
+                       place.key = doc.id
+
+                       gMap.addMarker(MarkerOptions().position(LatLng(place.position!!.lat, place.position!!.lng)).title(place.name).visible(true))!!.tag = place.key
+                       //bd.createPlace(place)
+                   }
+                }.addOnFailureListener{
+                    Log.e("FAIL_LUGARES",it.message.toString())
+                }
         }else{
            bd.listPlaces().forEach{
-                gMap.addMarker(MarkerOptions().position(LatLng(it.position!!.lat, it.position!!.lng)).title(it.name).visible(true))!!.tag = it.id
+                gMap.addMarker(MarkerOptions().position(LatLng(it.position!!.lat, it.position!!.lng)).title(it.name).visible(true))!!.tag = it.key
            }
         }
         gMap.setOnInfoWindowClickListener (this)
@@ -123,7 +140,7 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
 
     override fun onInfoWindowClick(p0: Marker) {
         val intent = Intent(requireContext(), DetalleLugarActivity::class.java)
-        intent.putExtra("code",p0.tag.toString().toInt())
+        intent.putExtra("code",p0.tag.toString())
         startActivity(intent)
     }
 

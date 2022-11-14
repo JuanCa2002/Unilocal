@@ -26,12 +26,17 @@ import com.example.unilocal.databinding.ActivityMainBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.fragments.MyPlacesFragment
+import com.example.unilocal.models.User
 import com.example.unilocal.utils.ConectionStatus
 import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var sharedPreferences:SharedPreferences
     private var MENU_INICIO = "Inicio"
     private var MENU_MIS_LUGARES = "Mis lugares"
     private var MENU_FAVORITOS = "favoritos"
@@ -46,13 +51,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         comprobarConexionInternet()
 
-        sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE)
-        codeUser = sharedPreferences.getInt("id",-1)
-        if(codeUser != -1){
-            val usuario = Usuarios.getUser(codeUser)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = usuario!!.nombre
-            header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            Firebase.firestore
+                .collection("users")
+                .document(userLogin.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val header = binding.navigationView.getHeaderView(0)
+                        header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
+                        header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
+
+                }
         }
         changeFragments(2,MENU_INICIO)
         binding.barraInferior.setOnItemSelectedListener {
@@ -73,29 +83,23 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
 
     fun cerrarSesion(){
-        sharedPreferences.edit().clear().commit()
-        finish()
+        FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        startActivity( intent )
+        finish()
+
     }
 
     fun changeFragments(valor:Int, nombre:String){
         var fragment:Fragment
         if(valor ==  1){
-            val bundle:Bundle = Bundle()
-            bundle.putInt("code", codeUser)
             fragment = FavoritesFragment()
-            fragment.bundle = bundle
         }else if(valor == 2){
-            val bundle:Bundle = Bundle()
-            bundle.putInt("code", codeUser)
             fragment = InicioFragment()
-            fragment.bundle = bundle
+
         }else{
-            val bundle:Bundle = Bundle()
-            bundle.putInt("code", codeUser)
             fragment = MyPlacesFragment()
-            fragment.bundle = bundle
+
         }
        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
            .addToBackStack(nombre)

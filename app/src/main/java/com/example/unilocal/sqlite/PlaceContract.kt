@@ -11,4 +11,5 @@ object PlaceContract {
     val DIRECCION = "direccion"
     val CATEGORIA = "id_categoria"
     val ID_CREADOR = "id_creador"
+    val KEY_FIREBASE = "key_firebase"
 }

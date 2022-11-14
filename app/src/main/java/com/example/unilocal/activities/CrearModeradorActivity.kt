@@ -9,13 +9,11 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
-import com.example.unilocal.bd.Moderators
-import com.example.unilocal.bd.Places
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityCrearModeradorBinding
 import com.example.unilocal.models.City
-import com.example.unilocal.models.Moderator
-import com.example.unilocal.models.Place
-import com.example.unilocal.models.StatusPlace
+import com.example.unilocal.models.Rol
+import com.example.unilocal.models.User
 
 class CrearModeradorActivity : AppCompatActivity() {
     lateinit var binding: ActivityCrearModeradorBinding
@@ -88,8 +86,9 @@ class CrearModeradorActivity : AppCompatActivity() {
         }
 
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != -1 ){
-           val moderator = Moderator(Moderators.listar().size+1, nombre, nickname,correo,password, idCity)
-           Moderators.createModerator(moderator)
+           val moderator = User(Usuarios.listar().size+1, nombre,correo, idCity,
+               Rol.MODERATOR)
+           Usuarios.agregar(moderator)
             val intent = Intent(this, GestionModeratorActivity::class.java)
             startActivity(intent)
         }

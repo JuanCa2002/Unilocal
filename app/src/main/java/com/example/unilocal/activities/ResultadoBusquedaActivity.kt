@@ -12,10 +12,7 @@ import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.R
-import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
-import com.example.unilocal.bd.Administrators
-import com.example.unilocal.bd.Moderators
 import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityResultadoBusquedaBinding
@@ -27,7 +24,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     lateinit var placesCoincidences:ArrayList<Place>
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
-    var code:Int = -1
+    var code:String? = ""
     lateinit var adapter: PlaceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,25 +34,11 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
         textSearch = intent.extras!!.getString("txt_search","")
         placesCoincidences = ArrayList()
-        var typeUser = sharedPreferences.getString("tipo_usuario","")
-        code = sharedPreferences.getInt("id",-1)
-        if(code != -1){
-            if(typeUser == "Usuario"){
-                val usuario = Usuarios.getUser(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(R.id.name_user_session).text = usuario!!.nombre
-                header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
-            }else if(typeUser == "Moderador"){
-                val moderator = Moderators.obtener(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(R.id.name_user_session).text = moderator!!.nombre
-                header.findViewById<TextView>(R.id.email_user_session).text = moderator!!.correo
-            }else{
-                val administrator = Administrators.obtener(code)
-                val header = binding.navigationView.getHeaderView(0)
-                header.findViewById<TextView>(R.id.name_user_session).text = administrator!!.nombre
-                header.findViewById<TextView>(R.id.email_user_session).text = administrator!!.correo
-            }
+        if(code != ""){
+            val usuario = Usuarios.getUser(code)
+            val header = binding.navigationView.getHeaderView(0)
+            header.findViewById<TextView>(R.id.name_user_session).text = usuario!!.nombre
+            //header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
         }
 
         if(textSearch.isNotEmpty()){

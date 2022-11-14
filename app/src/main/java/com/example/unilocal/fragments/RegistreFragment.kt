@@ -40,9 +40,9 @@ class RegistreFragment : Fragment() {
     }
 
     companion object{
-        fun newInstance(codeModerator: Int):RegistreFragment{
+        fun newInstance(codeModerator: String?):RegistreFragment{
             val args = Bundle()
-            args.putInt("code_moderator",codeModerator)
+            args.putString("code_moderator",codeModerator)
             val fragment = RegistreFragment()
             fragment.arguments = args
             return fragment

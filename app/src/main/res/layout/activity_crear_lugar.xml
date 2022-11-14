@@ -162,6 +162,63 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/gray" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:textSize="18sp"
+                android:text="Seleccion de imagenes"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:gravity="center"
+                android:weightSum="100"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_sel_archivo"
+                    android:layout_width="0dp"
+                    android:layout_weight="50"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="60dp"
+                    android:text="Seleccionar archivo" />
+
+                <Button
+                    android:id="@+id/btn_tomar_foto"
+                    android:layout_width="0dp"
+                    android:layout_weight="40"
+                    android:layout_height="60dp"
+                    android:text="Tomar foto" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imagenes_seleccionadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="35dp"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
             <fragment
                 android:id="@+id/mapa_crear_lugar"
                 android:layout_width="match_parent"
@@ -178,6 +235,7 @@
                 android:text="@string/txt_create_place"></Button>
 
         </LinearLayout>
+
 
     </ScrollView>
 

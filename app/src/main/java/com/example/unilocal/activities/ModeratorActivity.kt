@@ -3,52 +3,35 @@ package com.example.unilocal.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
-import com.example.unilocal.adapter.PlaceAdapter
-import com.example.unilocal.bd.Moderators
-import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityModeratorBinding
 import com.example.unilocal.fragments.*
-import com.example.unilocal.models.Moderator
-import com.example.unilocal.models.Place
-import com.example.unilocal.models.StatusPlace
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     private lateinit var sharedPreferences: SharedPreferences
     private var MENU_PENDIENTES = "Pendiente"
     private var MENU_REGISTRO = "Registro"
     lateinit var binding: ActivityModeratorBinding
-    var codeModerator: Int = -1
+    var codeModerator: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityModeratorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        codeModerator = sharedPreferences.getInt("id",-1)
-        if(codeModerator != -1){
-            val moderator = Moderators.obtener(codeModerator)
+        if(codeModerator != ""){
+            val moderator = Usuarios.getUser(codeModerator)
             val header = binding.navigationView.getHeaderView(0)
             header.findViewById<TextView>(R.id.name_user_session).text = moderator!!.nombre
-            header.findViewById<TextView>(R.id.email_user_session).text = moderator!!.correo
+            //header.findViewById<TextView>(R.id.email_user_session).text = moderator!!.correo
         }
         changeFragments(1, MENU_PENDIENTES)
         binding.barraInferiorModerator.setOnItemSelectedListener {

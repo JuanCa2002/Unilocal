@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.unilocal.fragments.CommentsPlaceFragment
 import com.example.unilocal.fragments.InfoPlaceFragment
 
-class ViewPagerAdapter(var fragment:FragmentActivity, var codigoLugar:Int):FragmentStateAdapter(fragment) {
+class ViewPagerAdapter(var fragment:FragmentActivity, var codigoLugar:String):FragmentStateAdapter(fragment) {
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {

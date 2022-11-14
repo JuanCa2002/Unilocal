@@ -10,7 +10,8 @@ import kotlin.collections.ArrayList
 
 class Place () {
 
-    constructor( id:Int, name: String, description: String, idCreator: Int, status: StatusPlace, idCategory:Int, position: Position, address:String, idCity:Int) :this(){
+
+    constructor( id:Int, name: String, description: String, idCreator: String, status: StatusPlace, idCategory:Int, position: Position, address:String, idCity:Int) :this(){
                     this.id = id
                     this.name = name
                     this.description = description
@@ -22,9 +23,10 @@ class Place () {
                     this.idCity = idCity
                  }
             var id:Int = 0
+            var key:String = ""
             var name: String = ""
             var description: String= ""
-            var idCreator: Int = 0
+            var idCreator: String = ""
             var status: StatusPlace = StatusPlace.SIN_REVISAR
             var idCategory:Int  = 0
             var position: Position? = null
@@ -36,7 +38,7 @@ class Place () {
             var schedules:ArrayList<Schedule> = ArrayList()
             var phones: List<String> = ArrayList()
 
-    constructor(id:Int, name:String, description: String, lat: Double, lng: Double, address: String, idCategory: Int, idCreator: Int):this(){
+    constructor(id:Int, name:String, description: String, lat: Double, lng: Double, address: String, idCategory: Int, idCreator: String):this(){
         this.id = id
         this.name = name
         this.description = description
@@ -104,7 +106,7 @@ class Place () {
         for(schedule in schedules){
             pos = schedule.dayOfWeek.indexOf(DayWeek.values()[dia-1])
             mensaje = if(pos != -1){
-                "${schedule.dayOfWeek[pos+1].toString().lowercase()}  a las ${schedule.startTime}:00"
+                "${schedule.dayOfWeek[pos-1].toString().lowercase()}  a las ${schedule.startTime}:00"
             }else{
                 "${schedule.dayOfWeek[0].toString().lowercase()}  a las ${schedule.startTime}:00"
             }
@@ -116,6 +118,7 @@ class Place () {
     fun toContentValues(): ContentValues {
         val values = ContentValues()
         values.put(PlaceContract.NOMBRE,id)
+        values.put(PlaceContract.KEY_FIREBASE,key)
         values.put(PlaceContract.NOMBRE,name)
         values.put(PlaceContract.DESCRIPCION,description)
         values.put(PlaceContract.DIRECCION,address)

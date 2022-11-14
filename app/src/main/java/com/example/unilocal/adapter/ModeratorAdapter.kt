@@ -4,17 +4,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unilocal.R
 import com.example.unilocal.activities.DatallesModeradorActivity
-import com.example.unilocal.activities.DetalleLugarActivity
-import com.example.unilocal.activities.GestionModeratorActivity
-import com.example.unilocal.models.Moderator
-import com.example.unilocal.models.Place
+import com.example.unilocal.models.User
 
-class ModeratorAdapter(var moderators:ArrayList<Moderator>): RecyclerView.Adapter<ModeratorAdapter.ViewHolder>() {
+class ModeratorAdapter(var moderators:ArrayList<User>): RecyclerView.Adapter<ModeratorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_moderator_layout,parent, false)
@@ -38,10 +34,10 @@ class ModeratorAdapter(var moderators:ArrayList<Moderator>): RecyclerView.Adapte
             itemView.setOnClickListener (this)
         }
 
-        fun bind(moderator: Moderator){
+        fun bind(moderator: User){
             name.text = moderator.nombre
             nickname.text = moderator.nickname
-            email.text = moderator.correo
+            //email.text = moderator.correo
             codeModerator = moderator.id
 
         }

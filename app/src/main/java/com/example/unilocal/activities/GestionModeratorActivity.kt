@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -13,31 +12,28 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
-import com.example.unilocal.bd.Administrators
-import com.example.unilocal.bd.Moderators
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityGestionModeratorBinding
-import com.example.unilocal.models.Moderator
+import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
 
 class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var binding: ActivityGestionModeratorBinding
-    lateinit var moderators : ArrayList<Moderator>
-    var codeAdministrador: Int = -1
+    lateinit var moderators : ArrayList<User>
+    var codeAdministrador: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGestionModeratorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        codeAdministrador = sharedPreferences.getInt("id",-1)
-        if(codeAdministrador != -1){
-            val administrator = Administrators.obtener(codeAdministrador)
+        if(codeAdministrador != ""){
+            val administrator = Usuarios.getUser(codeAdministrador)
             val header = binding.navigationView.getHeaderView(0)
             header.findViewById<TextView>(R.id.name_user_session).text = administrator!!.nombre
-            header.findViewById<TextView>(R.id.email_user_session).text = administrator!!.correo
+            //header.findViewById<TextView>(R.id.email_user_session).text = administrator!!.correo
         }
-        moderators = Moderators.listar()
+        moderators = Usuarios.listarModeradores()
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
         val adapter = ModeratorAdapter(moderators)

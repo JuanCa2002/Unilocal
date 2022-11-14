@@ -14,7 +14,6 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
                 "  ${UserContract.ID} INTEGER primary key AUTOINCREMENT," +
                 " ${UserContract.NOMBRE} varchar(100) not null," +
                 " ${UserContract.NICKNAME} varchar(100) not null unique, " +
-                " ${UserContract.CORREO} varchar(150) not null unique," +
                 " ${UserContract.PASSWORD} varchar(50) not null," +
                 " ${UserContract.ID_CITY} int"+
                 "  )")
@@ -22,6 +21,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         p0?.execSQL("create table ${PlaceContract.TABLE_NAME}(" +
                 "  ${PlaceContract.ID} INTEGER primary key," +
                 " ${PlaceContract.NOMBRE} varchar(100) not null," +
+                " ${PlaceContract.KEY_FIREBASE} varchar(100) not null," +
                 " ${PlaceContract.DESCRIPCION} text not null, " +
                 " ${PlaceContract.LAT} double not null ," +
                 " ${PlaceContract.LNG} double not null," +
@@ -84,12 +84,12 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
             arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME,
-            UserContract.CORREO, UserContract.PASSWORD, UserContract.ID_CITY),
+              UserContract.PASSWORD, UserContract.ID_CITY),
             null, null, null, null, null
         )
         if(c.moveToFirst()){
             do{
-              users.add(User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4), c.getInt(5)))
+              //users.add(User(c.getInt(0),c.getString(1), c.getString(2), c.getInt(3),c.getString(4))
             } while (c.moveToNext())
         }
         return users
@@ -105,7 +105,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         )
         if(c.moveToFirst()){
             do{
-                places.add(Place(c.getInt(0),c.getString(1), c.getString(2),c.getDouble(3),c.getDouble(4), c.getString(5), c.getInt(6), c.getInt(7)))
+                //places.add(Place(c.getInt(0),c.getString(1), c.getString(2),c.getDouble(3),c.getDouble(4), c.getString(5), c.getInt(6), c.getInt(7)))
             } while (c.moveToNext())
         }
         return places
@@ -115,12 +115,11 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         var user:User? = null
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME,
-                UserContract.CORREO, UserContract.PASSWORD, UserContract.ID_CITY),
+            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.PASSWORD, UserContract.ID_CITY),
             "${UserContract.ID} = ?", arrayOf(id.toString()), null, null, null
         )
         if(c.moveToFirst()){
-            user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4), c.getInt(5))
+            //user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3), c.getInt(4))
         }
         return user
     }
@@ -147,7 +146,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
             "${UserContract.CORREO} = ? and ${UserContract.PASSWORD} = ?", arrayOf(correo, password), null, null, null
         )
         if(c.moveToFirst()){
-            user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4), c.getInt(5))
+            //user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4), c.getInt(5))
         }
         return user
     }

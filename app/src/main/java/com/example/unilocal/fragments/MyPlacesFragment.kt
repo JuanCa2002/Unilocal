@@ -15,14 +15,20 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentMyPlacesBinding
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 
 class MyPlacesFragment : Fragment() {
     lateinit var binding: FragmentMyPlacesBinding
     lateinit var adapter: PlaceAdapter
     var placesByUser: ArrayList<Place> = ArrayList()
-    var code:Int? = -1
     var bundle:Bundle = Bundle()
+    var user: FirebaseUser? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,25 +36,33 @@ class MyPlacesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMyPlacesBinding.inflate(inflater,container,false)
-        code = this.bundle.getInt("code")
-        placesByUser = Places.listByUser(code!!, placesByUser)
-        adapter = PlaceAdapter(placesByUser,"user")
-        binding.listPlacesSearch.adapter = adapter
-        binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        user = FirebaseAuth.getInstance().currentUser
+        if(user!= null){
+            adapter = PlaceAdapter(placesByUser,"user")
+            binding.listPlacesSearch.adapter = adapter
+            binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        }
         return binding.root
-    }
-
-    fun irCrearLugar(){
-        val intent = Intent(activity, CrearLugarActivity::class.java)
-        startActivity(intent)
     }
 
     override fun onResume() {
         super.onResume()
-        if(code!=null) {
-            Log.e("places",placesByUser.toString())
-            placesByUser = Places.listByUser(code!!, placesByUser)
-            adapter.notifyDataSetChanged()
+        placesByUser.clear()
+        if(user!=null) {
+            Firebase.firestore
+                .collection("placesF")
+                .whereEqualTo("idCreator", user!!.uid)
+                .whereEqualTo("status",StatusPlace.ACEPTADO)
+                .get()
+                .addOnSuccessListener {
+                    for(doc in it){
+                        val place = doc.toObject(Place::class.java)
+                        place.key = doc.id
+                        placesByUser.add(place)
+                        //adapter.notifyItemInserted(placesByUser.size-1)
+                    }
+                 adapter.notifyDataSetChanged()
+                }
         }
     }
 

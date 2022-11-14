@@ -1,18 +1,27 @@
 package com.example.unilocal.activities
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.databinding.ActivityRegistroBinding
 import com.example.unilocal.models.City
+import com.example.unilocal.models.Rol
 import com.example.unilocal.models.User
 import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
 class RegistroActivity : AppCompatActivity() {
@@ -21,6 +30,8 @@ class RegistroActivity : AppCompatActivity() {
     private lateinit var db:UniLocalDbHelper
     lateinit var cities: ArrayList<City>
     var cityPosition: Int = -1
+    lateinit var dialog: Dialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +39,11 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(binding.root)
         loadCities()
         binding.btnRegistro.setOnClickListener{ registraUsuario()}
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialogo_progreso)
+        dialog = builder.create()
+
         db = UniLocalDbHelper(this)
     }
 
@@ -38,6 +54,8 @@ class RegistroActivity : AppCompatActivity() {
         val password = binding.userPassword.text.toString()
         val idCity = cities[cityPosition].id
         val confirmPassword = binding.userPasswordConfirm.text.toString()
+
+        setDialog(true)
 
         if(confirmPassword.isEmpty()){
             binding.nameLayout.error = getString(R.string.txt_obligatorio)
@@ -79,16 +97,35 @@ class RegistroActivity : AppCompatActivity() {
         }
 
         if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= -1){
+            Log.e("Correo", email)
+            Log.e("Password", password)
+            FirebaseAuth.getInstance()
+                .createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener {
+                    if(it.isSuccessful){
+                        val user = FirebaseAuth.getInstance().currentUser
+                        if(user != null){
+                            verificarEmail(user)
+                            val userRegister = User(0, name, nickname,idCity, Rol.USER)
+                            Firebase.firestore
+                                .collection("users")
+                                .document(user.uid)
+                                .set(userRegister)
+                                .addOnSuccessListener {
+                                    Snackbar.make(binding.root,"Te has registrado con exito", Snackbar.LENGTH_LONG).show()
+                                    setDialog(false)
+                                    startActivity(Intent(this, LoginActivity::class.java))
+                                    finish()
+                                }
+                        }
+                    }
 
-            val user = User(0, name, nickname, email, password,idCity)
-            try {
-                //Usuarios.agregar(user)
-                db.createUser(user)
-                startActivity(Intent(this, LoginActivity::class.java))
-
-            }catch (e:Exception){
-              Snackbar.make(binding.root,e.message.toString(), Snackbar.LENGTH_LONG).show()
-            }
+                }.addOnFailureListener {
+                    setDialog(false)
+                    Snackbar.make(binding.root,it.message.toString(), Snackbar.LENGTH_LONG).show()
+                }
+        }else{
+            setDialog(false)
         }
     }
 
@@ -105,4 +142,20 @@ class RegistroActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun verificarEmail(user: FirebaseUser){
+        user.sendEmailVerification().addOnCompleteListener(this){
+            if(it.isSuccessful){
+                Toast.makeText(baseContext, "Email enviado", Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(baseContext, "Error", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
+    }
+
+
 }

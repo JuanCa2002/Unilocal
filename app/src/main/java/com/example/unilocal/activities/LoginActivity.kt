@@ -4,15 +4,20 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import com.example.unilocal.R
-import com.example.unilocal.bd.Persons
+import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityLoginBinding
-import com.example.unilocal.models.Administrator
-import com.example.unilocal.models.Moderator
+import com.example.unilocal.models.Rol
 import com.example.unilocal.models.User
 import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
@@ -21,28 +26,21 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sp = getSharedPreferences("sesion",Context.MODE_PRIVATE)
-        val email = sp.getString("correo_usuario","")
-        val type = sp.getString("tipo_usuario","")
-        val code = sp.getInt("id",0)
+//        val sp = getSharedPreferences("sesion",Context.MODE_PRIVATE)
+//        val email = sp.getString("correo_usuario","")
+//        val type = sp.getString("tipo_usuario","")
+//        val code = sp.getInt("id",0)
         db = UniLocalDbHelper(this)
-        println(db.listUsers())
 
-        if(email!!.isNotEmpty() && type!!.isNotEmpty() && code!= null){
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("code",code)
-            when(type){
-                "Administrador" -> startActivity(Intent(this, GestionModeratorActivity::class.java))
-                "Usuario" -> startActivity( intent )
-                "Moderador"-> startActivity( Intent(this, ModeratorActivity::class.java) )
-            }
-            finish()
-        }else{
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            makeRedirection(userLogin)
+        } else{
             binding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
             binding.btnLogin.setOnClickListener { login() }
             binding.btnRegistro.setOnClickListener{ registrar() }
-        }
+      }
 
     }
 
@@ -64,35 +62,52 @@ class LoginActivity : AppCompatActivity() {
         }
         if (correo.isNotEmpty() && password.isNotEmpty()) {
             // Hacerlo mas adelante con la base de datos
-            try {
-                val persona = Persons.login(correo.toString(), password.toString())
-
-                if(persona !=null){
-                    val type = if(persona is User) "Usuario" else if(persona is Moderator) "Moderador" else "Administrador"
-                    val sharedPreferences= this.getSharedPreferences("sesion",Context.MODE_PRIVATE).edit()
-                    sharedPreferences.putString("correo_usuario", persona.correo)
-                    sharedPreferences.putString("tipo_usuario",type)
-                    sharedPreferences.putInt("id",persona.id)
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("code",persona.id)
-                    sharedPreferences.commit()
-                    when(persona){
-                        is Administrator -> startActivity(Intent(this, GestionModeratorActivity::class.java)  )
-                        is User -> startActivity(intent )
-                        is Moderator -> startActivity( Intent(this, ModeratorActivity::class.java) )
-                    }
+            FirebaseAuth.getInstance()
+                        .signInWithEmailAndPassword(correo, password)
+                        .addOnCompleteListener {
+                             if(it.isSuccessful){
+                                 val userLogin = FirebaseAuth.getInstance().currentUser
+                                 Log.e("Llego ", userLogin.toString())
+                                 if(userLogin!=null){
+                                     Log.e("Llego ", userLogin.toString())
+                                     makeRedirection(userLogin)
+                                 }
+                             }else{
+                                 Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
+                             }
+                        }.addOnFailureListener{
+                            Snackbar.make(binding.root,it.message.toString(),Snackbar.LENGTH_LONG).show()
+                        }
                 }else{
                     Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
                 }
-            } catch (e: Exception) {
-                Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
-            }
-        }
+
     }
 
     fun registrar() {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
+    }
+
+    fun makeRedirection(user:FirebaseUser){
+        Firebase.firestore
+            .collection("users")
+            .document(user.uid)
+            .get()
+            .addOnSuccessListener { u ->
+                    val rol = u.toObject(User::class.java)!!.rol
+                    val intent = when(rol){
+                        Rol.ADMINISTRATOR -> Intent(this, GestionModeratorActivity::class.java)
+                        Rol.USER-> Intent(this, MainActivity::class.java)
+                        Rol.MODERATOR -> Intent(this, ModeratorActivity::class.java)
+                    }
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity( intent )
+                    finish()
+
+            }.addOnFailureListener {
+                Log.e("USUARIO", it.message.toString())
+            }
     }
 
 }

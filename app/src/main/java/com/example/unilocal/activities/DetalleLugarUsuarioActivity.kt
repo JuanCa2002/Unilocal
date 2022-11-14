@@ -17,14 +17,18 @@ import com.example.unilocal.bd.*
 import com.example.unilocal.databinding.ActivityDetalleLugarUsuarioBinding
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.models.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class DetalleLugarUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetalleLugarUsuarioBinding
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
     lateinit var categories: ArrayList<Category>
-    var codePlace:Int = -1
-    var codeUser:Int = -1
+    var codePlace:String? = ""
+    var codeUser:String? = ""
     var pos: Int = -1
     var categoryPosition: Int = -1
     var cityPosition: Int = -1
@@ -35,23 +39,34 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleLugarUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val sp = getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        codeUser = sp.getInt("id",0)
-        pos = intent.extras!!.getInt("position")
-        codePlace= intent.extras!!.getInt("code")
-        placesByUser = Places.listByUser(codeUser, placesByUser)
-        placeAdapter = PlaceAdapter(placesByUser,"usuario")
-        place = Places.obtener(codePlace)
-        if(place != null){
-            binding.nombreLayout.hint = place!!.name
-            binding.telefonoLayout.hint = "311"
-            binding.campoDireccionLayout.hint= place!!.address
-            binding.descripcionLayout.hint = place!!.description
+        codePlace =  intent.extras!!.getString("code")
+        val user = FirebaseAuth.getInstance().currentUser
+        placeAdapter = PlaceAdapter(placesByUser, "usuario")
+        if(user != null){
+           Firebase.firestore
+               .collection("placesF")
+               .whereEqualTo("key",codePlace)
+               .get()
+               .addOnSuccessListener {
+                   for(doc in it){
+                       place = doc.toObject(Place::class.java)
+                       place!!.key = doc.id
+                       if(place != null){
+                           binding.nombreLayout.hint = place!!.name
+                           binding.telefonoLayout.hint = "311"
+                           binding.campoDireccionLayout.hint= place!!.address
+                           binding.descripcionLayout.hint = place!!.description
+                       }
+
+                   }
+               }
+
         }
-        loadCategories()
-        loadCities()
-        binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
-        binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
+
+        //loadCategories()
+        //loadCities()
+       // binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
+        //binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.unilocal.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,6 @@ import com.example.unilocal.models.Place
 import org.w3c.dom.Text
 
 class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_layout,parent, false)
         return ViewHolder(v)
@@ -40,7 +40,7 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
         val category:TextView = itemView.findViewById(R.id.icon_place)
         val image:ImageView = itemView.findViewById(R.id.image_place)
         val stars:LinearLayout = itemView.findViewById(R.id.list_stars)
-        var codePlace:Int = 0
+        var codePlace:String? = ""
 
         init {
             itemView.setOnClickListener (this)
@@ -62,8 +62,8 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
             category.text = Categories.getById(place.idCategory)!!.icon
             name.text = place.name
             address.text = place.address
-            codePlace = place.id
-            val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.id))
+            codePlace = place.key
+            val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.key))
             for (i in 0..qualification){
                 (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))
             }
@@ -78,7 +78,7 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
                 name.context.startActivity(intent)
             }else{
                 val intent = Intent(name.context, DetalleLugarUsuarioActivity::class.java)
-                intent.putExtra("pos",adapterPosition)
+                //intent.putExtra("pos",adapterPosition)
                 intent.putExtra("code", codePlace)
                 name.context.startActivity(intent)
             }

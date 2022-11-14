@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344497487366",
+    "project_id": "unilocal-eam-e8def",
+    "storage_bucket": "unilocal-eam-e8def.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344497487366:android:a2e8dfb4c29a0044108d87",
+        "android_client_info": {
+          "package_name": "com.example.unilocal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344497487366-9g1lrmg32993tv30evashmcc3aok6ra9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC43d3_wya3eF_-vzBoHBsExLd73tcBqQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344497487366-9g1lrmg32993tv30evashmcc3aok6ra9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
