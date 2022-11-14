@@ -107,7 +107,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     fun loadPlacesByCategory(){
-        places = Places.buscarCategoria(categories[categoryPosition].id)
+        //places = Places.buscarCategoria(categories[categoryPosition].id)
         val adapter = PlaceAdapter(places,"Busqueda")
         binding.listPlacesCategory.adapter = adapter
         binding.listPlacesCategory.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)

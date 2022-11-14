@@ -81,9 +81,9 @@ object Places {
         return place
     }
 
-    fun buscarNombre(nombre:String, lista:ArrayList<Place>): ArrayList<Place> {
+    fun buscarNombre(nombre:String, lista:ArrayList<Place>, places:ArrayList<Place>): ArrayList<Place> {
         lista.clear()
-        lista.addAll(places.filter { l -> l.name.lowercase().contains(nombre.lowercase()) && l.status== StatusPlace.ACEPTADO }.toCollection(ArrayList()))
+        lista.addAll(places.filter { l -> l.name.lowercase().contains(nombre.lowercase()) }.toCollection(ArrayList()))
         return lista
     }
 
@@ -95,9 +95,9 @@ object Places {
         return places.filter { l -> l.idCity == codigoCiudad && l.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
     }
 
-    fun buscarCategoria(codigoCategoria:Int): ArrayList<Place> {
-        return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
-    }
+//    fun buscarCategoria(codigoCategoria:Int): ArrayList<Place> {
+//        return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
+//    }
 
     fun changeStatus(codePlace:String?, status: StatusPlace, codeModerator: Int){
         val place = places.firstOrNull{p -> p.key == codePlace}

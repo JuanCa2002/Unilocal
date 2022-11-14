@@ -52,7 +52,7 @@ class RegistroActivity : AppCompatActivity() {
         val nickname = binding.nicknameUsuario.text.toString()
         val email = binding.emailUsuario.text.toString()
         val password = binding.userPassword.text.toString()
-        val idCity = cities[cityPosition].id
+        val idCity = cities[cityPosition].key
         val confirmPassword = binding.userPasswordConfirm.text.toString()
 
         setDialog(true)
@@ -96,7 +96,7 @@ class RegistroActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
 
-        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= -1){
+        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= ""){
             Log.e("Correo", email)
             Log.e("Password", password)
             FirebaseAuth.getInstance()

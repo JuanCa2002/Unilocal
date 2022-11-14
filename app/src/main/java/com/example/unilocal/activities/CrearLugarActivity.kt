@@ -203,8 +203,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         val description = binding.placeDescription.text.toString()
         val phone = binding.placePhone.text.toString()
         val address = binding.addressPlace.text.toString()
-        val idCity = cities[cityPosition].id
-        val idCategory  = categories[categoryPosition].id
+        val idCity = cities[cityPosition].key
+        val idCategory  = categories[categoryPosition].key
 
         if(name.isEmpty()){
             binding.placeNameLayout.error = getString(R.string.txt_obligatorio)
@@ -230,7 +230,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
             binding.addressPlaceLayout.error = null
         }
 
-        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && horarios.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
+        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && horarios.isNotEmpty() && address.isNotEmpty() &&idCity != "" && idCategory !=""){
             if(position!= null){
                 if(imagenes.isNotEmpty()){
                     newPlace = Place(Places.list().size+1,name,description,user!!.uid,StatusPlace.SIN_REVISAR,idCategory,position!!,address,idCity)

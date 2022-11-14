@@ -59,7 +59,6 @@ class MyPlacesFragment : Fragment() {
                         val place = doc.toObject(Place::class.java)
                         place.key = doc.id
                         placesByUser.add(place)
-                        //adapter.notifyItemInserted(placesByUser.size-1)
                     }
                  adapter.notifyDataSetChanged()
                 }

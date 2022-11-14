@@ -7,18 +7,18 @@ object Cities {
     private val cities:ArrayList<City> = ArrayList()
 
     init {
-        cities.add(City(1,"Armenia"))
-        cities.add(City(2,"Pereira"))
-        cities.add(City(3,"Cali"))
-        cities.add(City(4,"Bogota"))
-        cities.add(City(5,"Medellin"))
+        cities.add(City("Armenia"))
+        cities.add(City("Pereira"))
+        cities.add(City("Cali"))
+        cities.add(City("Bogota"))
+        cities.add(City("Medellin"))
     }
 
     fun listar():ArrayList<City>{
         return cities;
     }
 
-    fun obtener(id:Int):City?{
-        return cities.firstOrNull{c -> c.id == id}
+    fun obtener(id:String, cities:ArrayList<City>):City?{
+        return cities.firstOrNull{c -> c.key == id}
     }
 }

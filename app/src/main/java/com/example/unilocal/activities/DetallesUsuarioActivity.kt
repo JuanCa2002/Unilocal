@@ -32,18 +32,18 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             binding.nicknameLayout.hint = user.nickname
             //binding.correoLayout.hint = user.correo
         }
-        loadCities(user)
+        //loadCities(user)
         binding.btnGuardarCambiosDetallesUsuario.setOnClickListener { updateUser(user) }
     }
 
     fun loadCities(person:User?){
         cities = Cities.listar()
-        var city = Cities.obtener(person!!.idCity)
-        var position = cities.indexOf(city)
+        //var city = Cities.obtener(person!!.idCity)
+       // var position = cities.indexOf(city)
         var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.cityEdit.adapter= adapter
-        binding.cityEdit.setSelection(position)
+       // binding.cityEdit.setSelection(position)
         binding.cityEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 cityPosition = p2
@@ -57,7 +57,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         var nombre = binding.campoNombreUsuario.text.toString()
         var nickname = binding.nicknameUsuario.text.toString()
         var correo = binding.correoUsuario.text.toString()
-        var idCity = cities[cityPosition].id
+        var idCity = cities[cityPosition].key
 
         if(nombre.isEmpty()){
             nombre = binding.nombreLayout.hint.toString()
@@ -71,7 +71,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             correo = binding.correoLayout.hint.toString()
         }
         Log.e("Nuevo nombre", tipo.toString())
-        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=-1){
+        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=""){
             Usuarios.updateUser(User(person!!.id,nombre,nickname,idCity,person.rol),person.id)
             when(tipo){
                 "Usuario" -> startActivity(Intent(this, MainActivity::class.java))

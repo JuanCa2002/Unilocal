@@ -11,7 +11,7 @@ import kotlin.collections.ArrayList
 class Place () {
 
 
-    constructor( id:Int, name: String, description: String, idCreator: String, status: StatusPlace, idCategory:Int, position: Position, address:String, idCity:Int) :this(){
+    constructor( id:Int, name: String, description: String, idCreator: String, status: StatusPlace, idCategory:String, position: Position, address:String, idCity:String) :this(){
                     this.id = id
                     this.name = name
                     this.description = description
@@ -28,17 +28,17 @@ class Place () {
             var description: String= ""
             var idCreator: String = ""
             var status: StatusPlace = StatusPlace.SIN_REVISAR
-            var idCategory:Int  = 0
+            var idCategory:String = ""
             var position: Position? = null
             var address:String = ""
-            var idCity:Int = 0
+            var idCity:String = ""
             var idModeratorReview: Int = 0
             var creationDate: Date = Date()
             var images:ArrayList<String> = ArrayList()
             var schedules:ArrayList<Schedule> = ArrayList()
             var phones: List<String> = ArrayList()
 
-    constructor(id:Int, name:String, description: String, lat: Double, lng: Double, address: String, idCategory: Int, idCreator: String):this(){
+    constructor(id:Int, name:String, description: String, lat: Double, lng: Double, address: String, idCategory: String, idCreator: String):this(){
         this.id = id
         this.name = name
         this.description = description
@@ -106,7 +106,7 @@ class Place () {
         for(schedule in schedules){
             pos = schedule.dayOfWeek.indexOf(DayWeek.values()[dia-1])
             mensaje = if(pos != -1){
-                "${schedule.dayOfWeek[pos-1].toString().lowercase()}  a las ${schedule.startTime}:00"
+                "${schedule.dayOfWeek[0].toString().lowercase()}  a las ${schedule.startTime}:00"
             }else{
                 "${schedule.dayOfWeek[0].toString().lowercase()}  a las ${schedule.startTime}:00"
             }

@@ -10,9 +10,9 @@ class User(){
     var nombre:String = ""
     var nickname:String = ""
     var password:String = ""
-    var idCity:Int = 0
+    var idCity:String = ""
 
-    constructor(id: Int, nombre: String, nickname:String, idCity:Int, rol:Rol ):this(){
+    constructor(id: Int, nombre: String, nickname:String, idCity:String, rol:Rol ):this(){
         this.id= id
         this.nombre = nombre
         this.nickname= nickname

@@ -18,6 +18,7 @@ import com.example.unilocal.databinding.ActivityDetalleLugarUsuarioBinding
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.models.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -29,6 +30,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
     lateinit var categories: ArrayList<Category>
     var codePlace:String? = ""
     var codeUser:String? = ""
+    var user:FirebaseUser? = null
     var pos: Int = -1
     var categoryPosition: Int = -1
     var cityPosition: Int = -1
@@ -40,7 +42,9 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         binding = ActivityDetalleLugarUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         codePlace =  intent.extras!!.getString("code")
-        val user = FirebaseAuth.getInstance().currentUser
+        categories = ArrayList()
+        cities = ArrayList()
+        user = FirebaseAuth.getInstance().currentUser
         placeAdapter = PlaceAdapter(placesByUser, "usuario")
         if(user != null){
            Firebase.firestore
@@ -62,10 +66,9 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
                }
 
         }
-
-        //loadCategories()
-        //loadCities()
-       // binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
+        loadCategories()
+        loadCities()
+         binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
         //binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
 
     }
@@ -76,11 +79,27 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         builder.setMessage(R.string.txt_eliminar_lugar_pregunta)
 
         builder.setPositiveButton(R.string.txt_si) { dialogInterface, which ->
-            Places.deletePlace(codePlace)
-            placesByUser.remove(place)
-            placeAdapter.notifyItemRemoved(pos)
+            Firebase.firestore
+                .collection("placesF")
+                .document(codePlace!!)
+                .delete()
+            placesByUser.clear()
+            if(user!=null) {
+                Firebase.firestore
+                    .collection("placesF")
+                    .whereEqualTo("idCreator", user!!.uid)
+                    .whereEqualTo("status",StatusPlace.ACEPTADO)
+                    .get()
+                    .addOnSuccessListener {
+                        for(doc in it){
+                            val place = doc.toObject(Place::class.java)
+                            place.key = doc.id
+                            placesByUser.add(place)
+                        }
+                    }
+                placeAdapter.notifyItemRemoved(pos)
+            }
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("code",codeUser)
             startActivity(intent)
         }
         builder.setNeutralButton(R.string.txt_cancel){dialogInterface , which -> }
@@ -90,35 +109,54 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
     }
 
     fun loadCategories(){
-        categories = Categories.listar()
-        var category = Categories.getById(place!!.idCategory)
-        var position = categories.indexOf(category)
-        var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.categoryEdit.adapter= adapter
-        binding.categoryEdit.setSelection(position)
-        binding.categoryEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                categoryPosition = p2
+        Firebase.firestore
+            .collection("categoriesF")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val category = doc.toObject(Category::class.java)
+                    category.key = doc.id
+                    categories.add(category)
+                }
+                var category = Categories.getById(place!!.idCategory, categories)
+                var position = categories.indexOf(category)
+                var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.categoryEdit.adapter= adapter
+                binding.categoryEdit.setSelection(position)
+                binding.categoryEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        categoryPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     fun loadCities(){
-        cities = Cities.listar()
-        var city = Cities.obtener(place!!.idCity)
-        var position = cities.indexOf(city)
-        var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.cityEdit.adapter= adapter
-        binding.cityEdit.setSelection(position)
-        binding.cityEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                cityPosition = p2
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+        Firebase.firestore
+            .collection("citiesF")
+            .get()
+            .addOnSuccessListener {
+                for (doc in it) {
+                    val city = doc.toObject(City::class.java)
+                    city.key = doc.id
+                    cities.add(city)
+                }
+
+                var city = Cities.obtener(place!!.idCity, cities)
+                var position = cities.indexOf(city)
+                var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.cityEdit.adapter= adapter
+                binding.cityEdit.setSelection(position)
+                binding.cityEdit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        cityPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
             }
         }
     }
@@ -128,8 +166,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         var description = binding.descripcionEdit.text.toString()
         var phone = binding.telefonoEdit.text.toString()
         var address = binding.direccionEdit.text.toString()
-        var idCity = cities[cityPosition].id
-        var idCategory  = categories[categoryPosition].id
+        var idCity = cities[cityPosition].key
+        var idCategory  = categories[categoryPosition].key
 
         if(name.isEmpty()){
             name = binding.nombreLayout.hint.toString()
@@ -147,9 +185,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             address = binding.campoDireccionLayout.hint.toString()
         }
 
-//        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != -1 && idCategory !=-1){
-//            val newPlace = Place(place!!.id,name,description,1,
-//                place!!.status,idCategory,0f,address,0f,idCity)
+//        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != "" && idCategory !=""){
+//            val newPlace = Place(place!!.id,name,description,1, place!!.status,idCategory,0f,address,0f,idCity)
 //
 //            val phones:ArrayList<String> = ArrayList()
 //            phones.add(phone)

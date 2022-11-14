@@ -48,7 +48,7 @@ class CrearModeradorActivity : AppCompatActivity() {
         val correo = binding.moderatorEmail.text.toString()
         val password = binding.moderatorPassword.text.toString()
         val confirmPassword = binding.moderatorPasswordConfirm.text.toString()
-        val idCity = cities[cityPosition].id
+        val idCity = cities[cityPosition].key
 
         if(nombre.isEmpty()){
             binding.nameLayout.error = getString(R.string.txt_obligatorio)
@@ -85,7 +85,7 @@ class CrearModeradorActivity : AppCompatActivity() {
             binding.passwordLayout.error = getString(R.string.txt_contrasenas_incorrectas)
         }
 
-        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != -1 ){
+        if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != "" ){
            val moderator = User(Usuarios.listar().size+1, nombre,correo, idCity,
                Rol.MODERATOR)
            Usuarios.agregar(moderator)

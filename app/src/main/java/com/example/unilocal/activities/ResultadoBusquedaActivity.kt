@@ -17,11 +17,18 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityResultadoBusquedaBinding
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
+import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var placesCoincidences:ArrayList<Place>
+    var places:ArrayList<Place> = ArrayList()
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
     var code:String? = ""
@@ -31,33 +38,33 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         super.onCreate(savedInstanceState)
         binding = ActivityResultadoBusquedaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPreferences= this.getSharedPreferences("sesion", Context.MODE_PRIVATE)
         textSearch = intent.extras!!.getString("txt_search","")
         placesCoincidences = ArrayList()
-        if(code != ""){
-            val usuario = Usuarios.getUser(code)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = usuario!!.nombre
-            //header.findViewById<TextView>(R.id.email_user_session).text = usuario!!.correo
-        }
+        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            Firebase.firestore
+                .collection("users")
+                .document(userLogin.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)!!.nombre
+                    header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
+                }
 
-        if(textSearch.isNotEmpty()){
-            placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences)
-            Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
         }
         binding.navigationView.setNavigationItemSelectedListener (this)
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
-        binding.listPlacesSearch.adapter = adapter
-        binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
     }
 
     fun cerrarSesion(){
-        sharedPreferences.edit().clear().commit()
-        finish()
+        FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        startActivity( intent )
+        finish()
+
     }
 
     fun abrirMenu(){
@@ -86,10 +93,25 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
 
     override fun onResume() {
         super.onResume()
-        Log.e("textxo",textSearch.toString())
-        if(textSearch.isNotEmpty()) {
-            placesCoincidences= Places.buscarNombre(textSearch,placesCoincidences)
-            adapter.notifyDataSetChanged()
+        places.clear()
+        if(textSearch.isNotEmpty()){
+            Firebase.firestore
+                .collection("placesF")
+                .whereEqualTo("status", StatusPlace.ACEPTADO)
+                .get()
+                .addOnSuccessListener {
+                    for(doc in it){
+                        val place = doc.toObject(Place::class.java)
+                        place.key = doc.id
+                        places.add(place)
+                    }
+                    placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences, places)
+                    Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
+                    adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+                    binding.listPlacesSearch.adapter = adapter
+                    binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+                }
         }
+        adapter.notifyDataSetChanged()
     }
 }

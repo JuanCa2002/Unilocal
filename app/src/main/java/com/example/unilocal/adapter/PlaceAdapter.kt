@@ -16,7 +16,11 @@ import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.DetalleLugarUsuarioActivity
 import com.example.unilocal.bd.Categories
 import com.example.unilocal.bd.Comments
+import com.example.unilocal.models.Category
 import com.example.unilocal.models.Place
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Text
 
 class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
@@ -57,9 +61,20 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
                 status.setTextColor( ContextCompat.getColor(itemView.context, R.color.red ) )
                 schedule.text = "Abre el ${place.obtenerHoraApertura()}"
             }
-
             status.text = if(estaAbierto){status.context.getString(R.string.abierto) }else{ status.context.getString(R.string.cerrado) }
-            category.text = Categories.getById(place.idCategory)!!.icon
+            Log.e("key", place.idCategory)
+            Firebase.firestore
+                .collection("categoriesF")
+                .whereEqualTo("key",place.idCategory)
+                .get()
+                .addOnSuccessListener {
+                    for( doc in it){
+                        val categoryF = doc.toObject(Category::class.java)
+                        categoryF.key = doc.id
+                        category.text = categoryF.icon
+                        Log.e("icon", categoryF.icon)
+                    }
+                }
             name.text = place.name
             address.text = place.address
             codePlace = place.key

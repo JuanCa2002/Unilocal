@@ -30,8 +30,8 @@ class DatallesModeradorActivity : AppCompatActivity() {
         moderator = Usuarios.getUser(codeModerator)
 
         if(moderator != null){
-            var city = Cities.obtener(moderator!!.idCity)
-            binding.cityPlace.text = city!!.name
+            //var city = Cities.obtener(moderator!!.idCity)
+            //binding.cityPlace.text = city!!.name
             binding.moderatorName.text = moderator!!.nombre
             binding.nickname.text = moderator!!.nickname
             //binding.modEmail.text = moderator!!.correo
