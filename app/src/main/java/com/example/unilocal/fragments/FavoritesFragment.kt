@@ -45,6 +45,30 @@ class FavoritesFragment : Fragment() {
         return binding.root
     }
 
+    override fun onPause() {
+        super.onPause()
+        places.clear()
+        Firebase.firestore
+            .collection("users")
+            .document(code!!)
+            .collection("favorites")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    Firebase.firestore
+                        .collection("placesF")
+                        .document(doc.id)
+                        .get()
+                        .addOnSuccessListener {l->
+                            val place = l.toObject(Place::class.java)
+                            place!!.key = l.id
+                            places.add(place)
+                            adapter.notifyDataSetChanged()
+                        }
+                }
+            }
+    }
+
     override fun onResume() {
         super.onResume()
         places.clear()

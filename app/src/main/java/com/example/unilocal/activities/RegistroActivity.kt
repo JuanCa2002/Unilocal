@@ -97,8 +97,6 @@ class RegistroActivity : AppCompatActivity() {
         }
 
         if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= ""){
-            Log.e("Correo", email)
-            Log.e("Password", password)
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener {
