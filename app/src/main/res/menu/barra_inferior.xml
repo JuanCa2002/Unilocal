@@ -4,16 +4,16 @@
     <item
         android:id="@+id/menu_favorites"
         android:icon="@drawable/ic_baseline_favorite_black_24"
-        android:title="Favoritos"/>
+        android:title="@string/favoritos"/>
 
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/ic_baseline_house_24"
-        android:title="Inicio" />
+        android:title="@string/inicio" />
 
     <item
         android:id="@+id/menu_my_places"
         android:icon="@drawable/ic_baseline_location_city_24"
-        android:title="Mis lugares"/>
+        android:title="@string/mis_lugares"/>
 
 </menu>

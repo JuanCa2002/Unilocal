@@ -112,7 +112,7 @@ class RegistroActivity : AppCompatActivity() {
                                 .document(user.uid)
                                 .set(userRegister)
                                 .addOnSuccessListener {
-                                    Snackbar.make(binding.root,"Te has registrado con exito", Snackbar.LENGTH_LONG).show()
+                                    Snackbar.make(binding.root,R.string.registro_exitoso, Snackbar.LENGTH_LONG).show()
                                     setDialog(false)
                                     startActivity(Intent(this, LoginActivity::class.java))
                                     finish()
@@ -146,9 +146,9 @@ class RegistroActivity : AppCompatActivity() {
     private fun verificarEmail(user: FirebaseUser){
         user.sendEmailVerification().addOnCompleteListener(this){
             if(it.isSuccessful){
-                Toast.makeText(baseContext, "Email enviado", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, R.string.email_enviado, Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(baseContext, "Error", Toast.LENGTH_LONG).show()
+                Toast.makeText(baseContext, R.string.email_error, Toast.LENGTH_LONG).show()
             }
         }
     }

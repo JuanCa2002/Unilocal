@@ -116,4 +116,22 @@
     <string name="hora_cierre">Hora cierre</string>
     <string name="agregar_horario">Agregar horario</string>
     <string name="horario_del_lugar">Horario del lugar</string>
+
+    <string name="lugar_creado_exito">Lugar creado correctamente, este quedara en revision</string>
+    <string name="lugar_creado_fallo">Verifique haber rellenado todos los campos</string>
+    <string name="lugar_aca">Aqui esta el lugar</string>
+    <string name="registro_exitoso">Te has registrado con exito</string>
+    <string name="email_enviado">Email enviado</string>
+    <string name="email_error">Error</string>
+    <string name="no_hay_telefono">No hay teléfono</string>
+    <string name="marcador_defecto">Marcador por defecto</string>
+    <string name="tomar_foto">Tomar foto</string>
+    <string name="seleccionar_archivo">Seleccionar archivo</string>
+    <string name="seleccionar_imagen">Seleccionar imagen</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="inicio">Inicio</string>
+    <string name="mis_lugares">Mis lugares</string>
+    <string name="pendientes">Pendientes</string>
+    <string name="registro">Registro</string>
+
 </resources>
