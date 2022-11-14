@@ -5,31 +5,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="30dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical"
             tools:context=".activities.CrearLugarActivity">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:src="@mipmap/ic_launcher_round" />
 
             <TextView
                 android:layout_width="237dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:gravity="center|center_horizontal"
                 android:text="@string/txt_titulo_lugar"
                 android:textColor="@color/black"
-                android:gravity="center|center_horizontal"
                 android:textSize="30dp"
                 android:textStyle="bold"></TextView>
 
@@ -53,8 +54,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/fondo_forms"
-                        android:inputType="text"
-                        android:hint="@string/txt_place_name" />
+                        android:hint="@string/txt_place_name"
+                        android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -63,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -92,7 +94,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_baseline_location_on_24"/>
+                    android:src="@drawable/ic_baseline_location_on_24" />
 
                 <Spinner
                     android:id="@+id/city_place"
@@ -108,10 +110,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_baseline_library_books_24"/>
+                    android:src="@drawable/ic_baseline_library_books_24" />
 
                 <Spinner
                     android:id="@+id/category_place"
@@ -140,9 +143,9 @@
             <LinearLayout
                 android:id="@+id/list_schedules"
                 android:layout_width="350dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
 
             </LinearLayout>
@@ -176,8 +179,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
-                android:textSize="18sp"
-                android:text="Seleccion de imagenes"/>
+                android:text="@string/seleccionar_imagen"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,24 +188,24 @@
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="35dp"
                 android:gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="100">
 
                 <Button
                     android:id="@+id/btn_sel_archivo"
                     android:layout_width="0dp"
-                    android:layout_weight="50"
+                    android:layout_height="60dp"
                     android:layout_gravity="top"
                     android:layout_marginEnd="10dp"
-                    android:layout_height="60dp"
-                    android:text="Seleccionar archivo" />
+                    android:layout_weight="50"
+                    android:text="@string/seleccionar_archivo" />
 
                 <Button
                     android:id="@+id/btn_tomar_foto"
                     android:layout_width="0dp"
-                    android:layout_weight="40"
                     android:layout_height="60dp"
-                    android:text="Tomar foto" />
+                    android:layout_weight="40"
+                    android:text="@string/tomar_foto" />
 
             </LinearLayout>
 
@@ -212,8 +215,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginEnd="35dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
 
@@ -221,18 +224,18 @@
 
             <fragment
                 android:id="@+id/mapa_crear_lugar"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:name="com.google.android.gms.maps.SupportMapFragment"/>
+                android:layout_height="500dp" />
 
             <Button
                 android:id="@+id/btn_create_place"
-                android:layout_marginTop="10dp"
                 android:layout_width="200dp"
-                android:textColor="@color/black"
                 android:layout_height="60dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/color1"
-                android:text="@string/txt_create_place"></Button>
+                android:text="@string/txt_create_place"
+                android:textColor="@color/black"></Button>
 
         </LinearLayout>
 

@@ -124,7 +124,7 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
                             val latLng = LatLng(ubicacion.latitude, ubicacion.longitude)
                             gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F)
                             )
-                            gMap.addMarker(MarkerOptions().position(latLng).title("Marcador por defecto"))
+                            gMap.addMarker(MarkerOptions().position(latLng).title(R.string.marcador_defecto.toString()))
                         }
                     } else {
                         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,

@@ -244,7 +244,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                         .collection("placesF")
                         .add(newPlace!!)
                         .addOnSuccessListener {
-                            Snackbar.make(binding.root,"Lugar creado correctamente, este quedara en revision",Toast.LENGTH_LONG).show()
+                            Snackbar.make(binding.root,R.string.lugar_creado_exito,Toast.LENGTH_LONG).show()
                             Handler(Looper.getMainLooper()).postDelayed({
                                 finish()
                             },4000)
@@ -255,7 +255,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                 }
 
             }else{
-                Snackbar.make(binding.root,"Verifique haber rellenado todos los campos",Toast.LENGTH_LONG).show()
+                Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -278,7 +278,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
             position!!.lat = it.latitude
 
             gMap.clear()
-            gMap.addMarker(MarkerOptions().position(it).title("Aqui esta el lugar"))}
+            gMap.addMarker(MarkerOptions().position(it).title(R.string.lugar_aca.toString()))}
     }
 
     private fun setDialog(show: Boolean) {
