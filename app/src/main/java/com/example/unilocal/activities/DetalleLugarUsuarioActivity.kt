@@ -115,10 +115,11 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener {
                 for(doc in it){
-                    val category = doc.toObject(Category::class.java)
-                    category.key = doc.id
-                    categories.add(category)
+                    val categoryF = doc.toObject(Category::class.java)
+                    categoryF.key = doc.id
+                    categories.add(categoryF)
                 }
+                Log.e("place", place.toString())
                 var category = Categories.getById(place!!.idCategory, categories)
                 var position = categories.indexOf(category)
                 var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)

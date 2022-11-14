@@ -19,6 +19,7 @@ import com.example.unilocal.databinding.FragmentInfoPlaceBinding
 import com.example.unilocal.models.Place
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 
@@ -48,6 +49,7 @@ class InfoPlaceFragment : Fragment() {
         if(user!= null){
             code = user.uid
         }
+        placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
         favorites = Usuarios.getListFavorites(code) //TODO Obtener desde firestore
         val places = Places.list()
         for (i in favorites){
@@ -57,8 +59,6 @@ class InfoPlaceFragment : Fragment() {
                 }
             }
         }
-        placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
-        //val place = Places.obtener(codePlace)
 
         Firebase.firestore
             .collection("placesF")
@@ -131,6 +131,26 @@ class InfoPlaceFragment : Fragment() {
         val user= FirebaseAuth.getInstance().currentUser
         if(user!= null){
             Usuarios.eliminarFavoritos(user.uid,codePlace!!)
+            placesFavorites.clear()
+            Firebase.firestore
+                .collection("users")
+                .document(code!!)
+                .collection("favorites")
+                .get()
+                .addOnSuccessListener {
+                    for(doc in it){
+                        Firebase.firestore
+                            .collection("placesF")
+                            .document(doc.id)
+                            .get()
+                            .addOnSuccessListener {l->
+                                val place = l.toObject(Place::class.java)
+                                place!!.key = l.id
+                                placesFavorites.add(place)
+                                placeAdapter.notifyDataSetChanged()
+                            }
+                    }
+                }
         }
     }
 

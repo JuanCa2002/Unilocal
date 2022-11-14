@@ -178,5 +178,22 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         estadoConexion = estado
     }
 
+    override fun onPause() {
+        super.onPause()
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            Firebase.firestore
+                .collection("users")
+                .document(userLogin.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
+                    header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
+
+                }
+        }
+    }
+
 
 }

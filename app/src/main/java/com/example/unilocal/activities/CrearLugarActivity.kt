@@ -67,6 +67,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         binding = ActivityCrearLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         horarios = ArrayList()
+        cities = ArrayList()
+        categories = ArrayList()
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult() ) {
             onActivityResult(it.resultCode, it)
@@ -171,31 +173,51 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
     }
 
     fun loadCities(){
-        cities = Cities.listar()
-        var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.cityPlace.adapter= adapter
-        binding.cityPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                cityPosition = p2
+        cities.clear()
+        Firebase.firestore
+            .collection("citiesF")
+            .get()
+            .addOnSuccessListener {
+                for (doc in it) {
+                    val city = doc.toObject(City::class.java)
+                    city.key = doc.id
+                    cities.add(city)
+                }
+                var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.cityPlace.adapter= adapter
+                binding.cityPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        cityPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     fun loadCategories(){
-        categories = Categories.listar()
-        var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.categoryPlace.adapter= adapter
-        binding.categoryPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                categoryPosition = p2
+        categories.clear()
+        Firebase.firestore
+            .collection("categoriesF")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val category = doc.toObject(Category::class.java)
+                    category.key = doc.id
+                    categories.add(category)
+                }
+                var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,categories)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.categoryPlace.adapter= adapter
+                binding.categoryPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        categoryPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     fun createPlace(){
@@ -244,10 +266,17 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                         .collection("placesF")
                         .add(newPlace!!)
                         .addOnSuccessListener {
-                            Snackbar.make(binding.root,R.string.lugar_creado_exito,Toast.LENGTH_LONG).show()
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                finish()
-                            },4000)
+                            newPlace!!.key = it.id
+                            Firebase.firestore
+                                .collection("placesF")
+                                .document(it.id)
+                                .set(newPlace!!)
+                                .addOnSuccessListener {
+                                    Snackbar.make(binding.root,R.string.lugar_creado_exito,Toast.LENGTH_LONG).show()
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        finish()
+                                    },4000)
+                                }
                         }
                         .addOnFailureListener{
                             Snackbar.make(binding.root,"${it.message}",Toast.LENGTH_LONG).show()
@@ -257,6 +286,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
             }else{
                 Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
             }
+        }else{
+            Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
         }
     }
 
