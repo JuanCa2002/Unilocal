@@ -76,7 +76,7 @@ class InfoPlaceFragment : Fragment() {
                         }
                         telefonos = telefonos.substring(0, telefonos.length - 2)
                     }else{
-                        telefonos = R.string.No_hay_telefono.toString()
+                        telefonos = R.string.no_hay_telefono.toString()
                     }
 
                     binding.phonePlace.text = telefonos
