@@ -91,10 +91,6 @@ object Places {
         places.add( place )
     }
 
-    fun buscarCiudad(codigoCiudad:Int): ArrayList<Place> {
-        return places.filter { l -> l.idCity == codigoCiudad && l.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
-    }
-
 //    fun buscarCategoria(codigoCategoria:Int): ArrayList<Place> {
 //        return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
 //    }

@@ -109,6 +109,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
     }
 
     fun loadCategories(){
+        categories.clear()
         Firebase.firestore
             .collection("categoriesF")
             .get()
@@ -135,6 +136,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
     }
 
     fun loadCities(){
+        cities.clear()
         Firebase.firestore
             .collection("citiesF")
             .get()
