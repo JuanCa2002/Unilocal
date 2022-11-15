@@ -37,17 +37,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         db = UniLocalDbHelper(this)
 
-        comprobarConexionInternet()
-
-        if(estadoConexion){
-            val userLogin = FirebaseAuth.getInstance().currentUser
-            if(userLogin!=null){
+        val userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
                 makeRedirection(userLogin)
-            } else{
+        } else{
                 binding.btnLogin.setOnClickListener { login() }
-            }
-        }else{
-            Snackbar.make(binding.root,"En estos momentos no tienes conexion a internet intenta mas tarde",Snackbar.LENGTH_LONG).show()
         }
         binding.btnRegistro.setOnClickListener{ registrar() }
         binding.recuperarContrasena.setOnClickListener { getBackPassword() }
@@ -71,48 +65,54 @@ class LoginActivity : AppCompatActivity() {
         else{
             binding.passwordLayout.error = null
         }
-        if (correo.isNotEmpty() && password.isNotEmpty()) {
-            var user: User?= null
-            Firebase.firestore
-                .collection("users")
-                .whereEqualTo("correo", correo)
-                .get()
-                .addOnSuccessListener {
-                    for(doc in it){
-                        user = doc.toObject(User::class.java)
-                        user!!.key = doc.id
-                        break
-                    }
-                    if(user!= null && user!!.status != StatusUser.INHABILITADO){
-                        FirebaseAuth.getInstance()
-                            .signInWithEmailAndPassword(correo, password)
-                            .addOnCompleteListener {u->
-                                if(u.isSuccessful){
-                                    val userLogin = FirebaseAuth.getInstance().currentUser
-                                    if(userLogin!=null){
-                                        Firebase.firestore
-                                            .collection("users")
-                                            .document(userLogin.uid)
-                                            .get()
-                                            .addOnSuccessListener { t->
-                                                val userFire = t.toObject(User::class.java)
-                                                db.createUser(User(userLogin.uid,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
-                                                makeRedirection(userLogin)
-                                            }
+        comprobarConexionInternet()
+        if(estadoConexion){
+            if (correo.isNotEmpty() && password.isNotEmpty()) {
+                var user: User?= null
+                Firebase.firestore
+                    .collection("users")
+                    .whereEqualTo("correo", correo)
+                    .get()
+                    .addOnSuccessListener {
+                        for(doc in it){
+                            user = doc.toObject(User::class.java)
+                            user!!.key = doc.id
+                            break
+                        }
+                        if(user!= null && user!!.status != StatusUser.INHABILITADO){
+                            FirebaseAuth.getInstance()
+                                .signInWithEmailAndPassword(correo, password)
+                                .addOnCompleteListener {u->
+                                    if(u.isSuccessful){
+                                        val userLogin = FirebaseAuth.getInstance().currentUser
+                                        if(userLogin!=null){
+                                            Firebase.firestore
+                                                .collection("users")
+                                                .document(userLogin.uid)
+                                                .get()
+                                                .addOnSuccessListener { t->
+                                                    val userFire = t.toObject(User::class.java)
+                                                    db.createUser(User(userLogin.uid,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
+                                                    makeRedirection(userLogin)
+                                                }
+                                        }
+                                    }else{
+                                        Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
                                     }
-                                }else{
-                                    Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
+                                }.addOnFailureListener{e->
+                                    Snackbar.make(binding.root,"Los datos son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
                                 }
-                            }.addOnFailureListener{e->
-                                Snackbar.make(binding.root,"Los datos son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
-                            }
-                    }else{
-                        Snackbar.make(binding.root,getString(R.string.correo_no_encontrado),Snackbar.LENGTH_LONG).show()
+                        }else{
+                            Snackbar.make(binding.root,getString(R.string.correo_no_encontrado),Snackbar.LENGTH_LONG).show()
+                        }
                     }
-                }
-                }else{
-                    Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
-                }
+            }else{
+                Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
+            }
+
+        }else{
+            Snackbar.make(binding.root,"No hay internet",Snackbar.LENGTH_LONG).show()
+        }
 
     }
 
