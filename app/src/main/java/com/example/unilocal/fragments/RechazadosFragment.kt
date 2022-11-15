@@ -12,18 +12,19 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentAceptadosBinding
 import com.example.unilocal.databinding.FragmentRechazadosBinding
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RechazadosFragment : Fragment() {
     lateinit var binding: FragmentRechazadosBinding
-    var codeModerator:Int = -1
+    var codeModerator:String = ""
     lateinit var adapterPlace: PlaceAdapter
     lateinit var places: ArrayList<Place>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(arguments != null){
-            codeModerator = requireArguments().getInt("code_moderator")
-        }
     }
 
     override fun onCreateView(
@@ -32,7 +33,11 @@ class RechazadosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =  FragmentRechazadosBinding.inflate(inflater,container,false)
-        places = Places.placesDeclinedByModerator(codeModerator)
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user!= null){
+            codeModerator = user.uid
+        }
+        places = ArrayList()
         adapterPlace = PlaceAdapter(places,"Busqueda")
         binding.listPlacesRechazados.adapter = adapterPlace
         binding.listPlacesRechazados.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
@@ -47,6 +52,24 @@ class RechazadosFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        places.clear()
+        Firebase.firestore
+            .collection("placesF")
+            .whereEqualTo("status", StatusPlace.RECHAZADO)
+            .whereEqualTo("idModeratorReview",codeModerator)
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val place = doc.toObject(Place::class.java)
+                    place.key = doc.id
+                    places.add(place)
+                }
+                adapterPlace.notifyDataSetChanged()
+            }
     }
 
 }

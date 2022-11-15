@@ -15,18 +15,20 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentAceptadosBinding
 import com.example.unilocal.databinding.FragmentRegistreBinding
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class AceptadosFragment : Fragment() {
     lateinit var binding: FragmentAceptadosBinding
     lateinit var adapterPlace: PlaceAdapter
     lateinit var places: ArrayList<Place>
-    var codeModerator: Int = -1
+    var codeModerator: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(arguments != null){
-            codeModerator = requireArguments().getInt("code_moderator")
-        }
     }
 
     override fun onCreateView(
@@ -35,7 +37,11 @@ class AceptadosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAceptadosBinding.inflate(inflater,container,false)
-        places = Places.placesAcceptedByModerator(codeModerator)
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user!= null){
+            codeModerator = user.uid
+        }
+        places = ArrayList()
         adapterPlace = PlaceAdapter(places,"Busqueda")
         binding.listPlacesAceptados.adapter = adapterPlace
         binding.listPlacesAceptados.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
@@ -50,5 +56,23 @@ class AceptadosFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        places.clear()
+        Firebase.firestore
+            .collection("placesF")
+            .whereEqualTo("status", StatusPlace.ACEPTADO)
+            .whereEqualTo("idModeratorReview",codeModerator)
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val place = doc.toObject(Place::class.java)
+                    place.key = doc.id
+                    places.add(place)
+                }
+                adapterPlace.notifyDataSetChanged()
+            }
     }
 }

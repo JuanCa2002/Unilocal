@@ -95,28 +95,19 @@ object Places {
 //        return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
 //    }
 
-    fun changeStatus(codePlace:String?, status: StatusPlace, codeModerator: Int){
-        val place = places.firstOrNull{p -> p.key == codePlace}
-        if(place!=null){
-            place.idModeratorReview = codeModerator
-            place.status= status
-        }
-
-    }
-
     fun deletePlace(codePlace:String?){
        Firebase.firestore
            .collection("places")
 
     }
 
-    fun placesAcceptedByModerator(codeModerator:Int):ArrayList<Place>{
-        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
-    }
-
-    fun placesDeclinedByModerator(codeModerator:Int):ArrayList<Place>{
-        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.RECHAZADO}.toCollection(ArrayList())
-    }
+//    fun placesAcceptedByModerator(codeModerator:Int):ArrayList<Place>{
+//        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
+//    }
+//
+//    fun placesDeclinedByModerator(codeModerator:Int):ArrayList<Place>{
+//        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.RECHAZADO}.toCollection(ArrayList())
+//    }
 
     fun updatePlace(codePlace: Int, place: Place){
         val placeExist = places.firstOrNull{p-> p.id == codePlace}

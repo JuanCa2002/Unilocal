@@ -32,7 +32,7 @@ class Place () {
             var position: Position? = null
             var address:String = ""
             var idCity:String = ""
-            var idModeratorReview: Int = 0
+            var idModeratorReview: String = ""
             var creationDate: Date = Date()
             var images:ArrayList<String> = ArrayList()
             var schedules:ArrayList<Schedule> = ArrayList()

@@ -18,6 +18,7 @@ import com.example.unilocal.databinding.FragmentPendientesPlaceBinding
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.StatusPlace
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -27,7 +28,7 @@ class PendientesPlaceFragment : Fragment() {
     lateinit var binding: FragmentPendientesPlaceBinding
     lateinit var places: ArrayList<Place>
     lateinit var adapterPlace: PlaceAdapter
-    var codeModerator:Int = -1
+    var codeModerator:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,10 @@ class PendientesPlaceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPendientesPlaceBinding.inflate(inflater,container,false)
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user != null){
+            codeModerator = user.uid
+        }
         places = ArrayList()
         Firebase.firestore
             .collection("placesF")
@@ -68,29 +73,84 @@ class PendientesPlaceFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 var pos = viewHolder.adapterPosition
                 val codePlace = places[pos].key
-                val place = Places.obtener(codePlace)
-                when(direction){
+                when(direction) {
                     ItemTouchHelper.LEFT -> {
-                        Places.changeStatus(codePlace, StatusPlace.ACEPTADO, codeModerator)
-                        places.remove(place)
-                        adapterPlace.notifyItemRemoved(pos)
-                        Snackbar.make(binding.listPlacesPending, R.string.txt_lugar_aceptado, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.txt_deshacer, View.OnClickListener {
-                                Places.changeStatus(codePlace, StatusPlace.SIN_REVISAR,0)
-                                places.add(pos,place!!)
-                                adapterPlace.notifyItemInserted(pos)
-                            }).show()
+                        Firebase.firestore
+                            .collection("placesF")
+                            .document(codePlace)
+                            .get()
+                            .addOnSuccessListener {
+                                val place = it.toObject(Place::class.java)
+                                place!!.key = it.id
+                                place.status = StatusPlace.ACEPTADO
+                                place.idModeratorReview = codeModerator
+                                Firebase.firestore
+                                    .collection("placesF")
+                                    .document(it.id)
+                                    .set(place)
+                                adapterPlace.notifyItemRemoved(pos)
+                                Snackbar.make(
+                                    binding.listPlacesPending,
+                                    R.string.txt_lugar_aceptado,
+                                    Snackbar.LENGTH_LONG
+                                )
+                                    .setAction(R.string.txt_deshacer, View.OnClickListener {
+                                       Firebase.firestore
+                                           .collection("placesF")
+                                           .document(codePlace)
+                                           .get()
+                                           .addOnSuccessListener {p->
+                                               val place = p.toObject(Place::class.java)
+                                               place!!.key = p.id
+                                               place.status = StatusPlace.SIN_REVISAR
+                                               place.idModeratorReview = ""
+                                               Firebase.firestore
+                                                   .collection("placesF")
+                                                   .document(p.id)
+                                                   .set(place)
+                                               adapterPlace.notifyItemInserted(pos)
+                                           }
+                                    }).show()
+                            }
                     }
                     ItemTouchHelper.RIGHT -> {
-                        Places.changeStatus(codePlace, StatusPlace.RECHAZADO, codeModerator)
-                        places.remove(place)
-                        adapterPlace.notifyItemRemoved(pos)
-                        Snackbar.make(binding.listPlacesPending, R.string.txt_lugar_rechazado, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.txt_deshacer, View.OnClickListener {
-                                Places.changeStatus(codePlace, StatusPlace.SIN_REVISAR,0)
-                                places.add(pos,place!!)
-                                adapterPlace.notifyItemInserted(pos)
-                            }).show()
+                        Firebase.firestore
+                            .collection("placesF")
+                            .document(codePlace)
+                            .get()
+                            .addOnSuccessListener {
+                                val place = it.toObject(Place::class.java)
+                                place!!.key = it.id
+                                place.status = StatusPlace.RECHAZADO
+                                place.idModeratorReview = codeModerator
+                                Firebase.firestore
+                                    .collection("placesF")
+                                    .document(it.id)
+                                    .set(place)
+                                adapterPlace.notifyItemRemoved(pos)
+                                Snackbar.make(
+                                    binding.listPlacesPending,
+                                    R.string.txt_lugar_rechazado,
+                                    Snackbar.LENGTH_LONG
+                                )
+                                    .setAction(R.string.txt_deshacer, View.OnClickListener {
+                                        Firebase.firestore
+                                            .collection("placesF")
+                                            .document(codePlace)
+                                            .get()
+                                            .addOnSuccessListener {p->
+                                                val place = p.toObject(Place::class.java)
+                                                place!!.key = p.id
+                                                place.status = StatusPlace.SIN_REVISAR
+                                                place.idModeratorReview = ""
+                                                Firebase.firestore
+                                                    .collection("placesF")
+                                                    .document(p.id)
+                                                    .set(place)
+                                                adapterPlace.notifyItemInserted(pos)
+                                            }
+                                    }).show()
+                            }
                     }
                 }
             }
