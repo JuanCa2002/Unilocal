@@ -14,8 +14,13 @@ import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityGestionModeratorBinding
+import com.example.unilocal.models.Rol
 import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var sharedPreferences: SharedPreferences
@@ -27,20 +32,38 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         super.onCreate(savedInstanceState)
         binding = ActivityGestionModeratorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(codeAdministrador != ""){
-            val administrator = Usuarios.getUser(codeAdministrador)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = administrator!!.nombre
-            //header.findViewById<TextView>(R.id.email_user_session).text = administrator!!.correo
+        moderators = ArrayList()
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user != null){
+            Firebase.firestore
+                .collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener {
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(R.id.name_user_session).text = it.toObject(User::class.java)!!.nombre
+                    header.findViewById<TextView>(R.id.email_user_session).text = user.email
+                }
         }
-        moderators = Usuarios.listarModeradores()
+        Firebase.firestore
+            .collection("users")
+            .whereEqualTo("rol", Rol.MODERATOR)
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val moderator = doc.toObject(User::class.java)
+                    moderator.key = doc.id
+                    moderators.add(moderator)
+                }
+                val adapter = ModeratorAdapter(moderators)
+                binding.listModerators.adapter = adapter
+                binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+                binding.navigationView.setNavigationItemSelectedListener(this)
+            }
+        binding.btnCreateModerator.setOnClickListener { irCrearModerator() }
+
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
-        val adapter = ModeratorAdapter(moderators)
-        binding.listModerators.adapter = adapter
-        binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        binding.navigationView.setNavigationItemSelectedListener(this)
-        binding.btnCreateModerator.setOnClickListener { irCrearModerator() }
     }
 
     fun abrirMenu(){

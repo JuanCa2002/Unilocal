@@ -9,7 +9,12 @@ import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityDatallesModeradorBinding
+import com.example.unilocal.models.City
 import com.example.unilocal.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class DatallesModeradorActivity : AppCompatActivity() {
     lateinit var binding: ActivityDatallesModeradorBinding
@@ -23,20 +28,33 @@ class DatallesModeradorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDatallesModeradorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        pos = intent.extras!!.getInt("position")
-        codeModerator = intent.extras!!.getString("code")
-        moderators = Usuarios.listarModeradores()
-        moderatorAdapter = ModeratorAdapter(moderators)
-        moderator = Usuarios.getUser(codeModerator)
-
-        if(moderator != null){
-            //var city = Cities.obtener(moderator!!.idCity)
-            //binding.cityPlace.text = city!!.name
-            binding.moderatorName.text = moderator!!.nombre
-            binding.nickname.text = moderator!!.nickname
-            //binding.modEmail.text = moderator!!.correo
-            binding.mainNameMod.text= moderator!!.nombre
+        var user = FirebaseAuth.getInstance().currentUser
+        if(user!= null){
+            codeModerator = user.uid
+            Firebase.firestore
+                .collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener {
+                    moderator = it.toObject(User::class.java)
+                    moderator!!.key = it.id
+                    Firebase.firestore
+                        .collection("citiesF")
+                        .document(moderator!!.idCity)
+                        .get()
+                        .addOnSuccessListener {m->
+                            var city = m.toObject(City::class.java)
+                            city!!.key = m.id
+                            binding.cityPlace.text = city!!.name
+                        }
+                    binding.moderatorName.text = moderator!!.nombre
+                    binding.nickname.text = moderator!!.nickname
+                    binding.modEmail.text = user.email
+                    binding.mainNameMod.text= moderator!!.nombre
+                }
         }
+        moderators = ArrayList()
+        moderatorAdapter = ModeratorAdapter(moderators)
         binding.btnEliminar.setOnClickListener{deleteModerator()}
     }
 
@@ -45,8 +63,10 @@ class DatallesModeradorActivity : AppCompatActivity() {
         builder.setTitle(R.string.txt_eliminar_mod)
         builder.setMessage(R.string.txt_eliminar_mod_pregunta)
         builder.setPositiveButton(R.string.txt_si){dialogInterface, which ->
-            Usuarios.deleteUser(codeModerator)
-            moderators.remove(moderator)
+           Firebase.firestore
+               .collection("users")
+               .document(codeModerator!!)
+               .delete()
             moderatorAdapter.notifyItemRemoved(pos)
             startActivity(Intent(this, GestionModeratorActivity::class.java))
         }
