@@ -71,10 +71,11 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
     }
 
     fun cerrarSesion(){
-        sharedPreferences.edit().clear().commit()
-        finish()
+        FirebaseAuth.getInstance().signOut()
         val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        startActivity( intent )
+        finish()
+
     }
 
     fun irCrearModerator(){
