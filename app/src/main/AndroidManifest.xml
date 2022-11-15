@@ -38,12 +38,15 @@
 
         <activity
             android:name=".activities.CategoriesActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.DetallesUsuarioActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.DetalleLugarUsuarioActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.DatallesModeradorActivity"
@@ -57,15 +60,18 @@
             android:exported="false" />
         <activity
             android:name=".activities.CrearModeradorActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.ResultadoBusquedaActivity"
             android:exported="false" />
         <activity
             android:name=".activities.DetalleLugarActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.RegistroActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
