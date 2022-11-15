@@ -23,27 +23,40 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
 
-                <TextView
-                    android:id="@+id/icon_place"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_awesome_6_free_solid_900"
-                    android:textStyle="bold"
-                    android:textSize="25sp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/black"/>
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/icon_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_awesome_6_free_solid_900"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/name_place"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_nombre_lugar_item_lugar"
-                    android:layout_marginBottom="5dp"
-                    android:textStyle="bold"
-                    android:textSize="25sp"
-                    android:textColor="@color/black"/>
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/name_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_nombre_lugar_item_lugar"
+                        android:layout_marginBottom="5dp"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
