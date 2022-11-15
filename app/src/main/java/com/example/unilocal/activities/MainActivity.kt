@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         bd = UniLocalDbHelper(this)
 
         comprobarConexionInternet()
+        Log.e("estado",estadoConexion.toString())
 
         if(estadoConexion){
             val userLogin = FirebaseAuth.getInstance().currentUser
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
             }
         }else{
-            val userLogin = bd.getUserById(codeUser!!)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
-            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
+//            val userLogin = bd.getUserById(codeUser!!)
+//            val header = binding.navigationView.getHeaderView(0)
+//            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
+//            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
         }
         changeFragments(2,MENU_INICIO)
         binding.barraInferior.setOnItemSelectedListener {
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
-        bd.deleteUser(codeUser)
+        //bd.deleteUser(codeUser)
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
@@ -179,11 +180,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
+            comprobarConexion(true)
         }else{
             val request =
                 NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
             connectivityManager.registerNetworkCallback(request,
                 ConectionStatus(::comprobarConexion))
+            comprobarConexion(false)
         }
     }
     fun comprobarConexion(estado:Boolean){
