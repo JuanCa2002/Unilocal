@@ -77,7 +77,15 @@ class LoginActivity : AppCompatActivity() {
                                 if(u.isSuccessful){
                                     val userLogin = FirebaseAuth.getInstance().currentUser
                                     if(userLogin!=null){
-                                        makeRedirection(userLogin)
+                                        Firebase.firestore
+                                            .collection("users")
+                                            .document(userLogin.uid)
+                                            .get()
+                                            .addOnSuccessListener { t->
+                                                val userFire = t.toObject(User::class.java)
+                                                db.createUser(User(userLogin.uid,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
+                                                makeRedirection(userLogin)
+                                            }
                                     }
                                 }else{
                                     Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
@@ -111,8 +119,6 @@ class LoginActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { u ->
                     val rol = u.toObject(User::class.java)!!.rol
-                    val userFire = u.toObject(User::class.java)
-                    db.createUser(User(userFire!!.key,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
                     val intent = when(rol){
                         Rol.ADMINISTRATOR -> Intent(this, GestionModeratorActivity::class.java)
                         Rol.USER-> Intent(this, MainActivity::class.java)

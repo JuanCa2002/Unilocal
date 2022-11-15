@@ -31,7 +31,7 @@ class User(){
 
     fun toContentValues():ContentValues{
         val values = ContentValues()
-        values.put(UserContract.KEY, key)
+        values.put(UserContract.ID, key)
         values.put(UserContract.NOMBRE,nombre)
         values.put(UserContract.CORREO,correo)
         values.put(UserContract.NICKNAME,nickname)

@@ -11,11 +11,11 @@ import java.lang.Exception
 class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",null, 1) {
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL("create table ${UserContract.TABLE_NAME}(" +
-                " ${UserContract.KEY} varchar(100) primary key," +
+                " ${UserContract.ID} varchar(100) primary key," +
                 " ${UserContract.NOMBRE} varchar(100) not null," +
                 " ${UserContract.NICKNAME} varchar(100) not null unique, " +
-                " ${UserContract.CORREO} varchar(100) not null"+
-                " ${UserContract.ID_CITY} varchar(100) not null"+
+                " ${UserContract.CORREO} varchar(100) not null,"+
+                " ${UserContract.ID_CITY} varchar(500)"+
                 "  )")
 
         p0?.execSQL("create table ${PlaceContract.TABLE_NAME}(" +
@@ -65,7 +65,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         writableDatabase.update(
             UserContract.TABLE_NAME,
             user.toContentValues(),
-            "${UserContract.KEY} = ?",
+            "${UserContract.ID} = ?",
             arrayOf(id.toString())
         )
     }
@@ -73,7 +73,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
     fun deleteUser(id:String){
         writableDatabase.delete(
             UserContract.TABLE_NAME,
-            "${UserContract.KEY} = ?",
+            "${UserContract.ID} = ?",
             arrayOf(id)
         )
     }
@@ -82,7 +82,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         val users: ArrayList<User> = ArrayList()
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.KEY,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
+            arrayOf(UserContract.KEY_FIREBASE,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
             null, null, null, null, null
         )
         if(c.moveToFirst()){
@@ -113,8 +113,8 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         var user:User? = null
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.KEY,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
-            "${UserContract.KEY} = ?", arrayOf(id.toString()), null, null, null
+            arrayOf(UserContract.KEY_FIREBASE,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
+            "${UserContract.KEY_FIREBASE} = ?", arrayOf(id.toString()), null, null, null
         )
         if(c.moveToFirst()){
             user = User(c.getString(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4))

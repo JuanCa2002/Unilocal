@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val userLogin = FirebaseAuth.getInstance().currentUser
             if(userLogin!=null){
                 codeUser = userLogin.uid
+                Log.e("codeuser", codeUser)
                 Firebase.firestore
                     .collection("users")
                     .document(userLogin.uid)
@@ -71,10 +72,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
             }
         }else{
-//            val userLogin = bd.getUserById(codeUser!!)
-//            val header = binding.navigationView.getHeaderView(0)
-//            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
-//            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
+            val userLogin = bd.getUserById(codeUser!!)
+            val header = binding.navigationView.getHeaderView(0)
+            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
+            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
         }
         changeFragments(2,MENU_INICIO)
         binding.barraInferior.setOnItemSelectedListener {
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
-        //bd.deleteUser(codeUser)
+        bd.deleteUser(codeUser)
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
