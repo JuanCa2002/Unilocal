@@ -19,35 +19,51 @@
         android:id="@+id/dia_semana"
         style="@style/spinner_form"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/hora_inicio_layout"
-        style="@style/til_form">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/hora_inicio"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="time"
-            android:layout_marginStart="35dp"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/hora_inicio"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hora_inicio_layout"
+            android:layout_width="250dp"
+            style="@style/til_form">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/hora_inicio"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="time"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/hora_inicio"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/hora_fin_layout"
-        style="@style/til_form">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/hora_fin"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:inputType="time"
-            android:layout_marginStart="35dp"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/hora_cierre"/>
+    </LinearLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/hora_fin_layout"
+            style="@style/til_form"
+            android:layout_width="250dp">
+
+            <EditText
+                android:id="@+id/hora_fin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="time"
+                android:background="@drawable/fondo_forms"
+                android:hint="@string/hora_cierre"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/agregar_horario"
@@ -56,7 +72,5 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:text="@string/agregar_horario"/>
-
-
 
 </LinearLayout>
