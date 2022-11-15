@@ -20,6 +20,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp">
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_create_place"
                     android:layout_width="180dp"
@@ -29,7 +30,5 @@
                     android:src="@drawable/ic_baseline_add_business_24" />
 
         </LinearLayout>
-
-
 
 </RelativeLayout>

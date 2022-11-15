@@ -131,4 +131,9 @@
     <string name="registro">Register</string>
     <string name="contrasena_detalles_usuario">Password</string>
     <string name="titulo_detalle_lugar">Enter your password to confirm changes</string>
+    <string name="actualizacion_correcta_det_usu">Your information has been correctly updated.</string>
+    <string name="correo_invalido_det_usu">Invalid email</string>
+    <string name="contraseña_erronea_det_usu">Wrong password, please check</string>
+    <string name="ingresar_contrasena_det_usu">Enter the password to confirm your changes</string>
+    <string name="llenar_datos_det_usu">Fill in all the information</string>
 </resources>

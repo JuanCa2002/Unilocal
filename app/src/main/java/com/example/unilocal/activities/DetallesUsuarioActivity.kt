@@ -115,7 +115,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                     .document(user.uid)
                                     .set(newUser)
                                     .addOnSuccessListener {
-                                        Snackbar.make(binding.root, "Se ha actualizado correctamente tu informacion", Toast.LENGTH_LONG).show()
+                                        Snackbar.make(binding.root, getString(R.string.actualizacion_correcta_det_usu), Toast.LENGTH_LONG).show()
                                         Handler(Looper.getMainLooper()).postDelayed({
                                             when(person.rol){
                                                 Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
@@ -125,16 +125,16 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                         },4000)
                                     }
                             }.addOnFailureListener {
-                                Snackbar.make(binding.root, "Correo invalido", Toast.LENGTH_LONG).show()
+                                Snackbar.make(binding.root, getString(R.string.correo_invalido_det_usu), Toast.LENGTH_LONG).show()
                             }
                     }.addOnFailureListener {
-                        Snackbar.make(binding.root, "Contraseña equivocada, porfavor revisa", Toast.LENGTH_LONG).show()
+                        Snackbar.make(binding.root, getString(R.string.contraseña_erronea_det_usu), Toast.LENGTH_LONG).show()
                     }
             }else{
-                Snackbar.make(binding.root, "Ingresa la contraseña para confirmar tus cambios", Toast.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.ingresar_contrasena_det_usu), Toast.LENGTH_LONG).show()
             }
         }else{
-            Snackbar.make(binding.root, "Llene todos los datos", Toast.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.llenar_datos_det_usu), Toast.LENGTH_LONG).show()
         }
 
     }

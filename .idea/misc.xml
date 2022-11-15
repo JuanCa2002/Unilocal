@@ -51,10 +51,11 @@
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.33" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_detalle_lugar_usuario.xml" value="0.33" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_detalles_usuario.xml" value="0.16077898550724637" />
-        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_gestion_moderator.xml" value="0.15715579710144928" />
+        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_gestion_moderator.xml" value="0.9" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_moderator.xml" value="0.2418478260869565" />
+        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_recuperar_contrasena.xml" value="0.23867753623188406" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_registro.xml" value="0.25" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/activity_resultado_busqueda.xml" value="0.16032608695652173" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/dialogo_progreso.xml" value="0.23867753623188406" />
@@ -66,7 +67,7 @@
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_info_place.xml" value="0.25" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_inicio.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_menu_principal.xml" value="0.33" />
-        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.2558876811594203" />
+        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.5" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_pendientes_place.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_rechazados.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_registre.xml" value="0.2418478260869565" />

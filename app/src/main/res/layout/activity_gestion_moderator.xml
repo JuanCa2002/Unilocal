@@ -18,7 +18,7 @@
           android:id="@+id/list_moderators"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_marginTop="100dp"/>
+          android:layout_marginTop="100dp" />
 
       <fragment
           android:id="@+id/barra_superior"
@@ -26,15 +26,22 @@
           android:layout_height="wrap_content"
           class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
 
-      <com.google.android.material.floatingactionbutton.FloatingActionButton
-          android:id="@+id/btn_create_moderator"
-          android:layout_width="180dp"
-          android:layout_height="60dp"
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
           android:layout_alignParentBottom="true"
-          android:layout_marginLeft="180dp"
-          android:layout_marginBottom="50dp"
-          android:backgroundTint="@color/blue"
-          android:src="@drawable/ic_baseline_person_add_alt_1_24" />
+          android:gravity="center_horizontal"
+          android:layout_marginBottom="10dp">
+
+         <com.google.android.material.floatingactionbutton.FloatingActionButton
+             android:id="@+id/btn_create_moderator"
+             android:layout_width="60dp"
+             android:layout_height="60dp"
+             android:backgroundTint="@color/blue"
+             android:src="@drawable/ic_baseline_person_add_alt_1_24" />
+
+      </LinearLayout>
+
    </RelativeLayout>
 
    <com.google.android.material.navigation.NavigationView

@@ -135,5 +135,10 @@
     <string name="registro">Registro</string>
     <string name="contrasena_detalles_usuario">Contraseña</string>
     <string name="titulo_detalle_lugar">Ingrese su contraseña para confirmar los cambios</string>
+    <string name="actualizacion_correcta_det_usu">Se ha actualizado correctamente tu información</string>
+    <string name="correo_invalido_det_usu">Correo invalido</string>
+    <string name="contraseña_erronea_det_usu">Contraseña equivocada, por favor revisa</string>
+    <string name="ingresar_contrasena_det_usu">Ingresa la contraseña para confirmar tus cambios</string>
+    <string name="llenar_datos_det_usu">Llene todos los datos</string>
 
 </resources>
