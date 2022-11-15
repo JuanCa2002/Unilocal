@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                                     Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
                                 }
                             }.addOnFailureListener{e->
-                                Snackbar.make(binding.root,e.message.toString(),Snackbar.LENGTH_LONG).show()
+                                Snackbar.make(binding.root,"Los datos son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
                             }
                     }else{
                         Snackbar.make(binding.root,getString(R.string.correo_no_encontrado),Snackbar.LENGTH_LONG).show()
@@ -101,12 +101,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun getBackPassword(){
-        val correo = "alejolgg1@gmail.com"
-        FirebaseAuth.getInstance()
-            .sendPasswordResetEmail(correo)
-            .addOnSuccessListener {
-                Log.e("enviado","Email enviado perra")
-            }
+        val intent = Intent(this, RecuperarContrasenaActivity::class.java)
+        startActivity(intent)
     }
     fun makeRedirection(user:FirebaseUser){
         Firebase.firestore
