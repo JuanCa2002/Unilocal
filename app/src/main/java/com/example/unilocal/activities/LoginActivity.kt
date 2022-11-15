@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                                 Snackbar.make(binding.root,e.message.toString(),Snackbar.LENGTH_LONG).show()
                             }
                     }else{
-                        Snackbar.make(binding.root,"El correo no se encuentra",Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(binding.root,getString(R.string.correo_no_encontrado),Snackbar.LENGTH_LONG).show()
                     }
                 }
                 }else{

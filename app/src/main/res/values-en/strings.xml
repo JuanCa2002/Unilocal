@@ -136,4 +136,9 @@
     <string name="contraseña_erronea_det_usu">Wrong password, please check</string>
     <string name="ingresar_contrasena_det_usu">Enter the password to confirm your changes</string>
     <string name="llenar_datos_det_usu">Fill in all the information</string>
+    <string name="recuperar_contrasena">Recover your password</string>
+    <string name="enviar_correo">Send mail</string>
+    <string name="correo_no_encontrado">Mail cannot be found</string>
+    <string name="lugar_actualizado">The place was successfully updated</string>
+    <string name="campo_vacio">You may not leave any field blank</string>
 </resources>

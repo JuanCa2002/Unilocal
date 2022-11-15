@@ -26,6 +26,7 @@ import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.*
 import com.example.unilocal.databinding.ActivityDetalleLugarUsuarioBinding
+
 import com.example.unilocal.fragments.DialogSchedulesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.models.*
@@ -47,7 +48,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, DialogSchedulesFragment.onHorarioCreadoListener {
-    lateinit var binding:ActivityDetalleLugarUsuarioBinding
+    lateinit var binding: ActivityDetalleLugarUsuarioBinding
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
     lateinit var categories: ArrayList<Category>
@@ -330,17 +331,17 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                         .document(place!!.key)
                         .set(newPlace)
                         .addOnSuccessListener {
-                            Snackbar.make(binding.root,"El lugar fue actualizado con exito", Toast.LENGTH_LONG).show()
+                            Snackbar.make(binding.root,getString(R.string.lugar_actualizado), Toast.LENGTH_LONG).show()
                             Handler(Looper.getMainLooper()).postDelayed({
                                 finish()
                             },4000)
                         }
                 }
             }else{
-                Snackbar.make(binding.root,"No puede dejar ningun campo sin diligenciar", Toast.LENGTH_LONG).show()
+                Snackbar.make(binding.root,getString(R.string.campo_vacio), Toast.LENGTH_LONG).show()
             }
         }else{
-            Snackbar.make(binding.root,"No puede dejar ningun campo sin diligenciar", Toast.LENGTH_LONG).show()
+            Snackbar.make(binding.root,getString(R.string.campo_vacio), Toast.LENGTH_LONG).show()
         }
     }
 

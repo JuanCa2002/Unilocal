@@ -140,5 +140,10 @@
     <string name="contraseña_erronea_det_usu">Contraseña equivocada, por favor revisa</string>
     <string name="ingresar_contrasena_det_usu">Ingresa la contraseña para confirmar tus cambios</string>
     <string name="llenar_datos_det_usu">Llene todos los datos</string>
+    <string name="recuperar_contrasena">Recupera tu contraeña</string>
+    <string name="enviar_correo">Enviar correo</string>
+    <string name="correo_no_encontrado">El correo no se encuentra</string>
+    <string name="lugar_actualizado">El lugar fue actualizado con exito</string>
+    <string name="campo_vacio">No puede dejar ningun campo sin diligenciar</string>
 
 </resources>
