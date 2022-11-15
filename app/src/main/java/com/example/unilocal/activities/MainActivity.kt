@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         bd = UniLocalDbHelper(this)
 
         comprobarConexionInternet()
-        Log.e("estado",estadoConexion.toString())
 
         if(estadoConexion){
             val userLogin = FirebaseAuth.getInstance().currentUser

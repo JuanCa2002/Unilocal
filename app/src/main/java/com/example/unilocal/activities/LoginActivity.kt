@@ -2,6 +2,10 @@ package com.example.unilocal.activities
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +17,7 @@ import com.example.unilocal.models.Rol
 import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
 import com.example.unilocal.sqlite.UniLocalDbHelper
+import com.example.unilocal.utils.ConectionStatus
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,21 +29,29 @@ import java.lang.Exception
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     private lateinit var db: UniLocalDbHelper
+    var estadoConexion: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         db = UniLocalDbHelper(this)
 
-        val userLogin = FirebaseAuth.getInstance().currentUser
-        if(userLogin!=null){
-            makeRedirection(userLogin)
-        } else{
-            binding = ActivityLoginBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            binding.btnLogin.setOnClickListener { login() }
-            binding.btnRegistro.setOnClickListener{ registrar() }
-            binding.recuperarContrasena.setOnClickListener { getBackPassword() }
-      }
+        comprobarConexionInternet()
+
+        if(estadoConexion){
+            val userLogin = FirebaseAuth.getInstance().currentUser
+            if(userLogin!=null){
+                makeRedirection(userLogin)
+            } else{
+                binding.btnLogin.setOnClickListener { login() }
+            }
+        }else{
+            Snackbar.make(binding.root,"En estos momentos no tienes conexion a internet intenta mas tarde",Snackbar.LENGTH_LONG).show()
+        }
+        binding.btnRegistro.setOnClickListener{ registrar() }
+        binding.recuperarContrasena.setOnClickListener { getBackPassword() }
+
 
     }
 
@@ -111,6 +124,26 @@ class LoginActivity : AppCompatActivity() {
     fun getBackPassword(){
         val intent = Intent(this, RecuperarContrasenaActivity::class.java)
         startActivity(intent)
+    }
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
+                ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager?.let {
+                it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
+            }
+            comprobarConexion(true)
+        }else{
+            val request =
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request,
+                ConectionStatus(::comprobarConexion)
+            )
+            comprobarConexion(false)
+        }
+    }
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
     }
     fun makeRedirection(user:FirebaseUser){
         Firebase.firestore
