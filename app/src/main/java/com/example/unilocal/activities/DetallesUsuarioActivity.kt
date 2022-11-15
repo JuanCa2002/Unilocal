@@ -87,6 +87,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         var nickname = binding.nicknameUsuario.text.toString()
         var correo = binding.correoUsuario.text.toString()
         var idCity = cities[cityPosition].key
+        var password = binding.passwordUsuario.text.toString()
 
         if(nombre.isEmpty()){
             nombre = binding.nombreLayout.hint.toString()
@@ -100,34 +101,38 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             correo = binding.correoLayout.hint.toString()
         }
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=""){
-            val newUser = User(person!!.id,nombre,nickname,idCity,person.rol)
-            var user = FirebaseAuth.getInstance().currentUser
-            val credential= EmailAuthProvider.getCredential(user!!.email!!, "12345")
-            user!!.reauthenticate(credential)
-                .addOnSuccessListener {
-                      user!!.updateEmail(correo)
-                        .addOnSuccessListener {
-                            verificarEmail(user)
-                            Firebase.firestore
-                                .collection("users")
-                                .document(user.uid)
-                                .set(newUser)
-                                .addOnSuccessListener {
-                                    Snackbar.make(binding.root, "Se ha actualizado correctamente tu informacion", Toast.LENGTH_LONG).show()
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        when(person.rol){
-                                            Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
-                                            Rol.MODERATOR -> startActivity(Intent(this, ModeratorActivity::class.java))
-                                            else -> startActivity(Intent(this, GestionModeratorActivity::class.java))
-                                        }
-                                    },4000)
-                                }
-                        }.addOnFailureListener {
-                                   Snackbar.make(binding.root, "Correo invalido", Toast.LENGTH_LONG).show()
-                                }
-                }.addOnFailureListener {
-                    Snackbar.make(binding.root, "Contraseña equivocada, porfavor revisa", Toast.LENGTH_LONG).show()
-                }
+            if(password.isNotEmpty()){
+                val newUser = User(person!!.id,nombre,nickname,idCity,person.rol)
+                var user = FirebaseAuth.getInstance().currentUser
+                val credential= EmailAuthProvider.getCredential(user!!.email!!, password)
+                user!!.reauthenticate(credential)
+                    .addOnSuccessListener {
+                        user!!.updateEmail(correo)
+                            .addOnSuccessListener {
+                                verificarEmail(user)
+                                Firebase.firestore
+                                    .collection("users")
+                                    .document(user.uid)
+                                    .set(newUser)
+                                    .addOnSuccessListener {
+                                        Snackbar.make(binding.root, "Se ha actualizado correctamente tu informacion", Toast.LENGTH_LONG).show()
+                                        Handler(Looper.getMainLooper()).postDelayed({
+                                            when(person.rol){
+                                                Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
+                                                Rol.MODERATOR -> startActivity(Intent(this, ModeratorActivity::class.java))
+                                                else -> startActivity(Intent(this, GestionModeratorActivity::class.java))
+                                            }
+                                        },4000)
+                                    }
+                            }.addOnFailureListener {
+                                Snackbar.make(binding.root, "Correo invalido", Toast.LENGTH_LONG).show()
+                            }
+                    }.addOnFailureListener {
+                        Snackbar.make(binding.root, "Contraseña equivocada, porfavor revisa", Toast.LENGTH_LONG).show()
+                    }
+            }else{
+                Snackbar.make(binding.root, "Ingresa la contraseña para confirmar tus cambios", Toast.LENGTH_LONG).show()
+            }
         }else{
             Snackbar.make(binding.root, "Llene todos los datos", Toast.LENGTH_LONG).show()
         }
