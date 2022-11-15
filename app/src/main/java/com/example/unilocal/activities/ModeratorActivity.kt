@@ -14,7 +14,12 @@ import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityModeratorBinding
 import com.example.unilocal.fragments.*
+import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     private lateinit var sharedPreferences: SharedPreferences
@@ -27,11 +32,17 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         binding = ActivityModeratorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(codeModerator != ""){
-            val moderator = Usuarios.getUser(codeModerator)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = moderator!!.nombre
-            //header.findViewById<TextView>(R.id.email_user_session).text = moderator!!.correo
+        val user = FirebaseAuth.getInstance().currentUser
+        if(user != null){
+            Firebase.firestore
+                .collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener {
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(R.id.name_user_session).text = it.toObject(User::class.java)!!.nombre
+                    header.findViewById<TextView>(R.id.email_user_session).text = user.email
+                }
         }
         changeFragments(1, MENU_PENDIENTES)
         binding.barraInferiorModerator.setOnItemSelectedListener {
@@ -62,11 +73,11 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun cerrarSesion(){
-        sharedPreferences.edit().clear().commit()
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity( intent )
         finish()
 
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

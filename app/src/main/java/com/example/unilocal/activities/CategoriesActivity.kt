@@ -20,6 +20,7 @@ import com.example.unilocal.bd.*
 import com.example.unilocal.databinding.ActivityCategoriesBinding
 import com.example.unilocal.models.Category
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.StatusPlace
 import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -38,6 +39,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        categories = ArrayList()
         loadCategories()
         var menu = this.findViewById<Button>(com.example.unilocal.R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
@@ -59,18 +61,28 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     fun loadCategories(){
-        categories = Categories.listar()
-        var adapter= ArrayAdapter(this, R.layout.simple_spinner_item,categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.categories.adapter= adapter
-        binding.categories.setSelection(0)
-        binding.categories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                categoryPosition = p2
+        categories.clear()
+        Firebase.firestore
+            .collection("categoriesF")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it ){
+                    val category = doc.toObject(Category::class.java)
+                    category.key = doc.id
+                    categories.add(category)
+                }
+                var adapter= ArrayAdapter(this, R.layout.simple_spinner_item,categories)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.categories.adapter= adapter
+                binding.categories.setSelection(0)
+                binding.categories.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        categoryPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -107,9 +119,21 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     fun loadPlacesByCategory(){
-        //places = Places.buscarCategoria(categories[categoryPosition].id)
-        val adapter = PlaceAdapter(places,"Busqueda")
-        binding.listPlacesCategory.adapter = adapter
-        binding.listPlacesCategory.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        places.clear()
+        Firebase.firestore
+            .collection("placesF")
+            .whereEqualTo("idCategory", categories[categoryPosition].key)
+            .whereEqualTo("status", StatusPlace.ACEPTADO)
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val place = doc.toObject(Place::class.java)
+                    place.key = doc.id
+                    places.add(place)
+                }
+                val adapter = PlaceAdapter(places,"Busqueda")
+                binding.listPlacesCategory.adapter = adapter
+                binding.listPlacesCategory.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+            }
     }
 }

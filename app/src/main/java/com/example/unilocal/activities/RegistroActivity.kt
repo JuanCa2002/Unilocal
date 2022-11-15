@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
@@ -37,6 +38,7 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        cities = ArrayList()
         loadCities()
         binding.btnRegistro.setOnClickListener{ registraUsuario()}
 
@@ -96,7 +98,7 @@ class RegistroActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
 
-        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=10 && password.isNotEmpty() && idCity!= ""){
+        if(name.isNotEmpty() && email.isNotEmpty() && confirmPassword.isNotEmpty() && nickname.isNotEmpty() && nickname.length<=15 && password.isNotEmpty() && idCity!= ""){
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener {
@@ -128,17 +130,26 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     fun loadCities(){
-        cities = Cities.listar()
-        var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.departmentPlace.adapter= adapter
-        binding.departmentPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                cityPosition = p2
+        Firebase.firestore
+            .collection("citiesF")
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val city = doc.toObject(City::class.java)
+                    city.key = doc.id
+                    cities.add(city)
+                }
+                var adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item,cities)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.departmentPlace.adapter= adapter
+                binding.departmentPlace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        cityPosition = p2
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     private fun verificarEmail(user: FirebaseUser){

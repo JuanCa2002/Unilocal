@@ -18,6 +18,9 @@ import com.example.unilocal.databinding.FragmentPendientesPlaceBinding
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.StatusPlace
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 class PendientesPlaceFragment : Fragment() {
@@ -28,9 +31,6 @@ class PendientesPlaceFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(arguments != null){
-            codeModerator = requireArguments().getInt("code_moderator")
-        }
     }
 
     override fun onCreateView(
@@ -39,11 +39,22 @@ class PendientesPlaceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPendientesPlaceBinding.inflate(inflater,container,false)
-        places = Places.listByStatus(StatusPlace.SIN_REVISAR)
-        adapterPlace = PlaceAdapter(places,"Busqueda")
-        binding.listPlacesPending.adapter = adapterPlace
-        binding.listPlacesPending.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+        places = ArrayList()
+        Firebase.firestore
+            .collection("placesF")
+            .whereEqualTo("status", StatusPlace.SIN_REVISAR)
+            .get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val place = doc.toObject(Place::class.java)
+                    place.key = doc.id
+                    places.add(place)
+                }
+                adapterPlace = PlaceAdapter(places,"Busqueda")
+                binding.listPlacesPending.adapter = adapterPlace
+                binding.listPlacesPending.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
 
+            }
         val simpleCallback: ItemTouchHelper.SimpleCallback = object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
             override fun onMove(
