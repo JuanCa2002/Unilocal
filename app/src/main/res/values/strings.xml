@@ -133,5 +133,7 @@
     <string name="mis_lugares">Mis lugares</string>
     <string name="pendientes">Pendientes</string>
     <string name="registro">Registro</string>
+    <string name="contrasena_detalles_usuario">Contraseña</string>
+    <string name="titulo_detalle_lugar">Ingrese su contraseña para confirmar los cambios</string>
 
 </resources>

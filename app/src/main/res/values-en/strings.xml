@@ -11,7 +11,7 @@
     <string name="txt_iniciar_sesion">Log in </string>
     <string name="txt_registrarse">Register now</string>
     <string name="txt_password_Forget">¿Did you forget your password?</string>
-    <string name="txt_titulo_login">Ingresa para acceder a todos los beneficios</string>
+    <string name="txt_titulo_login">Login to access all benefits</string>
 
     <!-- Textos referentes al activity registro-->
     <string name="txt_user_name">Enter your name</string>
@@ -129,4 +129,6 @@
     <string name="mis_lugares">My places</string>
     <string name="pendientes">Pending</string>
     <string name="registro">Register</string>
+    <string name="contrasena_detalles_usuario">Password</string>
+    <string name="titulo_detalle_lugar">Enter your password to confirm changes</string>
 </resources>
