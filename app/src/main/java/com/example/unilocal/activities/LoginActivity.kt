@@ -111,6 +111,8 @@ class LoginActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { u ->
                     val rol = u.toObject(User::class.java)!!.rol
+                    val userFire = u.toObject(User::class.java)
+                    db.createUser(User(userFire!!.key,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
                     val intent = when(rol){
                         Rol.ADMINISTRATOR -> Intent(this, GestionModeratorActivity::class.java)
                         Rol.USER-> Intent(this, MainActivity::class.java)

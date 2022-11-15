@@ -11,17 +11,16 @@ import java.lang.Exception
 class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",null, 1) {
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.execSQL("create table ${UserContract.TABLE_NAME}(" +
-                "  ${UserContract.ID} INTEGER primary key AUTOINCREMENT," +
+                " ${UserContract.KEY} varchar(100) primary key," +
                 " ${UserContract.NOMBRE} varchar(100) not null," +
                 " ${UserContract.NICKNAME} varchar(100) not null unique, " +
-                " ${UserContract.PASSWORD} varchar(50) not null," +
-                " ${UserContract.ID_CITY} int"+
+                " ${UserContract.CORREO} varchar(100) not null"+
+                " ${UserContract.ID_CITY} varchar(100) not null"+
                 "  )")
 
         p0?.execSQL("create table ${PlaceContract.TABLE_NAME}(" +
-                "  ${PlaceContract.ID} INTEGER primary key," +
+                " ${PlaceContract.ID} INTEGER primary key AUTOINCREMENT," +
                 " ${PlaceContract.NOMBRE} varchar(100) not null," +
-                " ${PlaceContract.KEY_FIREBASE} varchar(100) not null," +
                 " ${PlaceContract.DESCRIPCION} text not null, " +
                 " ${PlaceContract.LAT} double not null ," +
                 " ${PlaceContract.LNG} double not null," +
@@ -62,20 +61,20 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         }
     }
 
-//    fun updateUser(user:User){
-//        writableDatabase.update(
-//            UserContract.TABLE_NAME,
-//            user.toContentValues(),
-//            "${UserContract.ID} = ?",
-//            arrayOf(user.id.toString())
-//        )
-//    }
+    fun updateUser(user:User, id: Int){
+        writableDatabase.update(
+            UserContract.TABLE_NAME,
+            user.toContentValues(),
+            "${UserContract.KEY} = ?",
+            arrayOf(id.toString())
+        )
+    }
 
-    fun deleteUser(id:Int){
+    fun deleteUser(id:String){
         writableDatabase.delete(
             UserContract.TABLE_NAME,
-            "${UserContract.ID} = ?",
-            arrayOf(id.toString())
+            "${UserContract.KEY} = ?",
+            arrayOf(id)
         )
     }
 
@@ -83,13 +82,12 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         val users: ArrayList<User> = ArrayList()
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME,
-              UserContract.PASSWORD, UserContract.ID_CITY),
+            arrayOf(UserContract.KEY,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
             null, null, null, null, null
         )
         if(c.moveToFirst()){
             do{
-              //users.add(User(c.getInt(0),c.getString(1), c.getString(2), c.getInt(3),c.getString(4))
+              users.add(User(c.getString(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4)))
             } while (c.moveToNext())
         }
         return users
@@ -111,15 +109,15 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         return places
     }
 
-    fun getUserById(id:Int):User?{
+    fun getUserById(id:String):User?{
         var user:User? = null
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.PASSWORD, UserContract.ID_CITY),
-            "${UserContract.ID} = ?", arrayOf(id.toString()), null, null, null
+            arrayOf(UserContract.KEY,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
+            "${UserContract.KEY} = ?", arrayOf(id.toString()), null, null, null
         )
         if(c.moveToFirst()){
-            //user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3), c.getInt(4))
+            user = User(c.getString(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4))
         }
         return user
     }
@@ -135,19 +133,5 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
             place = Place(c.getInt(0))
         }
         return place
-    }
-
-    fun login(correo:String, password:String):User?{
-        var user:User? = null
-        val c:Cursor = readableDatabase.query(
-            UserContract.TABLE_NAME,
-            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME,
-                UserContract.CORREO, UserContract.PASSWORD, UserContract.ID_CITY),
-            "${UserContract.CORREO} = ? and ${UserContract.PASSWORD} = ?", arrayOf(correo, password), null, null, null
-        )
-        if(c.moveToFirst()){
-            //user = User(c.getInt(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4), c.getInt(5))
-        }
-        return user
     }
 }

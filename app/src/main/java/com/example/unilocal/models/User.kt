@@ -19,15 +19,22 @@ class User(){
         this.idCity = idCity
         this.rol = rol
     }
+    constructor( key:String, nombre: String, nickname:String,correo:String, idCity:String ):this(){
+        this.correo = correo
+        this.key = key
+        this.nombre = nombre
+        this.nickname= nickname
+        this.idCity = idCity
+    }
 
     var favorities: ArrayList<String?> = ArrayList()
 
     fun toContentValues():ContentValues{
         val values = ContentValues()
+        values.put(UserContract.KEY, key)
         values.put(UserContract.NOMBRE,nombre)
-        //values.put(UserContract.CORREO,correo)
+        values.put(UserContract.CORREO,correo)
         values.put(UserContract.NICKNAME,nickname)
-        //values.put(UserContract.PASSWORD,password)
         values.put(UserContract.ID_CITY, idCity)
 
         return values

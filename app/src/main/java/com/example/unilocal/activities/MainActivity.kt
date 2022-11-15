@@ -27,6 +27,7 @@ import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.fragments.MyPlacesFragment
 import com.example.unilocal.models.User
+import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.example.unilocal.utils.ConectionStatus
 import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
@@ -41,28 +42,38 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private var MENU_MIS_LUGARES = "Mis lugares"
     private var MENU_FAVORITOS = "favoritos"
     lateinit var binding: ActivityMainBinding
-    var codeUser: Int = -1
+    var codeUser: String = ""
+    lateinit var bd: UniLocalDbHelper
     var estadoConexion: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        bd = UniLocalDbHelper(this)
 
         comprobarConexionInternet()
 
-        val userLogin = FirebaseAuth.getInstance().currentUser
-        if(userLogin!=null){
-            Firebase.firestore
-                .collection("users")
-                .document(userLogin.uid)
-                .get()
-                .addOnSuccessListener { u ->
-                    val header = binding.navigationView.getHeaderView(0)
+        if(estadoConexion){
+            val userLogin = FirebaseAuth.getInstance().currentUser
+            if(userLogin!=null){
+                codeUser = userLogin.uid
+                Firebase.firestore
+                    .collection("users")
+                    .document(userLogin.uid)
+                    .get()
+                    .addOnSuccessListener { u ->
+                        val header = binding.navigationView.getHeaderView(0)
                         header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
                         header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
 
-                }
+                    }
+            }
+        }else{
+            val userLogin = bd.getUserById(codeUser!!)
+            val header = binding.navigationView.getHeaderView(0)
+            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
+            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
         }
         changeFragments(2,MENU_INICIO)
         binding.barraInferior.setOnItemSelectedListener {
@@ -84,6 +95,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
+        bd.deleteUser(codeUser)
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
