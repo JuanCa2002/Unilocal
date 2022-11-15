@@ -86,7 +86,7 @@ class CrearModeradorActivity : AppCompatActivity() {
         }
 
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && password == confirmPassword && idCity != "" ){
-           val moderator = User(Usuarios.listar().size+1, nombre,correo, idCity,
+           val moderator = User( nombre,nickname,correo, idCity,
                Rol.MODERATOR)
            Usuarios.agregar(moderator)
             val intent = Intent(this, GestionModeratorActivity::class.java)

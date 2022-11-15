@@ -15,6 +15,7 @@ import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityGestionModeratorBinding
 import com.example.unilocal.models.Rol
+import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -48,6 +49,7 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         Firebase.firestore
             .collection("users")
             .whereEqualTo("rol", Rol.MODERATOR)
+            .whereEqualTo("status", StatusUser.HABILITADO)
             .get()
             .addOnSuccessListener {
                 for(doc in it){

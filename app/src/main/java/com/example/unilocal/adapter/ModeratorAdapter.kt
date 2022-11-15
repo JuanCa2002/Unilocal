@@ -28,7 +28,7 @@ class ModeratorAdapter(var moderators:ArrayList<User>): RecyclerView.Adapter<Mod
         val name: TextView = itemView.findViewById(R.id.name_moderator)
         val nickname: TextView = itemView.findViewById(R.id.nickname_moderator)
         val email: TextView = itemView.findViewById(R.id.email_moderator)
-        var codeModerator:Int = 0
+        var codeModerator:String = ""
 
         init {
             itemView.setOnClickListener (this)
@@ -37,8 +37,8 @@ class ModeratorAdapter(var moderators:ArrayList<User>): RecyclerView.Adapter<Mod
         fun bind(moderator: User){
             name.text = moderator.nombre
             nickname.text = moderator.nickname
-            //email.text = moderator.correo
-            codeModerator = moderator.id
+            email.text = moderator.correo
+            codeModerator = moderator.key
 
         }
 

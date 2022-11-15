@@ -1,222 +1,302 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        tools:context=".activities.DetalleLugarUsuarioActivity">
-
-        <RelativeLayout
-            android:id="@+id/parte_imagen"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="100dp"
-                android:src="@mipmap/ic_launcher"></ImageView>
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/btn_eliminar_lugar_usuario"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/red"
-                app:icon="@drawable/ic_baseline_delete_24" />
-
-        </RelativeLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/campo_nombre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/parte_imagen"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            tools:context=".activities.DetalleLugarUsuarioActivity">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_person_24"></ImageView>
+            <RelativeLayout
+                android:id="@+id/parte_imagen"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nombre_layout"
-                style="@style/til_form"
-                android:layout_width="313dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:hint="@string/txt_nombre_detalle_usuario">
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="100dp"
+                    android:src="@mipmap/ic_launcher"></ImageView>
 
-                <EditText
-                    android:id="@+id/nombre_local_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/fondo_forms"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/btn_eliminar_lugar_usuario"
+                    android:layout_width="180dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/red"
+                    app:icon="@drawable/ic_baseline_delete_24" />
 
-        <LinearLayout
-            android:id="@+id/campo_horario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/campo_nombre"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_schedule_24"></ImageView>
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/campo_descripcion"
-                android:layout_width="313dp"
-                android:layout_height="200dp"
-                android:layout_below="@id/campo_categoria"
+                android:id="@+id/campo_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/parte_imagen"
                 android:gravity="center"
                 android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_person_24"></ImageView>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/descripcion_layout"
+                    android:id="@+id/nombre_layout"
                     style="@style/til_form"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
+                    android:layout_width="313dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/txt_nombre_detalle_usuario">
 
                     <EditText
-                        android:id="@+id/descripcion_edit"
+                        android:id="@+id/nombre_local_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/fondo_forms"
-                        android:hint="@string/txt_descripcion_detalle_usuario"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/campo_telefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/campo_horario"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/campo_horario"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_phone_iphone_24"></ImageView>
+                android:layout_below="@id/campo_nombre"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/telefono_layout"
-                style="@style/til_form"
-                android:layout_width="313dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:hint="@string/txt_telefono_detalle_usuario">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_schedule_24"></ImageView>
 
-                <EditText
-                    android:id="@+id/telefono_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/fondo_forms"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/campo_descripcion"
+                    android:layout_width="313dp"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/campo_categoria"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/campo_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/campo_telefono"
-            android:gravity="center"
-            android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/descripcion_layout"
+                        style="@style/til_form"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/descripcion_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/fondo_forms"
+                            android:hint="@string/txt_descripcion_detalle_usuario"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/campo_telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/campo_horario"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_phone_iphone_24"></ImageView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/telefono_layout"
+                    style="@style/til_form"
+                    android:layout_width="313dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/txt_telefono_detalle_usuario">
+
+                    <EditText
+                        android:id="@+id/telefono_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/fondo_forms"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/campo_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/campo_telefono"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/category_edit"
                     android:layout_width="313dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
+                    android:background="@drawable/fondo_forms"
                     android:hint="@string/txt_categoria_detalle_usuario"
-                    android:background="@drawable/fondo_forms"
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp"/>
+                    android:paddingEnd="10dp" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/campo_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/city_edit"
-                android:layout_width="313dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
-                android:hint="@string/txt_categoria_detalle_usuario"
-
-                android:background="@drawable/fondo_forms"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/campo_direccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/campo_horario"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/campo_city"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_directions_24"></ImageView>
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/campo_direccion_layout"
-                style="@style/til_form"
-                android:layout_width="313dp"
-                android:layout_gravity="center"
-                android:hint="@string/txt_direccion_detalle_usuario">
-
-                <EditText
-                    android:id="@+id/direccion_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                <Spinner
+                    android:id="@+id/city_edit"
+                    android:layout_width="313dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
                     android:background="@drawable/fondo_forms"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+
+                    android:hint="@string/txt_categoria_detalle_usuario"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/campo_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/campo_horario"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_directions_24"></ImageView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/campo_direccion_layout"
+                    style="@style/til_form"
+                    android:layout_width="313dp"
+                    android:layout_gravity="center"
+                    android:hint="@string/txt_direccion_detalle_usuario">
+
+                    <EditText
+                        android:id="@+id/direccion_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/fondo_forms"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/gray" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="@string/seleccionar_imagen"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <Button
+                    android:id="@+id/btn_sel_archivo"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="50"
+                    android:text="@string/seleccionar_archivo" />
+
+                <Button
+                    android:id="@+id/btn_tomar_foto"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="40"
+                    android:text="@string/tomar_foto" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imagenes_seleccionadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/mapa_crear_lugar"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="450dp" />
+
+            <Button
+                android:id="@+id/btn_guardar_cambios_lugar_usuario"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/color2"
+                android:text="@string/txt_guardar_cambios_detalle_usuario"
+                android:textColor="@color/black"></Button>
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_guardar_cambios_lugar_usuario"
-            android:layout_marginTop="10dp"
-            android:layout_width="200dp"
-            android:textColor="@color/black"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/color2"
-            android:text="@string/txt_guardar_cambios_detalle_usuario"></Button>
+    </ScrollView>
 
-    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_asignar_horario"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
+        android:src="@drawable/ic_baseline_watch_later_24" />
 
-</ScrollView>
+</RelativeLayout>

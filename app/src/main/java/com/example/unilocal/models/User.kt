@@ -5,18 +5,17 @@ import com.example.unilocal.sqlite.UserContract
 
 class User(){
     var key:String = ""
-    var id:Int = 0
+    var correo:String = ""
+    var status:StatusUser = StatusUser.HABILITADO
     var rol:Rol = Rol.USER
     var nombre:String = ""
     var nickname:String = ""
-    var password:String = ""
     var idCity:String = ""
 
-    constructor(id: Int, nombre: String, nickname:String, idCity:String, rol:Rol ):this(){
-        this.id= id
+    constructor( nombre: String, nickname:String,correo:String, idCity:String, rol:Rol ):this(){
+        this.correo = correo
         this.nombre = nombre
         this.nickname= nickname
-        this.password = password
         this.idCity = idCity
         this.rol = rol
     }
@@ -28,14 +27,14 @@ class User(){
         values.put(UserContract.NOMBRE,nombre)
         //values.put(UserContract.CORREO,correo)
         values.put(UserContract.NICKNAME,nickname)
-        values.put(UserContract.PASSWORD,password)
+        //values.put(UserContract.PASSWORD,password)
         values.put(UserContract.ID_CITY, idCity)
 
         return values
     }
 
     override fun toString(): String {
-        return "User(nombre='$nombre', nickname='$nickname', password='$password')"
+        return "User(nombre='$nombre', nickname='$nickname')"
     }
 }
 

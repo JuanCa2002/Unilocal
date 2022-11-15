@@ -106,7 +106,7 @@ class RegistroActivity : AppCompatActivity() {
                         val user = FirebaseAuth.getInstance().currentUser
                         if(user != null){
                             verificarEmail(user)
-                            val userRegister = User(0, name, nickname,idCity, Rol.USER)
+                            val userRegister = User( name, nickname, email ,idCity, Rol.USER)
                             Firebase.firestore
                                 .collection("users")
                                 .document(user.uid)

@@ -10,8 +10,11 @@ import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityDatallesModeradorBinding
 import com.example.unilocal.models.City
+import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthActionCodeException
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -28,12 +31,11 @@ class DatallesModeradorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDatallesModeradorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var user = FirebaseAuth.getInstance().currentUser
-        if(user!= null){
-            codeModerator = user.uid
+        codeModerator = intent.extras!!.getString("code")
+        if(codeModerator!= ""){
             Firebase.firestore
                 .collection("users")
-                .document(user.uid)
+                .document(codeModerator!!)
                 .get()
                 .addOnSuccessListener {
                     moderator = it.toObject(User::class.java)
@@ -49,7 +51,7 @@ class DatallesModeradorActivity : AppCompatActivity() {
                         }
                     binding.moderatorName.text = moderator!!.nombre
                     binding.nickname.text = moderator!!.nickname
-                    binding.modEmail.text = user.email
+                    binding.modEmail.text = moderator!!.correo
                     binding.mainNameMod.text= moderator!!.nombre
                 }
         }
@@ -66,9 +68,20 @@ class DatallesModeradorActivity : AppCompatActivity() {
            Firebase.firestore
                .collection("users")
                .document(codeModerator!!)
-               .delete()
-            moderatorAdapter.notifyItemRemoved(pos)
-            startActivity(Intent(this, GestionModeratorActivity::class.java))
+               .get()
+               .addOnSuccessListener {
+                   val user = it.toObject(User::class.java)
+                   user!!.key = it.id
+                   user.status = StatusUser.INHABILITADO
+                   Firebase.firestore
+                       .collection("users")
+                       .document(it.id)
+                       .set(user)
+                       .addOnSuccessListener {
+                           moderatorAdapter.notifyItemRemoved(pos)
+                           startActivity(Intent(this, GestionModeratorActivity::class.java))
+                       }
+               }
         }
         builder.setNeutralButton(R.string.txt_cancel){dialogInterface , which -> }
         val alertDialog: AlertDialog = builder.create()

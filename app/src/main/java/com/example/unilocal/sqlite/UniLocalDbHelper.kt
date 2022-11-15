@@ -62,14 +62,14 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         }
     }
 
-    fun updateUser(user:User){
-        writableDatabase.update(
-            UserContract.TABLE_NAME,
-            user.toContentValues(),
-            "${UserContract.ID} = ?",
-            arrayOf(user.id.toString())
-        )
-    }
+//    fun updateUser(user:User){
+//        writableDatabase.update(
+//            UserContract.TABLE_NAME,
+//            user.toContentValues(),
+//            "${UserContract.ID} = ?",
+//            arrayOf(user.id.toString())
+//        )
+//    }
 
     fun deleteUser(id:Int){
         writableDatabase.delete(

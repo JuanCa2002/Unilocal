@@ -102,7 +102,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         }
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=""){
             if(password.isNotEmpty()){
-                val newUser = User(person!!.id,nombre,nickname,idCity,person.rol)
+                val newUser = User(nombre,nickname,correo,idCity,person!!.rol)
                 var user = FirebaseAuth.getInstance().currentUser
                 val credential= EmailAuthProvider.getCredential(user!!.email!!, password)
                 user!!.reauthenticate(credential)

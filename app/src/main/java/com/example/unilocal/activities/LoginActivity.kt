@@ -10,6 +10,7 @@ import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityLoginBinding
 import com.example.unilocal.models.Rol
+import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
 import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.snackbar.Snackbar
@@ -26,10 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val sp = getSharedPreferences("sesion",Context.MODE_PRIVATE)
-//        val email = sp.getString("correo_usuario","")
-//        val type = sp.getString("tipo_usuario","")
-//        val code = sp.getInt("id",0)
         db = UniLocalDbHelper(this)
 
         val userLogin = FirebaseAuth.getInstance().currentUser
@@ -40,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
             setContentView(binding.root)
             binding.btnLogin.setOnClickListener { login() }
             binding.btnRegistro.setOnClickListener{ registrar() }
+            binding.recuperarContrasena.setOnClickListener { getBackPassword() }
       }
 
     }
@@ -61,23 +59,36 @@ class LoginActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
         if (correo.isNotEmpty() && password.isNotEmpty()) {
-            // Hacerlo mas adelante con la base de datos
-            FirebaseAuth.getInstance()
-                        .signInWithEmailAndPassword(correo, password)
-                        .addOnCompleteListener {
-                             if(it.isSuccessful){
-                                 val userLogin = FirebaseAuth.getInstance().currentUser
-                                 Log.e("Llego ", userLogin.toString())
-                                 if(userLogin!=null){
-                                     Log.e("Llego ", userLogin.toString())
-                                     makeRedirection(userLogin)
-                                 }
-                             }else{
-                                 Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
-                             }
-                        }.addOnFailureListener{
-                            Snackbar.make(binding.root,it.message.toString(),Snackbar.LENGTH_LONG).show()
-                        }
+            var user: User?= null
+            Firebase.firestore
+                .collection("users")
+                .whereEqualTo("correo", correo)
+                .get()
+                .addOnSuccessListener {
+                    for(doc in it){
+                        user = doc.toObject(User::class.java)
+                        user!!.key = doc.id
+                        break
+                    }
+                    if(user!= null && user!!.status != StatusUser.INHABILITADO){
+                        FirebaseAuth.getInstance()
+                            .signInWithEmailAndPassword(correo, password)
+                            .addOnCompleteListener {u->
+                                if(u.isSuccessful){
+                                    val userLogin = FirebaseAuth.getInstance().currentUser
+                                    if(userLogin!=null){
+                                        makeRedirection(userLogin)
+                                    }
+                                }else{
+                                    Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
+                                }
+                            }.addOnFailureListener{e->
+                                Snackbar.make(binding.root,e.message.toString(),Snackbar.LENGTH_LONG).show()
+                            }
+                    }else{
+                        Snackbar.make(binding.root,"El correo no se encuentra",Snackbar.LENGTH_LONG).show()
+                    }
+                }
                 }else{
                     Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
                 }
@@ -89,6 +100,14 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun getBackPassword(){
+        val correo = "alejolgg1@gmail.com"
+        FirebaseAuth.getInstance()
+            .sendPasswordResetEmail(correo)
+            .addOnSuccessListener {
+                Log.e("enviado","Email enviado perra")
+            }
+    }
     fun makeRedirection(user:FirebaseUser){
         Firebase.firestore
             .collection("users")

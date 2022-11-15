@@ -52,13 +52,13 @@ object Usuarios {
         return usuarios.filter { u -> u.rol == Rol.MODERATOR }.toCollection(ArrayList())
     }
 
-    fun updateUser( user: User,id: Int){
-        var userExist = usuarios.firstOrNull{u -> u.id == id}
-        if(userExist!= null){
-            var index = usuarios.indexOf(userExist)
-            usuarios.set(index, user)
-        }
-    }
+//    fun updateUser( user: User,id: Int){
+//        var userExist = usuarios.firstOrNull{u -> u.id == id}
+//        if(userExist!= null){
+//            var index = usuarios.indexOf(userExist)
+//            usuarios.set(index, user)
+//        }
+//    }
 
 //    fun login(email: String, password: String): User? {
 //        return usuarios.firstOrNull{ u -> u.correo == email && u.password == password }

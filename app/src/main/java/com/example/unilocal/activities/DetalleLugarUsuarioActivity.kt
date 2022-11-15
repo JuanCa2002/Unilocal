@@ -1,39 +1,69 @@
 package com.example.unilocal.activities
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.*
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.*
 import com.example.unilocal.databinding.ActivityDetalleLugarUsuarioBinding
+import com.example.unilocal.fragments.DialogSchedulesFragment
 import com.example.unilocal.fragments.InicioFragment
 import com.example.unilocal.models.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
-class DetalleLugarUsuarioActivity : AppCompatActivity() {
-    lateinit var binding: ActivityDetalleLugarUsuarioBinding
+class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, DialogSchedulesFragment.onHorarioCreadoListener {
+    lateinit var binding:ActivityDetalleLugarUsuarioBinding
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
     lateinit var categories: ArrayList<Category>
     var codePlace:String? = ""
-    var codeUser:String? = ""
+    lateinit var dialog: Dialog
+    var imagenes:ArrayList<String> = ArrayList()
+    var codigoArchivo: Int = 0
+    lateinit var horarios: ArrayList<Schedule>
+    lateinit var gMap:GoogleMap
+    private val defaultLocation = LatLng(4.550923, -75.6557201)
     var user:FirebaseUser? = null
     var pos: Int = -1
     var categoryPosition: Int = -1
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     var cityPosition: Int = -1
+    private var position:Position? = null
     var place: Place? = null
     var placesByUser: ArrayList<Place> = ArrayList()
 
@@ -41,11 +71,21 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleLugarUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        horarios = ArrayList()
         codePlace =  intent.extras!!.getString("code")
         categories = ArrayList()
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult() ) {
+            onActivityResult(it.resultCode, it)
+        }
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialogo_progreso)
+        dialog = builder.create()
         cities = ArrayList()
         user = FirebaseAuth.getInstance().currentUser
         placeAdapter = PlaceAdapter(placesByUser, "usuario")
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapa_crear_lugar) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         if(user != null){
            Firebase.firestore
                .collection("placesF")
@@ -56,8 +96,12 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
                        place = doc.toObject(Place::class.java)
                        place!!.key = doc.id
                        if(place != null){
+                           imagenes = place!!.images
+                           horarios = place!!.schedules
+                           position = place!!.position
+                           gMap.addMarker(MarkerOptions().position(LatLng(place!!.position!!.lat, place!!.position!!.lng)).title(place!!.name).visible(true))!!.tag = place!!.key
                            binding.nombreLayout.hint = place!!.name
-                           binding.telefonoLayout.hint = "311"
+                           binding.telefonoLayout.hint = place!!.phones[0]
                            binding.campoDireccionLayout.hint= place!!.address
                            binding.descripcionLayout.hint = place!!.description
                        }
@@ -68,8 +112,11 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
         }
         loadCategories()
         loadCities()
-         binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
-        //binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
+        binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
+        binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
+        binding.btnTomarFoto.setOnClickListener { tomarFoto() }
+        binding.btnAsignarHorario.setOnClickListener { mostrarDialogo()}
+        binding.btnSelArchivo.setOnClickListener { seleccionarFoto() }
 
     }
 
@@ -136,6 +183,86 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             }
     }
 
+    fun tomarFoto(){
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                resultLauncher.launch(takePictureIntent)
+                codigoArchivo = 1
+            }
+        }
+
+    }
+
+    override fun elegirHorario(horario: Schedule) {
+        horarios.add(horario)
+    }
+
+    fun seleccionarFoto(){
+        val i = Intent()
+        i.type = "image/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        codigoArchivo = 2
+        resultLauncher.launch(i)
+
+    }
+
+    private fun onActivityResult(resultCode:Int, result: ActivityResult){
+        if( resultCode == Activity.RESULT_OK ){
+            setDialog(true)
+            val fecha = Date()
+            val storageRef = FirebaseStorage.getInstance()
+                .reference
+                .child("/p-${fecha.time}.jpg")
+            if( codigoArchivo == 1 ){
+                val data = result.data?.extras
+                if( data?.get("data") is Bitmap){
+                    val imageBitmap = data?.get("data") as Bitmap
+                    val baos = ByteArrayOutputStream()
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    val data = baos.toByteArray()
+                    storageRef.putBytes(data).addOnSuccessListener {
+                        storageRef.downloadUrl.addOnSuccessListener {
+                            dibujarImagen(it)
+                        }
+                    }.addOnFailureListener {
+                        Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }else if( codigoArchivo == 2 ){
+                val data = result.data
+                if(data!=null){
+                    val selectedImageUri: Uri? = data.data
+                    if(selectedImageUri!=null){
+                        storageRef.putFile(selectedImageUri).addOnSuccessListener {
+                            storageRef.downloadUrl.addOnSuccessListener {
+                                dibujarImagen(it)
+                            }
+                        }.addOnFailureListener {
+                            Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun dibujarImagen(url: Uri){
+        setDialog(false)
+        imagenes.add(url.toString())
+
+        var imagen = ImageView(baseContext)
+        imagen.layoutParams = LinearLayout.LayoutParams(300, 310)
+        binding.imagenesSeleccionadas.addView(imagen)
+
+        Glide.with( baseContext )
+            .load(url.toString())
+            .into(imagen)
+    }
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
+    }
+
     fun loadCities(){
         cities.clear()
         Firebase.firestore
@@ -188,15 +315,59 @@ class DetalleLugarUsuarioActivity : AppCompatActivity() {
             address = binding.campoDireccionLayout.hint.toString()
         }
 
-//        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != "" && idCategory !=""){
-//            val newPlace = Place(place!!.id,name,description,1, place!!.status,idCategory,0f,address,0f,idCity)
-//
-//            val phones:ArrayList<String> = ArrayList()
-//            phones.add(phone)
-//            newPlace.phones= phones
-//            Places.updatePlace(place!!.id, newPlace)
-//            this.finish()
-//        }
+        if(name.isNotEmpty() && description.isNotEmpty() && phone.isNotEmpty() && address.isNotEmpty() &&idCity != "" && idCategory !=""){
+            if(position!= null){
+                if(imagenes.isNotEmpty() && horarios.isNotEmpty()){
+                    val newPlace = Place(place!!.id,name,description,user!!.uid, place!!.status,idCategory,position!!,address,idCity)
+                    val phones:ArrayList<String> = ArrayList()
+                    phones.add(phone)
+                    newPlace.images = imagenes
+                    newPlace.schedules = horarios
+                    newPlace.phones= phones
+                    newPlace.key = place!!.key
+                    Firebase.firestore
+                        .collection("placesF")
+                        .document(place!!.key)
+                        .set(newPlace)
+                        .addOnSuccessListener {
+                            Snackbar.make(binding.root,"El lugar fue actualizado con exito", Toast.LENGTH_LONG).show()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                finish()
+                            },4000)
+                        }
+                }
+            }else{
+                Snackbar.make(binding.root,"No puede dejar ningun campo sin diligenciar", Toast.LENGTH_LONG).show()
+            }
+        }else{
+            Snackbar.make(binding.root,"No puede dejar ningun campo sin diligenciar", Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        gMap = googleMap
+        gMap.uiSettings.isZoomControlsEnabled = true
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,15f))
+
+        gMap.setOnMapClickListener {
+            if(position == null){
+                position = Position()
+            }
+            position!!.lng = it.longitude
+            position!!.lat = it.latitude
+
+            gMap.clear()
+            gMap.addMarker(MarkerOptions().position(it).title(R.string.lugar_aca.toString()))}
+    }
+
+    fun mostrarDialogo(){
+        val dialog = DialogSchedulesFragment()
+        dialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogoTitulo)
+        dialog.listener = this
+        dialog.show(supportFragmentManager, "Agregar")
+
     }
 
 }
