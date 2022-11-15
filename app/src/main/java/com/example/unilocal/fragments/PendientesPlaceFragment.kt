@@ -79,16 +79,16 @@ class PendientesPlaceFragment : Fragment() {
                             .collection("placesF")
                             .document(codePlace)
                             .get()
-                            .addOnSuccessListener {
-                                val place = it.toObject(Place::class.java)
-                                place!!.key = it.id
+                            .addOnSuccessListener {l->
+                                val place = l.toObject(Place::class.java)
+                                place!!.key = l.id
                                 place.status = StatusPlace.ACEPTADO
                                 place.idModeratorReview = codeModerator
                                 Firebase.firestore
                                     .collection("placesF")
-                                    .document(it.id)
+                                    .document(l.id)
                                     .set(place)
-                                adapterPlace.notifyItemRemoved(pos)
+                                notificarCambios()
                                 Snackbar.make(
                                     binding.listPlacesPending,
                                     R.string.txt_lugar_aceptado,
@@ -108,7 +108,7 @@ class PendientesPlaceFragment : Fragment() {
                                                    .collection("placesF")
                                                    .document(p.id)
                                                    .set(place)
-                                               adapterPlace.notifyItemInserted(pos)
+                                               notificarCambios()
                                            }
                                     }).show()
                             }
@@ -118,16 +118,16 @@ class PendientesPlaceFragment : Fragment() {
                             .collection("placesF")
                             .document(codePlace)
                             .get()
-                            .addOnSuccessListener {
-                                val place = it.toObject(Place::class.java)
-                                place!!.key = it.id
+                            .addOnSuccessListener {r->
+                                val place = r.toObject(Place::class.java)
+                                place!!.key = r.id
                                 place.status = StatusPlace.RECHAZADO
                                 place.idModeratorReview = codeModerator
                                 Firebase.firestore
                                     .collection("placesF")
-                                    .document(it.id)
+                                    .document(r.id)
                                     .set(place)
-                                adapterPlace.notifyItemRemoved(pos)
+                                notificarCambios()
                                 Snackbar.make(
                                     binding.listPlacesPending,
                                     R.string.txt_lugar_rechazado,
@@ -138,16 +138,16 @@ class PendientesPlaceFragment : Fragment() {
                                             .collection("placesF")
                                             .document(codePlace)
                                             .get()
-                                            .addOnSuccessListener {p->
-                                                val place = p.toObject(Place::class.java)
-                                                place!!.key = p.id
+                                            .addOnSuccessListener {t->
+                                                val place = t.toObject(Place::class.java)
+                                                place!!.key = t.id
                                                 place.status = StatusPlace.SIN_REVISAR
                                                 place.idModeratorReview = ""
                                                 Firebase.firestore
                                                     .collection("placesF")
-                                                    .document(p.id)
+                                                    .document(t.id)
                                                     .set(place)
-                                                adapterPlace.notifyItemInserted(pos)
+                                                notificarCambios()
                                             }
                                     }).show()
                             }
@@ -195,5 +195,22 @@ class PendientesPlaceFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    fun notificarCambios() {
+        places.clear()
+        Firebase.firestore
+            .collection("placesF")
+            .whereEqualTo("status", StatusPlace.SIN_REVISAR)
+            .get()
+            .addOnSuccessListener {
+                for (doc in it) {
+                    val place = doc.toObject(Place::class.java)
+                    place.key = doc.id
+                    places.add(place)
+                }
+                adapterPlace.notifyDataSetChanged()
+            }
+
     }
 }
