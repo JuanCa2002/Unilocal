@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,218 +7,262 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.DetallesUsuarioActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:id="@+id/parte_arriba">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/color5"></View>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="250dp"
+            android:id="@+id/parte_arriba">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <View
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/img_perfil"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="60dp">
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:foregroundGravity="center"
-                    android:src="@mipmap/ic_launcher_round"></ImageView>
-            </LinearLayout>
+                android:background="@color/color5"></View>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/img_perfil"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="20dp">
-                <TextView
-                    android:id="@+id/nombre_usuario"
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/img_perfil"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold"></TextView>
-            </LinearLayout>
+                    android:layout_marginTop="60dp">
 
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:foregroundGravity="center"
+                        android:src="@mipmap/ic_launcher_round"></ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_perfil"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/nombre_usuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/campo_nombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/parte_arriba"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_person_24"></ImageView>
+            android:layout_below="@id/parte_arriba">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nombre_layout"
-            style="@style/til_form"
-            android:layout_width="313dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="@string/txt_nombre_usuario_detalles_usuario">
+                <LinearLayout
+                    android:id="@+id/campo_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/parte_arriba"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/campo_nombre_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_person_24"></ImageView>
 
-    <LinearLayout
-        android:id="@+id/campo_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/campo_nombre"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nombre_layout"
+                        style="@style/til_form"
+                        android:layout_width="313dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/txt_nombre_usuario_detalles_usuario">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_person_pin_24"></ImageView>
+                        <EditText
+                            android:id="@+id/campo_nombre_usuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/fondo_forms"
+                            android:inputType="text" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nickname_layout"
-            style="@style/til_form"
-            android:layout_width="313dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:hint="@string/txt_nickname_detalles_usuario">
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/nickname_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/spinner_ciudad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/campo_nickname"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/campo_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campo_nombre"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_location_on_24"></ImageView>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_person_pin_24"></ImageView>
 
-        <Spinner
-            android:id="@+id/city_edit"
-            android:layout_width="313dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/fondo_forms" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nickname_layout"
+                        style="@style/til_form"
+                        android:layout_width="313dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/txt_nickname_detalles_usuario">
 
-    </LinearLayout>
+                        <EditText
+                            android:id="@+id/nickname_usuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/fondo_forms"
+                            android:inputType="text" />
 
-    <LinearLayout
-        android:id="@+id/campo_correo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner_ciudad"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+                    </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_email_24"></ImageView>
+                </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/correo_layout"
-            style="@style/til_form"
-            android:layout_width="313dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:hint="@string/txt_correo_usuario_detalles_usuario">
+                <LinearLayout
+                    android:id="@+id/spinner_ciudad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campo_nickname"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/correo_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_location_on_24"></ImageView>
 
-    <LinearLayout
-        android:id="@+id/campo_fecha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/campo_correo"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/city_edit"
+                        android:layout_width="313dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/fondo_forms"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_cake_24"></ImageView>
+                </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fecha_layout"
-            style="@style/til_form"
-            android:layout_width="313dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:hint="@string/txt_fecha_nacimiento_usuario_detalles_usuario">
+                <LinearLayout
+                    android:id="@+id/campo_correo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/spinner_ciudad"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/fecha_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/fondo_forms"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_email_24"></ImageView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/campo_fecha"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/correo_layout"
+                        style="@style/til_form"
+                        android:layout_width="313dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/txt_correo_usuario_detalles_usuario">
 
-        <Button
-            android:id="@+id/btn_guardar_cambios_detalles_usuario"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/color2"
-            android:text="@string/txt_guardar_cambios_boton_detalles_usuario"
-            android:textColor="@color/black"></Button>
+                        <EditText
+                            android:id="@+id/correo_usuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/fondo_forms"
+                            android:inputType="text" />
 
-    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/titulo_contraseña"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/campo_correo"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:text="@string/titulo_detalle_lugar"
+                        android:textStyle="bold"></TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/campo_fecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/titulo_contraseña"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_lock_24"></ImageView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/fecha_layout"
+                        style="@style/til_form"
+                        android:layout_width="313dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/contrasena_detalles_usuario">
+
+                        <EditText
+                            android:id="@+id/fecha_usuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/fondo_forms"
+                            android:inputType="textPassword"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@id/campo_fecha"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_guardar_cambios_detalles_usuario"
+                        android:layout_width="200dp"
+                        android:layout_height="60dp"
+                        android:backgroundTint="@color/color2"
+                        android:text="@string/txt_guardar_cambios_boton_detalles_usuario"
+                        android:textColor="@color/black"></Button>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
 </RelativeLayout>
