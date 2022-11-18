@@ -15,12 +15,6 @@ object Usuarios {
 
     private val usuarios:ArrayList<User> = ArrayList()
 
-//    init {
-//        usuarios.add(User(1,"Juan","Nexus","Juan@gmail.com","1234",4, Rol.USER))
-//        usuarios.add(User(2,"Jaime","Jai","Jaime@gmail.com","1238",4,Rol.ADMINISTRATOR))
-//        usuarios.add(User(3,"Laura","Lau","Lau@gmail.com","1235",3,Rol.MODERATOR))
-//    }
-
     fun listar():ArrayList<User>{
        return usuarios
     }
@@ -51,18 +45,6 @@ object Usuarios {
     fun listarModeradores():ArrayList<User>{
         return usuarios.filter { u -> u.rol == Rol.MODERATOR }.toCollection(ArrayList())
     }
-
-//    fun updateUser( user: User,id: Int){
-//        var userExist = usuarios.firstOrNull{u -> u.id == id}
-//        if(userExist!= null){
-//            var index = usuarios.indexOf(userExist)
-//            usuarios.set(index, user)
-//        }
-//    }
-
-//    fun login(email: String, password: String): User? {
-//        return usuarios.firstOrNull{ u -> u.correo == email && u.password == password }
-//    }
 
     fun getListFavorites(id:String?):ArrayList<String?>{
         var favorities: ArrayList<String?> = ArrayList()

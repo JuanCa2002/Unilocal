@@ -112,7 +112,6 @@
     <string name="hora_cierre">Closing time</string>
     <string name="agregar_horario">Add schedule</string>
     <string name="horario_del_lugar">Location hours</string>
-
     <string name="lugar_creado_exito">Place correctly created, it will be under review.</string>
     <string name="lugar_creado_fallo">Verify that you have filled in all the fields</string>
     <string name="lugar_aca">Here is the place</string>
@@ -141,4 +140,8 @@
     <string name="correo_no_encontrado">Mail cannot be found</string>
     <string name="lugar_actualizado">The place was successfully updated</string>
     <string name="campo_vacio">You may not leave any field blank</string>
+    <string name="no_cargar_apartado">This section cannot be loaded at the moment, please check your connection.</string>
+    <string name="datos_erroneos">The data is wrong, please confirm</string>
+    <string name="no_internet">No internet</string>
+    <string name="cooreo_enviado_email">The email has been sent, check your inbox.</string>
 </resources>

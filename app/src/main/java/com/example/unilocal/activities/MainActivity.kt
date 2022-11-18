@@ -39,12 +39,12 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+    lateinit var bd: UniLocalDbHelper
+    lateinit var binding: ActivityMainBinding
     private var MENU_INICIO = "Inicio"
     private var MENU_MIS_LUGARES = "Mis lugares"
     private var MENU_FAVORITOS = "favoritos"
-    lateinit var binding: ActivityMainBinding
     var codeUser: String = ""
-    lateinit var bd: UniLocalDbHelper
     var estadoConexion: Boolean = false
     var userLogin:FirebaseUser? = null
 
@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
             if(userLogin!=null){
 
-                Log.e("codeuser", codeUser)
                 Firebase.firestore
                     .collection("users")
                     .document(userLogin!!.uid)
@@ -88,10 +87,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                         val header = binding.navigationView.getHeaderView(0)
                         header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
                         header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.email
-
                     }
             }
-
         }else{
             val userLogin = bd.getUserById(codeUser!!)
             val header = binding.navigationView.getHeaderView(0)
@@ -99,17 +96,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
                 header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
             }
-
         }
-
-
     }
 
     fun irCrearLugar(view:View){
         val intent = Intent(this, CrearLugarActivity::class.java)
         startActivity(intent)
     }
-
 
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
@@ -209,6 +202,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 ConectionStatus(::comprobarConexion))
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
         mostrarDatos(estado)

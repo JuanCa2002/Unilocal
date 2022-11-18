@@ -2,26 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/navPerfil"
             android:title="@string/mi_perfil" />
+
         <item
             android:id="@+id/navCategorias"
             android:title="@string/categorias" />
+
     </group>
 
     <item
         android:id="@+id/navigation_subheader"
         android:title="@string/m_s_opciones">
+
         <menu>
             <item
                 android:id="@+id/menu_cambiar_idioma"
                 android:title="@string/cambiar_idioma" />
+
             <item
                 android:id="@+id/menu_cerrar_sesion"
                 android:title="@string/cerrar_sesion" />
 
        </menu>
+
     </item>
 
 </menu>

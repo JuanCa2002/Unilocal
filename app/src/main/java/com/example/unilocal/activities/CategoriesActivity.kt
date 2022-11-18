@@ -40,9 +40,9 @@ import com.google.firebase.ktx.Firebase
 class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     lateinit var categories: ArrayList<Category>
     lateinit var binding: ActivityCategoriesBinding
+    lateinit var bd: UniLocalDbHelper
     var codeUser: String ?= ""
     var estadoConexion: Boolean = false
-    lateinit var bd: UniLocalDbHelper
     var places:ArrayList<Place> = ArrayList()
     var userLogin: FirebaseUser? = null
     var categoryPosition: Int = -1
@@ -94,7 +94,6 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                         val header = binding.navigationView.getHeaderView(0)
                         header.findViewById<TextView>(com.example.unilocal.R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
                         header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text = userLogin!!.email
-
                     }
             }
         }else{
@@ -104,6 +103,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             header.findViewById<TextView>(com.example.unilocal.R.id.email_user_session).text = user!!.correo
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
         mostrarDatos(estado)
@@ -204,7 +204,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                         LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                 }
         }else{
-            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(com.example.unilocal.R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
         }
     }
 }

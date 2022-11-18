@@ -37,14 +37,14 @@ import com.google.firebase.ktx.Firebase
 class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var placesCoincidences:ArrayList<Place>
-    var places:ArrayList<Place> = ArrayList()
     lateinit var binding: ActivityResultadoBusquedaBinding
+    lateinit var bd: UniLocalDbHelper
+    lateinit var adapter: PlaceAdapter
+    var places:ArrayList<Place> = ArrayList()
     var textSearch:String = ""
     var code:String? = ""
-    lateinit var bd: UniLocalDbHelper
     var estadoConexion: Boolean = false
     var userLogin: FirebaseUser? = null
-    lateinit var adapter: PlaceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +100,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
             )
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
         mostrarDatos(estado)
@@ -178,7 +179,8 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
             }
             adapter.notifyDataSetChanged()
         }else{
-            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
         }
     }
+
 }

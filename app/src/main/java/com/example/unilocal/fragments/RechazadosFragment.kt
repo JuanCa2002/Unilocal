@@ -19,9 +19,9 @@ import com.google.firebase.ktx.Firebase
 
 class RechazadosFragment : Fragment() {
     lateinit var binding: FragmentRechazadosBinding
-    var codeModerator:String = ""
     lateinit var adapterPlace: PlaceAdapter
     lateinit var places: ArrayList<Place>
+    var codeModerator:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

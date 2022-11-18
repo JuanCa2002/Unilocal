@@ -6,14 +6,6 @@ object Cities {
 
     private val cities:ArrayList<City> = ArrayList()
 
-//    init {
-//        cities.add(City("Armenia"))
-//        cities.add(City("Pereira"))
-//        cities.add(City("Cali"))
-//        cities.add(City("Bogota"))
-//        cities.add(City("Medellin"))
-//    }
-
     fun listar():ArrayList<City>{
         return cities;
     }

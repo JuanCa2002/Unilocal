@@ -33,8 +33,8 @@ import com.google.firebase.ktx.Firebase
 class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetallesUsuarioBinding
     lateinit var cities: ArrayList<City>
-    var user:FirebaseUser? = null
     lateinit var bd: UniLocalDbHelper
+    var user:FirebaseUser? = null
     var estadoConexion: Boolean = false
     var cityPosition: Int = -1
     var tipo: String? = ""

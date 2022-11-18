@@ -31,10 +31,10 @@ import com.google.firebase.ktx.Firebase
 
 class CrearModeradorActivity : AppCompatActivity() {
     lateinit var binding: ActivityCrearModeradorBinding
-    var cityPosition: Int = -1
     lateinit var cities: ArrayList<City>
-    var estadoConexion: Boolean = false
     lateinit var dialog: Dialog
+    var cityPosition: Int = -1
+    var estadoConexion: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +87,7 @@ class CrearModeradorActivity : AppCompatActivity() {
             )
         }
     }
+
     fun mostrarDatos(estado: Boolean){
         if(estado){
             loadCities()
@@ -94,8 +95,10 @@ class CrearModeradorActivity : AppCompatActivity() {
             setDialog(false)
         }else{
             setDialog(true)
+
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
         mostrarDatos(estado)
@@ -168,7 +171,6 @@ class CrearModeradorActivity : AppCompatActivity() {
                                 }
                         }
                     }
-
                 }.addOnFailureListener {
                     setDialog(false)
                     Snackbar.make(binding.root,it.message.toString(), Snackbar.LENGTH_LONG).show()

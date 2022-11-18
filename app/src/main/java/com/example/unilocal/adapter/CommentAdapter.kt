@@ -49,9 +49,7 @@ class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<Comm
                         nickname.text = user!!.nickname
                         date.text = simpleDateFormat.format(comment.creationDate.time)
                         text.text = comment.text
-
                 }
-
         }
 
         override fun onClick(p0: View?) {

@@ -36,9 +36,9 @@ import com.google.firebase.ktx.Firebase
 class MyPlacesFragment : Fragment() {
     lateinit var binding: FragmentMyPlacesBinding
     lateinit var adapter: PlaceAdapter
+    lateinit var bd: UniLocalDbHelper
     var placesByUser: ArrayList<Place> = ArrayList()
     var bundle:Bundle = Bundle()
-    lateinit var bd: UniLocalDbHelper
     var estadoConexion: Boolean = false
     var user: FirebaseUser? = null
 
@@ -55,7 +55,6 @@ class MyPlacesFragment : Fragment() {
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -78,7 +77,7 @@ class MyPlacesFragment : Fragment() {
                     }
             }
         }else{
-            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
         }
     }
 

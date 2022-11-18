@@ -27,11 +27,11 @@ import java.lang.Exception
 
 class RegistroActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityRegistroBinding
     private lateinit var db:UniLocalDbHelper
+    lateinit var binding: ActivityRegistroBinding
     lateinit var cities: ArrayList<City>
-    var cityPosition: Int = -1
     lateinit var dialog: Dialog
+    var cityPosition: Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +119,6 @@ class RegistroActivity : AppCompatActivity() {
                                 }
                         }
                     }
-
                 }.addOnFailureListener {
                     setDialog(false)
                     Snackbar.make(binding.root,it.message.toString(), Snackbar.LENGTH_LONG).show()
@@ -165,6 +164,5 @@ class RegistroActivity : AppCompatActivity() {
     private fun setDialog(show: Boolean) {
         if (show) dialog.show() else dialog.dismiss()
     }
-
 
 }

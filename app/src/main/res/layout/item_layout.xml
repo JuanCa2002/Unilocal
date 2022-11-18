@@ -30,6 +30,7 @@
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical">
+
                     <TextView
                         android:id="@+id/icon_place"
                         android:layout_width="wrap_content"
@@ -39,6 +40,7 @@
                         android:textSize="25sp"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -55,6 +57,7 @@
                         android:textStyle="bold"
                         android:textSize="25sp"
                         android:textColor="@color/black"/>
+
                 </LinearLayout>
 
             </LinearLayout>

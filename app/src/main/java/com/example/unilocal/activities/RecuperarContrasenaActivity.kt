@@ -19,7 +19,6 @@ class RecuperarContrasenaActivity : AppCompatActivity() {
         binding = ActivityRecuperarContrasenaBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnEnviarCorreo.setOnClickListener { getBackPassword() }
-
     }
 
 
@@ -28,10 +27,11 @@ class RecuperarContrasenaActivity : AppCompatActivity() {
         FirebaseAuth.getInstance()
             .sendPasswordResetEmail(correo)
             .addOnSuccessListener {
-                Snackbar.make(binding.root,"El correo ha sido enviado, revisa tu bandeja de mensajes", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root,getString(R.string.cooreo_enviado_email), Snackbar.LENGTH_LONG).show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     finish()
                 },4000)
             }
     }
+
 }

@@ -36,12 +36,12 @@ import com.google.firebase.ktx.Firebase
 
 class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
-    lateinit var bd:UniLocalDbHelper
-    lateinit var binding: FragmentInicioBinding
-    var code:Int = -1
-    lateinit var gMap:GoogleMap
     private var tienePermiso = false
     private val defaultLocation = LatLng(4.550923, -75.6557201)
+    lateinit var bd:UniLocalDbHelper
+    lateinit var binding: FragmentInicioBinding
+    lateinit var gMap:GoogleMap
+    var code:Int = -1
     var bundle:Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,6 +142,5 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
         intent.putExtra("code",p0.tag.toString())
         startActivity(intent)
     }
-
 
 }

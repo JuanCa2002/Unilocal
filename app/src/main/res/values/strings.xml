@@ -116,7 +116,6 @@
     <string name="hora_cierre">Hora cierre</string>
     <string name="agregar_horario">Agregar horario</string>
     <string name="horario_del_lugar">Horario del lugar</string>
-
     <string name="lugar_creado_exito">Lugar creado correctamente, este quedara en revision</string>
     <string name="lugar_creado_fallo">Verifique haber rellenado todos los campos</string>
     <string name="lugar_aca">Aqui esta el lugar</string>
@@ -145,5 +144,9 @@
     <string name="correo_no_encontrado">El correo no se encuentra</string>
     <string name="lugar_actualizado">El lugar fue actualizado con exito</string>
     <string name="campo_vacio">No puede dejar ningun campo sin diligenciar</string>
+    <string name="no_cargar_apartado">No se puede cargar este apartado, en el momento, revisa tu conexion</string>
+    <string name="datos_erroneos">Los datos son erroneos, porfavor confirma</string>
+    <string name="no_internet">No hay internet</string>
+    <string name="cooreo_enviado_email">El correo ha sido enviado, revisa tu bandeja de mensajes</string>
 
 </resources>
