@@ -46,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnRegistro.setOnClickListener{ registrar() }
         binding.recuperarContrasena.setOnClickListener { getBackPassword() }
 
-
     }
 
     fun login() {
@@ -66,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
             binding.passwordLayout.error = null
         }
         comprobarConexionInternet()
+        Log.e("Estado",estadoConexion.toString())
         if(estadoConexion){
             if (correo.isNotEmpty() && password.isNotEmpty()) {
                 var user: User?= null
@@ -125,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, RecuperarContrasenaActivity::class.java)
         startActivity(intent)
     }
+
     fun comprobarConexionInternet() {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
                 ConnectivityManager
@@ -132,19 +133,21 @@ class LoginActivity : AppCompatActivity() {
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
-            comprobarConexion(true)
+            //comprobarConexion(true)
         }else{
             val request =
                 NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
             connectivityManager.registerNetworkCallback(request,
                 ConectionStatus(::comprobarConexion)
             )
-            comprobarConexion(false)
+            //comprobarConexion(false)
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
     }
+
     fun makeRedirection(user:FirebaseUser){
         Firebase.firestore
             .collection("users")

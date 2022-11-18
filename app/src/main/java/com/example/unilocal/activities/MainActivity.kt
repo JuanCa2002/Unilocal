@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         bd = UniLocalDbHelper(this)
 
         comprobarConexionInternet()
-
+        Log.e("Estado",estadoConexion.toString())
         if(estadoConexion){
             val userLogin = FirebaseAuth.getInstance().currentUser
             if(userLogin!=null){
@@ -189,6 +189,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             comprobarConexion(false)
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
     }
@@ -205,10 +206,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     val header = binding.navigationView.getHeaderView(0)
                     header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
                     header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
-
                 }
         }
     }
-
 
 }
