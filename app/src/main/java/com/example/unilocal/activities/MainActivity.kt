@@ -202,13 +202,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
-//            comprobarConexion(true)
         }else{
             val request =
                 NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
             connectivityManager.registerNetworkCallback(request,
                 ConectionStatus(::comprobarConexion))
-//            comprobarConexion(false)
         }
     }
     fun comprobarConexion(estado:Boolean){

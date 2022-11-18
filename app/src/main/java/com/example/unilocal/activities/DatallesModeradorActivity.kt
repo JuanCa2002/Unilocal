@@ -1,6 +1,11 @@
 package com.example.unilocal.activities
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +17,7 @@ import com.example.unilocal.databinding.ActivityDatallesModeradorBinding
 import com.example.unilocal.models.City
 import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
+import com.example.unilocal.utils.ConectionStatus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthActionCodeException
 import com.google.firebase.auth.FirebaseUser
@@ -55,9 +61,13 @@ class DatallesModeradorActivity : AppCompatActivity() {
                     binding.mainNameMod.text= moderator!!.nombre
                 }
         }
+        val user = FirebaseAuth.getInstance().currentUser
+        if(user != null){
+            binding.btnEliminar.setOnClickListener{deleteModerator()}
+        }
         moderators = ArrayList()
         moderatorAdapter = ModeratorAdapter(moderators)
-        binding.btnEliminar.setOnClickListener{deleteModerator()}
+
     }
 
     fun deleteModerator(){

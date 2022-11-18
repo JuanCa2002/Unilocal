@@ -2,7 +2,12 @@ package com.example.unilocal.activities
 
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,6 +22,7 @@ import com.example.unilocal.databinding.ActivityCrearModeradorBinding
 import com.example.unilocal.models.City
 import com.example.unilocal.models.Rol
 import com.example.unilocal.models.User
+import com.example.unilocal.utils.ConectionStatus
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,6 +33,7 @@ class CrearModeradorActivity : AppCompatActivity() {
     lateinit var binding: ActivityCrearModeradorBinding
     var cityPosition: Int = -1
     lateinit var cities: ArrayList<City>
+    var estadoConexion: Boolean = false
     lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +41,11 @@ class CrearModeradorActivity : AppCompatActivity() {
         binding = ActivityCrearModeradorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         cities = ArrayList()
-        loadCities()
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(R.layout.dialogo_progreso)
         dialog = builder.create()
-        binding.btnRegistro.setOnClickListener { createModerator() }
+        comprobarConexionInternet()
+        mostrarDatos(false)
     }
 
     fun loadCities(){
@@ -65,6 +72,35 @@ class CrearModeradorActivity : AppCompatActivity() {
             }
     }
 
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
+                ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager?.let {
+                it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
+            }
+        }else{
+            val request =
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request,
+                ConectionStatus(::comprobarConexion)
+            )
+        }
+    }
+    fun mostrarDatos(estado: Boolean){
+        if(estado){
+            loadCities()
+            binding.btnRegistro.setOnClickListener { createModerator() }
+            setDialog(false)
+        }else{
+            setDialog(true)
+        }
+    }
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
+        mostrarDatos(estado)
+    }
+
     fun createModerator(){
         val nombre = binding.moderatorName.text.toString()
         val nickname = binding.nicknameModerator.text.toString()
@@ -72,6 +108,8 @@ class CrearModeradorActivity : AppCompatActivity() {
         val password = binding.moderatorPassword.text.toString()
         val confirmPassword = binding.moderatorPasswordConfirm.text.toString()
         val idCity = cities[cityPosition].key
+
+        setDialog(true)
 
         if(nombre.isEmpty()){
             binding.nameLayout.error = getString(R.string.txt_obligatorio)

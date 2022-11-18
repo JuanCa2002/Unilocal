@@ -3,6 +3,10 @@ package com.example.unilocal.activities
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,8 +23,13 @@ import com.example.unilocal.databinding.ActivityResultadoBusquedaBinding
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.StatusPlace
 import com.example.unilocal.models.User
+import com.example.unilocal.sqlite.UniLocalDbHelper
+import com.example.unilocal.utils.ConectionStatus
+import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -32,6 +41,9 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     lateinit var binding: ActivityResultadoBusquedaBinding
     var textSearch:String = ""
     var code:String? = ""
+    lateinit var bd: UniLocalDbHelper
+    var estadoConexion: Boolean = false
+    var userLogin: FirebaseUser? = null
     lateinit var adapter: PlaceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,26 +53,64 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         textSearch = intent.extras!!.getString("txt_search","")
         placesCoincidences = ArrayList()
         adapter = PlaceAdapter(placesCoincidences,"Busqueda")
-        val userLogin = FirebaseAuth.getInstance().currentUser
+        userLogin = FirebaseAuth.getInstance().currentUser
+        bd = UniLocalDbHelper(this)
         if(userLogin!=null){
-            Firebase.firestore
-                .collection("users")
-                .document(userLogin.uid)
-                .get()
-                .addOnSuccessListener { u ->
-                    val header = binding.navigationView.getHeaderView(0)
-                    header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)!!.nombre
-                    header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
-                }
-
+           code = userLogin!!.uid
         }
+
+        comprobarConexionInternet()
+        mostrarDatos(false)
         binding.navigationView.setNavigationItemSelectedListener (this)
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
     }
 
+    fun mostrarDatos(estado: Boolean){
+        if(estado){
+            Firebase.firestore
+                .collection("users")
+                .document(userLogin!!.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val header = binding.navigationView.getHeaderView(0)
+                    header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)!!.nombre
+                    header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.email
+                }
+        }else{
+            val user = bd.getUserById(code!!)
+            val header = binding.navigationView.getHeaderView(0)
+            header.findViewById<TextView>(R.id.name_user_session).text = user!!.nombre
+            header.findViewById<TextView>(R.id.email_user_session).text = user!!.correo
+        }
+    }
+
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
+                ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager?.let {
+                it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
+            }
+        }else{
+            val request =
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request,
+                ConectionStatus(::comprobarConexion)
+            )
+        }
+    }
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
+        mostrarDatos(estado)
+    }
+
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
+        bd.deleteUser(code!!)
+        bd.listPlaces().forEach{
+            bd.deletePlace(it.key)
+        }
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
@@ -71,8 +121,19 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         binding.drawerLayout.openDrawer(GravityCompat.START)
     }
 
+    fun cambiarIdioma(){
+        Idioma.selecionarIdioma(this)
+        val intent = intent
+        if (intent != null) {
+            intent.flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            finish()
+            startActivity(intent)
+        }
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            R.id.menu_cambiar_idioma ->cambiarIdioma()
             R.id.navPerfil -> abrirPerfil()
             R.id.menu_cerrar_sesion -> cerrarSesion()
             R.id.navCategorias -> abrirCategorias()
@@ -83,35 +144,41 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     }
     fun abrirPerfil(){
         val intent = Intent(this, DetallesUsuarioActivity::class.java)
+        intent.putExtra("code",code)
         startActivity(intent)
     }
 
     fun abrirCategorias(){
         val intent = Intent(this, CategoriesActivity::class.java)
+        intent.putExtra("code",code)
         startActivity(intent)
     }
 
     override fun onResume() {
         super.onResume()
-        places.clear()
-        if(textSearch.isNotEmpty()){
-            Firebase.firestore
-                .collection("placesF")
-                .whereEqualTo("status", StatusPlace.ACEPTADO)
-                .get()
-                .addOnSuccessListener {
-                    for(doc in it){
-                        val place = doc.toObject(Place::class.java)
-                        place.key = doc.id
-                        places.add(place)
+        if(estadoConexion){
+            places.clear()
+            if(textSearch.isNotEmpty()){
+                Firebase.firestore
+                    .collection("placesF")
+                    .whereEqualTo("status", StatusPlace.ACEPTADO)
+                    .get()
+                    .addOnSuccessListener {
+                        for(doc in it){
+                            val place = doc.toObject(Place::class.java)
+                            place.key = doc.id
+                            places.add(place)
+                        }
+                        placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences, places)
+                        Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
+                        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+                        binding.listPlacesSearch.adapter = adapter
+                        binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
                     }
-                    placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences, places)
-                    Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
-                    adapter = PlaceAdapter(placesCoincidences,"Busqueda")
-                    binding.listPlacesSearch.adapter = adapter
-                    binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-                }
+            }
+            adapter.notifyDataSetChanged()
+        }else{
+            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
         }
-        adapter.notifyDataSetChanged()
     }
 }
