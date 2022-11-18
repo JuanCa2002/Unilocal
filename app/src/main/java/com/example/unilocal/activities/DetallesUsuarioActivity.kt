@@ -2,6 +2,10 @@ package com.example.unilocal.activities
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +20,8 @@ import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityDetallesUsuarioBinding
 import com.example.unilocal.models.*
+import com.example.unilocal.sqlite.UniLocalDbHelper
+import com.example.unilocal.utils.ConectionStatus
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -28,32 +34,70 @@ class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetallesUsuarioBinding
     lateinit var cities: ArrayList<City>
     var user:FirebaseUser? = null
+    lateinit var bd: UniLocalDbHelper
+    var estadoConexion: Boolean = false
     var cityPosition: Int = -1
     var tipo: String? = ""
-    var code: String = ""
+    var code: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetallesUsuarioBinding.inflate(layoutInflater)
+        bd = UniLocalDbHelper(this)
         setContentView(binding.root)
         cities = ArrayList()
         user = FirebaseAuth.getInstance().currentUser
-        if(user!= null){
-            Firebase.firestore
-                .collection("users")
-                .document(user!!.uid)
-                .get()
-                .addOnSuccessListener {
-                    val userF = it.toObject(User::class.java)
-                    binding.nombreUsuario.text = it.toObject(User::class.java)!!.nombre
-                    binding.nombreLayout.hint = it.toObject(User::class.java)!!.nombre
-                    binding.nicknameLayout.hint = it.toObject(User::class.java)!!.nickname
-                    binding.correoLayout.hint = user!!.email
-                    binding.btnGuardarCambiosDetallesUsuario.setOnClickListener { updateUser(userF) }
-                    loadCities(it.toObject(User::class.java))
-                }
+        comprobarConexionInternet()
+        mostrarInformacion(false)
+    }
+
+    fun mostrarInformacion(estado:Boolean){
+        if(estado){
+            if(user!= null){
+                Firebase.firestore
+                    .collection("users")
+                    .document(user!!.uid)
+                    .get()
+                    .addOnSuccessListener {
+                        val userF = it.toObject(User::class.java)
+                        binding.nombreUsuario.text = it.toObject(User::class.java)!!.nombre
+                        binding.nombreLayout.hint = it.toObject(User::class.java)!!.nombre
+                        binding.nicknameLayout.hint = it.toObject(User::class.java)!!.nickname
+                        binding.correoLayout.hint = user!!.email
+                        binding.btnGuardarCambiosDetallesUsuario.setOnClickListener { updateUser(userF) }
+                        loadCities(it.toObject(User::class.java))
+                    }
+            }
+        }else{
+            code= intent.extras!!.getString("code")
+            val user = bd.getUserById(code!!)
+            binding.nombreUsuario.text = user!!.nombre
+            binding.nombreLayout.hint = user!!.nombre
+            binding.nicknameLayout.hint = user!!.nickname
+            binding.correoLayout.hint = user!!.correo
         }
     }
+
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
+                ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            connectivityManager?.let {
+                it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
+            }
+        }else{
+            val request =
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            connectivityManager.registerNetworkCallback(request,
+                ConectionStatus(::comprobarConexion)
+            )
+        }
+    }
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
+        mostrarInformacion(estado)
+    }
+
 
     fun loadCities(person:User?){
         cities.clear()

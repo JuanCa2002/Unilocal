@@ -78,7 +78,6 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
         }
         val estado = (requireActivity()as MainActivity).estadoConexion
         if(estado){
-
             Firebase.firestore
                 .collection("placesF")
                 .whereEqualTo("status",StatusPlace.ACEPTADO)
@@ -87,9 +86,9 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
                    for(doc in it){
                        var place = doc.toObject(Place::class.java)
                        place.key = doc.id
-
+                       val placeBaseDatos = Place(place.key, place.name, place.description, place.position!!.lat, place.position!!.lng, place.address, place.idCategory, place.idCreator)
                        gMap.addMarker(MarkerOptions().position(LatLng(place.position!!.lat, place.position!!.lng)).title(place.name).visible(true))!!.tag = place.key
-                       //bd.createPlace(place)
+                       bd.createPlace(placeBaseDatos)
                    }
                 }.addOnFailureListener{
                     Log.e("FAIL_LUGARES",it.message.toString())

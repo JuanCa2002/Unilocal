@@ -114,6 +114,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
         bd.deleteUser(codeUser)
+        bd.listPlaces().forEach{
+            bd.deletePlace(it.key)
+        }
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
@@ -154,11 +157,13 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
     fun abrirPerfil(){
         val intent = Intent(this, DetallesUsuarioActivity::class.java)
+        intent.putExtra("code",codeUser)
         startActivity(intent)
     }
 
     fun abrirCategorias(){
         val intent = Intent(this, CategoriesActivity::class.java)
+        intent.putExtra("code",codeUser)
         startActivity(intent)
     }
 

@@ -49,6 +49,17 @@ class Place () {
         this.idCreator = idCreator
     }
 
+    constructor(key:String, name: String, description: String, lat: Double, lng: Double, address: String,idCategory: String, idCreator: String):this(){
+        this.key = key
+        this.name = name
+        this.description = description
+        val pos = Position(lat, lng)
+        this.position = pos
+        this.address = address
+        this.idCategory = idCategory
+        this.idCreator = idCreator
+    }
+
     constructor(id:Int):this(){
         this.id = id
     }
@@ -117,8 +128,7 @@ class Place () {
 
     fun toContentValues(): ContentValues {
         val values = ContentValues()
-        values.put(PlaceContract.NOMBRE,id)
-        values.put(PlaceContract.KEY_FIREBASE,key)
+        values.put(PlaceContract.ID,key)
         values.put(PlaceContract.NOMBRE,name)
         values.put(PlaceContract.DESCRIPCION,description)
         values.put(PlaceContract.DIRECCION,address)

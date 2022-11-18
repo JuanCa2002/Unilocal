@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.R
+import com.example.unilocal.activities.MainActivity
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentFavoritesBinding
 import com.example.unilocal.databinding.FragmentMyPlacesBinding
 import com.example.unilocal.models.Place
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -71,26 +73,31 @@ class FavoritesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        places.clear()
-        Firebase.firestore
-            .collection("users")
-            .document(code!!)
-            .collection("favorites")
-            .get()
-            .addOnSuccessListener {
-                for(doc in it){
-                    Firebase.firestore
-                        .collection("placesF")
-                        .document(doc.id)
-                        .get()
-                        .addOnSuccessListener {l->
-                            val place = l.toObject(Place::class.java)
-                            place!!.key = l.id
-                            places.add(place)
-                            adapter.notifyDataSetChanged()
-                        }
+        val estado = (requireActivity()as MainActivity).estadoConexion
+        if(estado) {
+            places.clear()
+            Firebase.firestore
+                .collection("users")
+                .document(code!!)
+                .collection("favorites")
+                .get()
+                .addOnSuccessListener {
+                    for (doc in it) {
+                        Firebase.firestore
+                            .collection("placesF")
+                            .document(doc.id)
+                            .get()
+                            .addOnSuccessListener { l ->
+                                val place = l.toObject(Place::class.java)
+                                place!!.key = l.id
+                                places.add(place)
+                                adapter.notifyDataSetChanged()
+                            }
+                    }
                 }
-            }
+        }else{
+            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+        }
     }
 
 }

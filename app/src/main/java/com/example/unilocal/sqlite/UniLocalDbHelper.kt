@@ -19,14 +19,14 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
                 "  )")
 
         p0?.execSQL("create table ${PlaceContract.TABLE_NAME}(" +
-                " ${PlaceContract.ID} INTEGER primary key AUTOINCREMENT," +
+                " ${PlaceContract.ID} varchar(100) primary key," +
                 " ${PlaceContract.NOMBRE} varchar(100) not null," +
                 " ${PlaceContract.DESCRIPCION} text not null, " +
                 " ${PlaceContract.LAT} double not null ," +
                 " ${PlaceContract.LNG} double not null," +
                 " ${PlaceContract.DIRECCION} varchar(200) not null,"+
-                " ${PlaceContract.CATEGORIA} INTEGER not null," +
-                " ${PlaceContract.ID_CREADOR} INTEGER not null" +
+                " ${PlaceContract.CATEGORIA} varchar(200) not null," +
+                " ${PlaceContract.ID_CREADOR} varchar(200) not null" +
                 "  )")
     }
 
@@ -78,6 +78,14 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         )
     }
 
+    fun deletePlace(id:String){
+        writableDatabase.delete(
+            PlaceContract.TABLE_NAME,
+            "${PlaceContract.ID} = ?",
+            arrayOf(id)
+        )
+    }
+
     fun listUsers():ArrayList<User>{
         val users: ArrayList<User> = ArrayList()
         val c:Cursor = readableDatabase.query(
@@ -98,12 +106,12 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         val c:Cursor = readableDatabase.query(
             PlaceContract.TABLE_NAME,
             arrayOf(PlaceContract.ID,PlaceContract.NOMBRE, PlaceContract.DESCRIPCION,
-                PlaceContract.LAT, PlaceContract.LNG, PlaceContract.DIRECCION, PlaceContract.CATEGORIA, PlaceContract.CATEGORIA),
+                PlaceContract.LAT, PlaceContract.LNG, PlaceContract.DIRECCION, PlaceContract.CATEGORIA, PlaceContract.ID_CREADOR),
             null, null, null, null, null
         )
         if(c.moveToFirst()){
             do{
-                //places.add(Place(c.getInt(0),c.getString(1), c.getString(2),c.getDouble(3),c.getDouble(4), c.getString(5), c.getInt(6), c.getInt(7)))
+                places.add(Place(c.getString(0),c.getString(1), c.getString(2),c.getDouble(3),c.getDouble(4), c.getString(5), c.getString(6), c.getString(7)))
             } while (c.moveToNext())
         }
         return places
@@ -130,7 +138,7 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
             "${PlaceContract.ID} = ?", arrayOf(id.toString()), null, null, null
         )
         if(c.moveToFirst()){
-            place = Place(c.getInt(0))
+            place = Place(c.getString(0),c.getString(1), c.getString(2),c.getDouble(3),c.getDouble(4), c.getString(5), c.getString(6), c.getString(7))
         }
         return place
     }

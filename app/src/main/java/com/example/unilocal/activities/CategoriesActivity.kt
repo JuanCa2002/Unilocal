@@ -22,6 +22,7 @@ import com.example.unilocal.models.Category
 import com.example.unilocal.models.Place
 import com.example.unilocal.models.StatusPlace
 import com.example.unilocal.models.User
+import com.example.unilocal.sqlite.UniLocalDbHelper
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -31,7 +32,8 @@ import com.google.firebase.ktx.Firebase
 class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     lateinit var categories: ArrayList<Category>
     lateinit var binding: ActivityCategoriesBinding
-    var code: Int = -1
+    var codeUser: String ?= ""
+    lateinit var bd: UniLocalDbHelper
     var places:ArrayList<Place> = ArrayList()
     var categoryPosition: Int = -1
 
@@ -39,6 +41,8 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         binding = ActivityCategoriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        bd = UniLocalDbHelper(this)
+        codeUser= intent.extras!!.getString("code")
         categories = ArrayList()
         loadCategories()
         var menu = this.findViewById<Button>(com.example.unilocal.R.id.btn_menu)
@@ -112,6 +116,10 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
     fun cerrarSesion(){
         FirebaseAuth.getInstance().signOut()
+        bd.deleteUser(codeUser!!)
+        bd.listPlaces().forEach{
+            bd.deletePlace(it.key)
+        }
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
