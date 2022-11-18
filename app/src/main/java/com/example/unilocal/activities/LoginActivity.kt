@@ -200,5 +200,4 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("USUARIO", it.message.toString())
             }
     }
-
 }

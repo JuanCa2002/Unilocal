@@ -131,9 +131,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             fragment = MyPlacesFragment()
 
         }
-       supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
-           .addToBackStack(nombre)
-           .commit()
+        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
+            .addToBackStack(nombre)
+            .commit()
     }
 
     fun abrirMenu(){
@@ -227,6 +227,5 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 }
         }
     }
-
 
 }

@@ -9,7 +9,7 @@
     tools:context=".activities.LoginActivity">
 
     <TextView
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:gravity="center|center_horizontal"
