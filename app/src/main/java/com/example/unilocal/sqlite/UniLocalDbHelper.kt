@@ -113,11 +113,11 @@ class UniLocalDbHelper(context: Context):SQLiteOpenHelper(context, "users.db",nu
         var user:User? = null
         val c:Cursor = readableDatabase.query(
             UserContract.TABLE_NAME,
-            arrayOf(UserContract.KEY_FIREBASE,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.ID_CITY),
-            "${UserContract.KEY_FIREBASE} = ?", arrayOf(id.toString()), null, null, null
+            arrayOf(UserContract.ID,UserContract.NOMBRE, UserContract.NICKNAME, UserContract.CORREO, UserContract.ID_CITY),
+            "${UserContract.ID} = ?", arrayOf(id.toString()), null, null, null
         )
         if(c.moveToFirst()){
-            user = User(c.getString(0),c.getString(1), c.getString(2),c.getString(3),c.getString(4))
+            user = User(c.getString(0),c.getString(1), c.getString(2),c.getString(3), c.getString(4))
         }
         return user
     }

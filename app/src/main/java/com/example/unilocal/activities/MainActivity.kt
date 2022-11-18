@@ -32,6 +32,7 @@ import com.example.unilocal.utils.ConectionStatus
 import com.example.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -45,38 +46,21 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     var codeUser: String = ""
     lateinit var bd: UniLocalDbHelper
     var estadoConexion: Boolean = false
+    var userLogin:FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         bd = UniLocalDbHelper(this)
+        userLogin = FirebaseAuth.getInstance().currentUser
+        if(userLogin!=null){
+            codeUser = userLogin!!.uid
+        }
 
         comprobarConexionInternet()
-
-        if(estadoConexion){
-            val userLogin = FirebaseAuth.getInstance().currentUser
-            if(userLogin!=null){
-                codeUser = userLogin.uid
-                Log.e("codeuser", codeUser)
-                Firebase.firestore
-                    .collection("users")
-                    .document(userLogin.uid)
-                    .get()
-                    .addOnSuccessListener { u ->
-                        val header = binding.navigationView.getHeaderView(0)
-                        header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
-                        header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
-
-                    }
-            }
-        }else{
-            val userLogin = bd.getUserById(codeUser!!)
-            val header = binding.navigationView.getHeaderView(0)
-            header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
-            header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
-        }
+        mostrarDatos(false)
         changeFragments(2,MENU_INICIO)
+
         binding.barraInferior.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_favorites -> changeFragments(1,MENU_FAVORITOS)
@@ -86,6 +70,39 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             true
         }
         binding.navigationView.setNavigationItemSelectedListener (this)
+        setContentView(binding.root)
+    }
+
+    fun mostrarDatos(estado:Boolean){
+
+        if(estado){
+
+            if(userLogin!=null){
+
+                Log.e("codeuser", codeUser)
+                Firebase.firestore
+                    .collection("users")
+                    .document(userLogin!!.uid)
+                    .get()
+                    .addOnSuccessListener { u ->
+                        val header = binding.navigationView.getHeaderView(0)
+                        header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
+                        header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.email
+
+                    }
+            }
+
+        }else{
+            val userLogin = bd.getUserById(codeUser!!)
+            val header = binding.navigationView.getHeaderView(0)
+            if(userLogin!=null) {
+                header.findViewById<TextView>(R.id.name_user_session).text = userLogin!!.nombre
+                header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.correo
+            }
+
+        }
+
+
     }
 
     fun irCrearLugar(view:View){
@@ -180,17 +197,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
-            comprobarConexion(true)
+//            comprobarConexion(true)
         }else{
             val request =
                 NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
             connectivityManager.registerNetworkCallback(request,
                 ConectionStatus(::comprobarConexion))
-            comprobarConexion(false)
+//            comprobarConexion(false)
         }
     }
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
+        mostrarDatos(estado)
     }
 
     override fun onPause() {

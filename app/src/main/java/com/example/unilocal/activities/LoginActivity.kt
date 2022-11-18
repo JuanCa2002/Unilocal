@@ -30,88 +30,117 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     private lateinit var db: UniLocalDbHelper
     var estadoConexion: Boolean = false
+    lateinit var correo: String
+    lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        db = UniLocalDbHelper(this)
 
         val userLogin = FirebaseAuth.getInstance().currentUser
-        if(userLogin!=null){
-                makeRedirection(userLogin)
-        } else{
-                binding.btnLogin.setOnClickListener { login() }
+        if (userLogin != null) {
+            makeRedirection(userLogin)
+        } else {
+
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            db = UniLocalDbHelper(this)
+
+            binding.btnLogin.setOnClickListener {
+                if (estadoConexion) {
+                    login()
+                } else {
+                    Snackbar.make(binding.root, "No hay internet", Snackbar.LENGTH_LONG).show()
+                }
+            }
+
+            binding.btnRegistro.setOnClickListener { registrar() }
+            binding.recuperarContrasena.setOnClickListener { getBackPassword() }
+
+            comprobarConexionInternet()
         }
-        binding.btnRegistro.setOnClickListener{ registrar() }
-        binding.recuperarContrasena.setOnClickListener { getBackPassword() }
 
 
     }
 
     fun login() {
-        val correo = binding.emailUsuario.text.toString()
-        val password = binding.passwordUsuario.text.toString()
-        if(correo.isEmpty()){
+        correo = binding.emailUsuario.text.toString()
+        password = binding.passwordUsuario.text.toString()
+
+        if (correo.isEmpty()) {
             binding.emailLayout.error = getString(R.string.txt_obligatorio)
-        }
-        else{
+        } else {
             binding.emailLayout.error = null
         }
 
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             binding.passwordLayout.error = getString(R.string.txt_obligatorio)
-        }
-        else{
+        } else {
             binding.passwordLayout.error = null
         }
-        comprobarConexionInternet()
-        if(estadoConexion){
-            if (correo.isNotEmpty() && password.isNotEmpty()) {
-                var user: User?= null
-                Firebase.firestore
-                    .collection("users")
-                    .whereEqualTo("correo", correo)
-                    .get()
-                    .addOnSuccessListener {
-                        for(doc in it){
-                            user = doc.toObject(User::class.java)
-                            user!!.key = doc.id
-                            break
-                        }
-                        if(user!= null && user!!.status != StatusUser.INHABILITADO){
-                            FirebaseAuth.getInstance()
-                                .signInWithEmailAndPassword(correo, password)
-                                .addOnCompleteListener {u->
-                                    if(u.isSuccessful){
-                                        val userLogin = FirebaseAuth.getInstance().currentUser
-                                        if(userLogin!=null){
-                                            Firebase.firestore
-                                                .collection("users")
-                                                .document(userLogin.uid)
-                                                .get()
-                                                .addOnSuccessListener { t->
-                                                    val userFire = t.toObject(User::class.java)
-                                                    db.createUser(User(userLogin.uid,userFire!!.nombre,userFire!!.nickname,userFire!!.correo, userFire!!.idCity))
-                                                    makeRedirection(userLogin)
-                                                }
-                                        }
-                                    }else{
-                                        Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
-                                    }
-                                }.addOnFailureListener{e->
-                                    Snackbar.make(binding.root,"Los datos son erroneos, porfavor confirma",Snackbar.LENGTH_LONG).show()
-                                }
-                        }else{
-                            Snackbar.make(binding.root,getString(R.string.correo_no_encontrado),Snackbar.LENGTH_LONG).show()
-                        }
-                    }
-            }else{
-                Snackbar.make(binding.root,R.string.txt_datos_erroneos,Snackbar.LENGTH_LONG).show()
-            }
 
-        }else{
-            Snackbar.make(binding.root,"No hay internet",Snackbar.LENGTH_LONG).show()
+        if (correo.isNotEmpty() && password.isNotEmpty()) {
+
+            var user: User? = null
+            Firebase.firestore
+                .collection("users")
+                .whereEqualTo("correo", correo)
+                .get()
+                .addOnSuccessListener {
+                    for (doc in it) {
+                        user = doc.toObject(User::class.java)
+                        user!!.key = doc.id
+                        break
+                    }
+                    if (user != null && user!!.status != StatusUser.INHABILITADO) {
+                        FirebaseAuth.getInstance()
+                            .signInWithEmailAndPassword(correo, password)
+                            .addOnCompleteListener { u ->
+                                if (u.isSuccessful) {
+                                    val userLogin = FirebaseAuth.getInstance().currentUser
+                                    if (userLogin != null) {
+                                        Firebase.firestore
+                                            .collection("users")
+                                            .document(userLogin.uid)
+                                            .get()
+                                            .addOnSuccessListener { t ->
+                                                val userFire = t.toObject(User::class.java)
+                                                db.createUser(
+                                                    User(
+                                                        userLogin.uid,
+                                                        userFire!!.nombre,
+                                                        userFire!!.nickname,
+                                                        userFire!!.correo,
+                                                        userFire!!.idCity
+                                                    )
+                                                )
+                                                makeRedirection(userLogin)
+                                            }
+                                    }
+                                } else {
+                                    Snackbar.make(
+                                        binding.root,
+                                        R.string.txt_datos_erroneos,
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
+                            }.addOnFailureListener { e ->
+                                Snackbar.make(
+                                    binding.root,
+                                    "Los datos son erroneos, porfavor confirma",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                    } else {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.correo_no_encontrado),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+        } else {
+            Snackbar.make(binding.root, R.string.txt_datos_erroneos, Snackbar.LENGTH_LONG).show()
         }
 
     }
@@ -121,10 +150,11 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun getBackPassword(){
+    fun getBackPassword() {
         val intent = Intent(this, RecuperarContrasenaActivity::class.java)
         startActivity(intent)
     }
+
     fun comprobarConexionInternet() {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as
                 ConnectivityManager
@@ -132,34 +162,39 @@ class LoginActivity : AppCompatActivity() {
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
-            comprobarConexion(true)
-        }else{
+//            comprobarConexion(true)
+        } else {
             val request =
-                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
-            connectivityManager.registerNetworkCallback(request,
+                NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+            connectivityManager.registerNetworkCallback(
+                request,
                 ConectionStatus(::comprobarConexion)
             )
-            comprobarConexion(false)
+//            comprobarConexion(false)
         }
     }
-    fun comprobarConexion(estado:Boolean){
+
+    fun comprobarConexion(estado: Boolean) {
         estadoConexion = estado
+        Log.e("CONEXION", estado.toString())
     }
-    fun makeRedirection(user:FirebaseUser){
+
+    fun makeRedirection(user: FirebaseUser) {
         Firebase.firestore
             .collection("users")
             .document(user.uid)
             .get()
             .addOnSuccessListener { u ->
-                    val rol = u.toObject(User::class.java)!!.rol
-                    val intent = when(rol){
-                        Rol.ADMINISTRATOR -> Intent(this, GestionModeratorActivity::class.java)
-                        Rol.USER-> Intent(this, MainActivity::class.java)
-                        Rol.MODERATOR -> Intent(this, ModeratorActivity::class.java)
-                    }
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity( intent )
-                    finish()
+                val rol = u.toObject(User::class.java)!!.rol
+                val intent = when (rol) {
+                    Rol.ADMINISTRATOR -> Intent(this, GestionModeratorActivity::class.java)
+                    Rol.USER -> Intent(this, MainActivity::class.java)
+                    Rol.MODERATOR -> Intent(this, ModeratorActivity::class.java)
+                }
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                finish()
 
             }.addOnFailureListener {
                 Log.e("USUARIO", it.message.toString())

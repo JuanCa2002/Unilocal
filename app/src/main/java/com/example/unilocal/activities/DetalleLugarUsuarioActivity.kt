@@ -102,7 +102,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                            position = place!!.position
                            gMap.addMarker(MarkerOptions().position(LatLng(place!!.position!!.lat, place!!.position!!.lng)).title(place!!.name).visible(true))!!.tag = place!!.key
                            binding.nombreLayout.hint = place!!.name
-                           binding.telefonoLayout.hint = place!!.phones[0]
+                           //binding.telefonoLayout.hint = place!!.phones[0]
                            binding.campoDireccionLayout.hint= place!!.address
                            binding.descripcionLayout.hint = place!!.description
                        }
