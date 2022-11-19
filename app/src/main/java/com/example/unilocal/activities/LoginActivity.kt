@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -9,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 
 import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
@@ -32,9 +34,13 @@ class LoginActivity : AppCompatActivity() {
     var estadoConexion: Boolean = false
     lateinit var correo: String
     lateinit var password: String
+    lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialogo_progreso)
+        dialog = builder.create()
 
         val userLogin = FirebaseAuth.getInstance().currentUser
         if (userLogin != null) {
@@ -61,6 +67,9 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
+    }
 
     fun login() {
         correo = binding.emailUsuario.text.toString()
@@ -79,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (correo.isNotEmpty() && password.isNotEmpty()) {
-
+            setDialog(true)
             var user: User? = null
             Firebase.firestore
                 .collection("users")
@@ -162,7 +171,6 @@ class LoginActivity : AppCompatActivity() {
             connectivityManager?.let {
                 it.registerDefaultNetworkCallback(ConectionStatus(::comprobarConexion))
             }
-//            comprobarConexion(true)
         } else {
             val request =
                 NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
@@ -171,13 +179,11 @@ class LoginActivity : AppCompatActivity() {
                 request,
                 ConectionStatus(::comprobarConexion)
             )
-//            comprobarConexion(false)
         }
     }
 
     fun comprobarConexion(estado: Boolean) {
         estadoConexion = estado
-        Log.e("CONEXION", estado.toString())
     }
 
     fun makeRedirection(user: FirebaseUser) {
@@ -192,6 +198,7 @@ class LoginActivity : AppCompatActivity() {
                     Rol.USER -> Intent(this, MainActivity::class.java)
                     Rol.MODERATOR -> Intent(this, ModeratorActivity::class.java)
                 }
+                setDialog(false)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 finish()
