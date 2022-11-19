@@ -55,7 +55,7 @@ class PendientesPlaceFragment : Fragment() {
                     place.key = doc.id
                     places.add(place)
                 }
-                adapterPlace = PlaceAdapter(places,"Busqueda")
+                adapterPlace = PlaceAdapter(places,"Busqueda",requireContext())
                 binding.listPlacesPending.adapter = adapterPlace
                 binding.listPlacesPending.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
 

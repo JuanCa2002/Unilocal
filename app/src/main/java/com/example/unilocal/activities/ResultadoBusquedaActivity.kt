@@ -52,7 +52,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         setContentView(binding.root)
         textSearch = intent.extras!!.getString("txt_search","")
         placesCoincidences = ArrayList()
-        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+        adapter = PlaceAdapter(placesCoincidences,"Busqueda",this)
         userLogin = FirebaseAuth.getInstance().currentUser
         bd = UniLocalDbHelper(this)
         if(userLogin!=null){
@@ -172,7 +172,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
                         }
                         placesCoincidences= Places.buscarNombre(textSearch, placesCoincidences, places)
                         Log.e(ResultadoBusquedaActivity::class.java.simpleName, placesCoincidences.toString())
-                        adapter = PlaceAdapter(placesCoincidences,"Busqueda")
+                        adapter = PlaceAdapter(placesCoincidences,"Busqueda",this)
                         binding.listPlacesSearch.adapter = adapter
                         binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
                     }

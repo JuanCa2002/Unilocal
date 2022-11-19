@@ -22,6 +22,7 @@ class Place () {
                     this.address = address
                     this.idCity = idCity
                  }
+            var imageReference:ArrayList<String> = ArrayList()
             var id:Int = 0
             var key:String = ""
             var name: String = ""

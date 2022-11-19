@@ -38,7 +38,7 @@ class RechazadosFragment : Fragment() {
             codeModerator = user.uid
         }
         places = ArrayList()
-        adapterPlace = PlaceAdapter(places,"Busqueda")
+        adapterPlace = PlaceAdapter(places,"Busqueda",requireContext())
         binding.listPlacesRechazados.adapter = adapterPlace
         binding.listPlacesRechazados.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         return binding.root

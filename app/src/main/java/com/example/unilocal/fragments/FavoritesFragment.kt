@@ -39,7 +39,7 @@ class FavoritesFragment : Fragment() {
         var user = FirebaseAuth.getInstance().currentUser
         if(user!=null) {
             code = user.uid
-            adapter = PlaceAdapter(places, "Busqueda")
+            adapter = PlaceAdapter(places, "Busqueda",requireContext())
             binding.listFavorites.adapter = adapter
             binding.listFavorites.layoutManager =
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

@@ -50,7 +50,7 @@ class MyPlacesFragment : Fragment() {
         binding = FragmentMyPlacesBinding.inflate(inflater,container,false)
         user = FirebaseAuth.getInstance().currentUser
         bd = UniLocalDbHelper(requireContext())
-        adapter = PlaceAdapter(placesByUser,"user")
+        adapter = PlaceAdapter(placesByUser,"user",requireContext())
         binding.listPlacesSearch.adapter = adapter
         binding.listPlacesSearch.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         return binding.root

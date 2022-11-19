@@ -1,5 +1,6 @@
 package com.example.unilocal.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.activities.DetalleLugarActivity
 import com.example.unilocal.activities.DetalleLugarUsuarioActivity
@@ -24,7 +26,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import org.w3c.dom.Text
 
-class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
+class PlaceAdapter(var places:ArrayList<Place>,var origen:String, var context: Context):RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.item_layout,parent, false)
         return ViewHolder(v)
@@ -75,6 +77,9 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
                         Log.e("icon", categoryF.icon)
                     }
                 }
+            Glide.with(  context )
+                .load(place.images[0])
+                .into(image)
             name.text = place.name
             address.text = place.address
             codePlace = place.key

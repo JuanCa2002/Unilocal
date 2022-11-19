@@ -1,8 +1,10 @@
 package com.example.unilocal.activities
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.unilocal.R
@@ -50,6 +53,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
     lateinit var cities: ArrayList<City>
     lateinit var horarios: ArrayList<Schedule>
     lateinit var gMap:GoogleMap
+    var datatime: String = ""
+    var imageReference: String = ""
     lateinit var dialog: Dialog
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val defaultLocation = LatLng(4.550923, -75.6557201)
@@ -58,6 +63,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
     var cityPosition: Int = -1
     var newPlace:Place? = null
     var imagenes:ArrayList<String> = ArrayList()
+    var imagenesReferencias:ArrayList<String> = ArrayList()
     var codigoArchivo: Int = 0
     var user:FirebaseUser? = null
     var categoryPosition: Int = -1
@@ -85,18 +91,21 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         mapFragment.getMapAsync(this)
         binding.btnCreatePlace.setOnClickListener { createPlace() }
         binding.btnAsignarHorario.setOnClickListener { mostrarDialogo()}
-
-        binding.btnTomarFoto.setOnClickListener { tomarFoto() }
+        binding.btnTomarFoto.setOnClickListener {tomarFoto() }
         binding.btnSelArchivo.setOnClickListener { seleccionarFoto() }
     }
 
     fun tomarFoto(){
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                resultLauncher.launch(takePictureIntent)
-                codigoArchivo = 1
+        getCameraPermission()
+        if(tienePermiso){
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(packageManager)?.also {
+                    resultLauncher.launch(takePictureIntent)
+                    codigoArchivo = 1
+                }
             }
         }
+
     }
 
     fun seleccionarFoto(){
@@ -111,9 +120,12 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         if( resultCode == Activity.RESULT_OK ){
             setDialog(true)
             val fecha = Date()
+            imageReference = "p-${fecha.time}.jpg"
+            datatime = "/${imageReference}"
+            imagenesReferencias.add(imageReference)
             val storageRef = FirebaseStorage.getInstance()
                 .reference
-                .child("/p-${fecha.time}.jpg")
+                .child(datatime)
             if( codigoArchivo == 1 ){
                 val data = result.data?.extras
                 if( data?.get("data") is Bitmap){
@@ -216,6 +228,17 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
             }
     }
 
+    private fun getCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA
+            ) ==
+            PackageManager.PERMISSION_GRANTED) {
+            tienePermiso = true
+        } else {
+            requestPermissions( arrayOf(Manifest.permission.CAMERA), 1)
+        }
+    }
+
     fun createPlace(){
         val name = binding.placeName.text.toString()
         val description = binding.placeDescription.text.toString()
@@ -255,6 +278,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                     val phones:ArrayList<String> = ArrayList()
                     phones.add(phone)
                     newPlace!!.phones= phones
+                    newPlace!!.imageReference = imagenesReferencias
                     newPlace!!.schedules = horarios
                     newPlace!!.images = imagenes
 

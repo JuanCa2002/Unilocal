@@ -50,7 +50,7 @@ class InfoPlaceFragment : Fragment() {
         if(user!= null){
             code = user.uid
         }
-        placeAdapter = PlaceAdapter(placesFavorites,"Busqueda")
+        placeAdapter = PlaceAdapter(placesFavorites,"Busqueda", requireContext())
         favorites = Usuarios.getListFavorites(code) //TODO Obtener desde firestore
         val places = Places.list()
         for (i in favorites){

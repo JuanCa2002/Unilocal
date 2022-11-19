@@ -198,7 +198,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                         place.key = doc.id
                         places.add(place)
                     }
-                    val adapter = PlaceAdapter(places, "Busqueda")
+                    val adapter = PlaceAdapter(places, "Busqueda",this)
                     binding.listPlacesCategory.adapter = adapter
                     binding.listPlacesCategory.layoutManager =
                         LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
