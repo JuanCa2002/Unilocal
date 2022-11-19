@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityMainBinding
@@ -39,6 +40,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     lateinit var bd: UniLocalDbHelper
@@ -89,6 +91,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                         val header = binding.navigationView.getHeaderView(0)
                         header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
                         header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.email
+                        val imagePerfil = header.findViewById<CircleImageView>(R.id.image_perfil)
+                        Glide.with(  baseContext )
+                            .load(u.toObject(User::class.java)!!.imageUri)
+                            .into(imagePerfil)
                     }
             }
         }else{

@@ -129,7 +129,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
         builder.setMessage(R.string.txt_eliminar_lugar_pregunta)
 
         builder.setPositiveButton(R.string.txt_si) { dialogInterface, which ->
-            Log.e("Images", place!!.imageReference[0])
             place!!.imageReference.forEach{
                 FirebaseStorage.getInstance().reference.child(it).delete()
             }

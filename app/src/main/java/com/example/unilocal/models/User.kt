@@ -9,6 +9,8 @@ class User(){
     var status:StatusUser = StatusUser.HABILITADO
     var rol:Rol = Rol.USER
     var nombre:String = ""
+    var imageReference:String = ""
+    var imageUri = ""
     var nickname:String = ""
     var idCity:String = ""
 
@@ -27,7 +29,7 @@ class User(){
         this.idCity = idCity
     }
 
-    var favorities: ArrayList<String?> = ArrayList()
+    //var favorities: ArrayList<String?> = ArrayList()
 
     fun toContentValues():ContentValues{
         val values = ContentValues()

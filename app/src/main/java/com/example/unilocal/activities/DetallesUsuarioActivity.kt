@@ -1,11 +1,14 @@
 package com.example.unilocal.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,10 +16,12 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
@@ -31,6 +36,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetallesUsuarioBinding
@@ -38,7 +47,13 @@ class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var bd: UniLocalDbHelper
     lateinit var dialog: Dialog
     var user:FirebaseUser? = null
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     var estadoConexion: Boolean = false
+    var imageUri:String = ""
+    var imageReference:String = ""
+    var codigoArchivo: Int = 0
+    var datatime: String = ""
+    var selectedImageUri: Uri? = null
     var cityPosition: Int = -1
     var tipo: String? = ""
     var code: String? = ""
@@ -50,6 +65,11 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         setContentView(binding.root)
         cities = ArrayList()
         user = FirebaseAuth.getInstance().currentUser
+
+        resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult() ) {
+            onActivityResult(it.resultCode, it)
+        }
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setView(R.layout.dialogo_progreso)
@@ -72,7 +92,12 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                         binding.nombreLayout.hint = it.toObject(User::class.java)!!.nombre
                         binding.nicknameLayout.hint = it.toObject(User::class.java)!!.nickname
                         binding.correoLayout.hint = user!!.email
+                        val image = binding.imagePerfil
+                        Glide.with( baseContext )
+                            .load(it.toObject(User::class.java)!!.imageUri)
+                            .into(image)
                         binding.btnGuardarCambiosDetallesUsuario.setOnClickListener { updateUser(userF) }
+                        binding.btnAsignarFotoPerfil.setOnClickListener { seleccionarFoto() }
                         loadCities(it.toObject(User::class.java))
                     }
             }
@@ -154,6 +179,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             correo = binding.correoLayout.hint.toString()
         }
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=""){
+            eliminarImagenPerfil()
             if(password.isNotEmpty()){
                 val newUser = User(nombre,nickname,correo,idCity,person!!.rol)
                 var user = FirebaseAuth.getInstance().currentUser
@@ -162,6 +188,8 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         user!!.updateEmail(correo)
                             .addOnSuccessListener {
+                                newUser.imageReference = imageReference
+                                newUser.imageUri = imageUri
                                 verificarEmail(user)
                                 Firebase.firestore
                                     .collection("users")
@@ -196,6 +224,17 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    fun eliminarImagenPerfil(){
+        Firebase.firestore
+            .collection("users")
+            .document(user!!.uid)
+            .get()
+            .addOnSuccessListener {
+                Log.e("referencia",it.toObject(User::class.java)!!.imageReference )
+                FirebaseStorage.getInstance().reference.child(it.toObject(User::class.java)!!.imageReference).delete()
+            }
+    }
+
     private fun verificarEmail(user: FirebaseUser){
         user.sendEmailVerification().addOnCompleteListener(this){
             if(it.isSuccessful){
@@ -206,16 +245,54 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    fun cerrarSesion(){
-        FirebaseAuth.getInstance().signOut()
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity( intent )
-        finish()
-
-    }
-
     private fun setDialog(show: Boolean) {
         if (show) dialog.show() else dialog.dismiss()
+    }
+
+    private fun onActivityResult(resultCode:Int, result: ActivityResult){
+        if( resultCode == Activity.RESULT_OK ){
+            setDialog(true)
+            val fecha = Date()
+            imageReference = "p-${fecha.time}.jpg"
+            datatime = "/${imageReference}"
+             if( codigoArchivo == 2 ){
+                val data = result.data
+                if(data!=null){
+                    selectedImageUri = data.data
+                    val storageRef = FirebaseStorage.getInstance()
+                        .reference
+                        .child(datatime)
+                    if(selectedImageUri!=null){
+                        storageRef.putFile(selectedImageUri!!).addOnSuccessListener {
+                            storageRef.downloadUrl.addOnSuccessListener {
+                                dibujarImagen(it)
+                            }
+                        }.addOnFailureListener {
+                            Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun dibujarImagen(url:Uri){
+        setDialog(false)
+        imageUri = url.toString()
+
+        val image = binding.imagePerfil
+
+        Glide.with( baseContext )
+            .load(imageUri)
+            .into(image)
+    }
+
+    fun seleccionarFoto(){
+        val i = Intent()
+        i.type = "image/*"
+        i.action = Intent.ACTION_GET_CONTENT
+        codigoArchivo = 2
+        resultLauncher.launch(i)
     }
 
 }
