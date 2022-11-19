@@ -55,7 +55,7 @@
                         android:text="@string/txt_nombre_lugar_item_lugar"
                         android:layout_marginBottom="5dp"
                         android:textStyle="bold"
-                        android:textSize="25sp"
+                        android:textSize="17sp"
                         android:textColor="@color/black"/>
 
                 </LinearLayout>
