@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.unilocal.R
@@ -122,10 +124,8 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             fragment = FavoritesFragment()
         }else if(valor == 2){
             fragment = InicioFragment()
-
         }else{
             fragment = MyPlacesFragment()
-
         }
         supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
             .addToBackStack(nombre)
@@ -211,18 +211,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onPause() {
         super.onPause()
         val userLogin = FirebaseAuth.getInstance().currentUser
-        if(userLogin!=null){
+        if (userLogin != null) {
             Firebase.firestore
                 .collection("users")
                 .document(userLogin.uid)
                 .get()
                 .addOnSuccessListener { u ->
                     val header = binding.navigationView.getHeaderView(0)
-                    header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)?.nombre
+                    header.findViewById<TextView>(R.id.name_user_session).text =
+                        u.toObject(User::class.java)?.nombre
                     header.findViewById<TextView>(R.id.email_user_session).text = userLogin.email
 
                 }
         }
     }
-
 }

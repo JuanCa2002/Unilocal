@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.R
@@ -40,6 +42,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     lateinit var binding: ActivityResultadoBusquedaBinding
     lateinit var bd: UniLocalDbHelper
     lateinit var adapter: PlaceAdapter
+    lateinit var dialog: Dialog
     var places:ArrayList<Place> = ArrayList()
     var textSearch:String = ""
     var code:String? = ""
@@ -58,7 +61,9 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
         if(userLogin!=null){
            code = userLogin!!.uid
         }
-
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialogo_progreso)
+        dialog = builder.create()
         comprobarConexionInternet()
         mostrarDatos(false)
         binding.navigationView.setNavigationItemSelectedListener (this)
@@ -156,6 +161,7 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
     }
 
     override fun onResume() {
+        setDialog(true)
         super.onResume()
         if(estadoConexion){
             places.clear()
@@ -175,12 +181,18 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
                         adapter = PlaceAdapter(placesCoincidences,"Busqueda")
                         binding.listPlacesSearch.adapter = adapter
                         binding.listPlacesSearch.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+                        setDialog(false)
                     }
             }
             adapter.notifyDataSetChanged()
         }else{
             Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
+            setDialog(false)
         }
+    }
+
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
     }
 
 }

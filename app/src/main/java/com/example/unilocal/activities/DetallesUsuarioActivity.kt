@@ -1,5 +1,6 @@
 package com.example.unilocal.activities
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -15,6 +16,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.unilocal.R
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Usuarios
@@ -34,6 +36,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetallesUsuarioBinding
     lateinit var cities: ArrayList<City>
     lateinit var bd: UniLocalDbHelper
+    lateinit var dialog: Dialog
     var user:FirebaseUser? = null
     var estadoConexion: Boolean = false
     var cityPosition: Int = -1
@@ -47,6 +50,11 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         setContentView(binding.root)
         cities = ArrayList()
         user = FirebaseAuth.getInstance().currentUser
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(R.layout.dialogo_progreso)
+        dialog = builder.create()
+
         comprobarConexionInternet()
         mostrarInformacion(false)
     }
@@ -98,7 +106,6 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         mostrarInformacion(estado)
     }
 
-
     fun loadCities(person:User?){
         cities.clear()
         Firebase.firestore
@@ -133,6 +140,8 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         var idCity = cities[cityPosition].key
         var password = binding.passwordUsuario.text.toString()
 
+        setDialog(true)
+
         if(nombre.isEmpty()){
             nombre = binding.nombreLayout.hint.toString()
         }
@@ -160,6 +169,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                     .set(newUser)
                                     .addOnSuccessListener {
                                         Snackbar.make(binding.root, getString(R.string.actualizacion_correcta_det_usu), Toast.LENGTH_LONG).show()
+                                        setDialog(false)
                                         Handler(Looper.getMainLooper()).postDelayed({
                                             when(person.rol){
                                                 Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
@@ -170,17 +180,20 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                     }
                             }.addOnFailureListener {
                                 Snackbar.make(binding.root, getString(R.string.correo_invalido_det_usu), Toast.LENGTH_LONG).show()
+                                setDialog(false)
                             }
                     }.addOnFailureListener {
                         Snackbar.make(binding.root, getString(R.string.contraseña_erronea_det_usu), Toast.LENGTH_LONG).show()
+                        setDialog(false)
                     }
             }else{
                 Snackbar.make(binding.root, getString(R.string.ingresar_contrasena_det_usu), Toast.LENGTH_LONG).show()
+                setDialog(false)
             }
         }else{
             Snackbar.make(binding.root, getString(R.string.llenar_datos_det_usu), Toast.LENGTH_LONG).show()
+            setDialog(false)
         }
-
     }
 
     private fun verificarEmail(user: FirebaseUser){
@@ -200,4 +213,9 @@ class DetallesUsuarioActivity : AppCompatActivity() {
         finish()
 
     }
+
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
+    }
+
 }

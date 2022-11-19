@@ -1,6 +1,7 @@
 package com.example.unilocal.activities
 
 import android.R
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,6 +17,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.unilocal.adapter.ModeratorAdapter
@@ -41,6 +43,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     lateinit var categories: ArrayList<Category>
     lateinit var binding: ActivityCategoriesBinding
     lateinit var bd: UniLocalDbHelper
+    lateinit var dialog: Dialog
     var codeUser: String ?= ""
     var estadoConexion: Boolean = false
     var places:ArrayList<Place> = ArrayList()
@@ -57,6 +60,11 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         var menu = this.findViewById<Button>(com.example.unilocal.R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
         userLogin = FirebaseAuth.getInstance().currentUser
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setView(com.example.unilocal.R.layout.dialogo_progreso)
+        dialog = builder.create()
+
         if(userLogin != null){
             loadCategories()
             binding.filter.setOnClickListener { loadPlacesByCategory() }
@@ -185,6 +193,7 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     fun loadPlacesByCategory(){
+        setDialog(true)
         if(estadoConexion) {
             places.clear()
             Firebase.firestore
@@ -202,9 +211,15 @@ class CategoriesActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
                     binding.listPlacesCategory.adapter = adapter
                     binding.listPlacesCategory.layoutManager =
                         LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                    setDialog(false)
                 }
         }else{
             Snackbar.make(binding.root, getString(com.example.unilocal.R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
+            setDialog(false)
         }
+    }
+
+    private fun setDialog(show: Boolean) {
+        if (show) dialog.show() else dialog.dismiss()
     }
 }

@@ -224,6 +224,8 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         val idCity = cities[cityPosition].key
         val idCategory  = categories[categoryPosition].key
 
+        setDialog(true)
+
         if(name.isEmpty()){
             binding.placeNameLayout.error = getString(R.string.txt_obligatorio)
         }else{
@@ -269,6 +271,7 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                                 .set(newPlace!!)
                                 .addOnSuccessListener {
                                     Snackbar.make(binding.root,R.string.lugar_creado_exito,Toast.LENGTH_LONG).show()
+                                    setDialog(false)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         finish()
                                     },4000)
@@ -276,13 +279,16 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                         }
                         .addOnFailureListener{
                             Snackbar.make(binding.root,"${it.message}",Toast.LENGTH_LONG).show()
+                            setDialog(false)
                         }
                 }
             }else{
                 Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
+                setDialog(false)
             }
         }else{
             Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
+            setDialog(false)
         }
     }
 

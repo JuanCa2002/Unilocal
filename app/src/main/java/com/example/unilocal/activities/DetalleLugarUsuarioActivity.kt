@@ -87,6 +87,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
         placeAdapter = PlaceAdapter(placesByUser, "usuario")
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapa_crear_lugar) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        setDialog(true)
         if(user != null){
            Firebase.firestore
                .collection("placesF")
@@ -108,6 +109,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                        }
 
                    }
+                   setDialog(false)
                }
 
         }
@@ -243,7 +245,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                         }
                     }
                 }
-
             }
         }
     }
@@ -260,6 +261,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
             .load(url.toString())
             .into(imagen)
     }
+
     private fun setDialog(show: Boolean) {
         if (show) dialog.show() else dialog.dismiss()
     }
@@ -300,6 +302,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
         var idCity = cities[cityPosition].key
         var idCategory  = categories[categoryPosition].key
 
+        setDialog(true)
+
         if(name.isEmpty()){
             name = binding.nombreLayout.hint.toString()
         }
@@ -332,6 +336,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                         .set(newPlace)
                         .addOnSuccessListener {
                             Snackbar.make(binding.root,getString(R.string.lugar_actualizado), Toast.LENGTH_LONG).show()
+                            setDialog(false)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 finish()
                             },4000)
@@ -339,12 +344,13 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                 }
             }else{
                 Snackbar.make(binding.root,getString(R.string.campo_vacio), Toast.LENGTH_LONG).show()
+                setDialog(false)
             }
         }else{
             Snackbar.make(binding.root,getString(R.string.campo_vacio), Toast.LENGTH_LONG).show()
+            setDialog(false)
         }
     }
-
 
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
