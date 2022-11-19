@@ -67,6 +67,7 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
     fun abrirMenu(){
         binding.drawerLayout.openDrawer(GravityCompat.START)
     }
+
     fun mostrarDatos(estado:Boolean){
         if(estado){
             Firebase.firestore
@@ -85,6 +86,7 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
             header.findViewById<TextView>(R.id.email_user_session).text = user!!.correo
         }
     }
+
     fun comprobarConexion(estado:Boolean){
         estadoConexion = estado
         mostrarDatos(estado)
@@ -126,7 +128,6 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         val intent = Intent(this, LoginActivity::class.java)
         startActivity( intent )
         finish()
-
     }
 
     fun irCrearModerator(){
@@ -176,7 +177,7 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
                    adapter.notifyDataSetChanged()
                 }
         }else{
-            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
         }
     }
 }

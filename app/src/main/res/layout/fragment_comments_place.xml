@@ -24,6 +24,7 @@
                 android:layout_height="50dp"
                 android:src="@mipmap/ic_launcher"
                 android:id="@+id/imagen_comentario"></ImageView>
+
             <com.google.android.material.textfield.TextInputLayout
                 app:boxStrokeWidth="0dp"
                 android:layout_width="300dp"
@@ -106,6 +107,7 @@
                     android:backgroundTint="@color/color1"
                     android:text="@string/txt_enviar_comentario"
                     android:textColor="@color/black"></Button>
+
             </LinearLayout>
 
         <TextView

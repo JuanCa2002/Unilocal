@@ -70,6 +70,7 @@
                         android:background="@drawable/fondo_forms"
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -107,8 +108,11 @@
                             android:background="@drawable/fondo_forms"
                             android:hint="@string/txt_descripcion_detalle_usuario"
                             android:inputType="text" />
+
                     </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -138,7 +142,9 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/fondo_forms"
                         android:inputType="text" />
+
                 </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout

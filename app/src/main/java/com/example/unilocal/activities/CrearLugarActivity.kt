@@ -48,19 +48,19 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
     lateinit var binding: ActivityCrearLugarBinding
     lateinit var categories: ArrayList<Category>
     lateinit var cities: ArrayList<City>
+    lateinit var horarios: ArrayList<Schedule>
+    lateinit var gMap:GoogleMap
+    lateinit var dialog: Dialog
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private val defaultLocation = LatLng(4.550923, -75.6557201)
+    private var tienePermiso = false
+    private var position:Position? = null
     var cityPosition: Int = -1
     var newPlace:Place? = null
     var imagenes:ArrayList<String> = ArrayList()
     var codigoArchivo: Int = 0
     var user:FirebaseUser? = null
     var categoryPosition: Int = -1
-    lateinit var horarios: ArrayList<Schedule>
-    lateinit var gMap:GoogleMap
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private val defaultLocation = LatLng(4.550923, -75.6557201)
-    private var tienePermiso = false
-    private var position:Position? = null
-    lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +97,6 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                 codigoArchivo = 1
             }
         }
-
     }
 
     fun seleccionarFoto(){
@@ -106,7 +105,6 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         i.action = Intent.ACTION_GET_CONTENT
         codigoArchivo = 2
         resultLauncher.launch(i)
-
     }
 
     private fun onActivityResult(resultCode:Int, result: ActivityResult){
@@ -145,7 +143,6 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                         }
                     }
                 }
-
             }
         }
     }
@@ -169,7 +166,6 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
         dialog.setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogoTitulo)
         dialog.listener = this
         dialog.show(supportFragmentManager, "Agregar")
-
     }
 
     fun loadCities(){
@@ -282,7 +278,6 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
                             Snackbar.make(binding.root,"${it.message}",Toast.LENGTH_LONG).show()
                         }
                 }
-
             }else{
                 Snackbar.make(binding.root,R.string.lugar_creado_fallo,Toast.LENGTH_LONG).show()
             }

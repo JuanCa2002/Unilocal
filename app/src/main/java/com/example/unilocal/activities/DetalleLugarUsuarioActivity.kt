@@ -52,19 +52,19 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
     lateinit var categories: ArrayList<Category>
-    var codePlace:String? = ""
     lateinit var dialog: Dialog
-    var imagenes:ArrayList<String> = ArrayList()
-    var codigoArchivo: Int = 0
     lateinit var horarios: ArrayList<Schedule>
     lateinit var gMap:GoogleMap
     private val defaultLocation = LatLng(4.550923, -75.6557201)
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private var position:Position? = null
+    var codePlace:String? = ""
+    var imagenes:ArrayList<String> = ArrayList()
+    var codigoArchivo: Int = 0
     var user:FirebaseUser? = null
     var pos: Int = -1
     var categoryPosition: Int = -1
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     var cityPosition: Int = -1
-    private var position:Position? = null
     var place: Place? = null
     var placesByUser: ArrayList<Place> = ArrayList()
 

@@ -196,6 +196,7 @@
                 android:padding="10dp"
                 android:text="@string/txt_ciudad_detalles_mod" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

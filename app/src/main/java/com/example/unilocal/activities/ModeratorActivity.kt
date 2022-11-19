@@ -31,13 +31,13 @@ import com.google.firebase.ktx.Firebase
 
 class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     private lateinit var sharedPreferences: SharedPreferences
+    lateinit var binding: ActivityModeratorBinding
+    lateinit var bd: UniLocalDbHelper
     private var MENU_PENDIENTES = "Pendiente"
     private var MENU_REGISTRO = "Registro"
-    lateinit var binding: ActivityModeratorBinding
     var codeModerator: String = ""
     var user: FirebaseUser? = null
     var estadoConexion: Boolean = false
-    lateinit var bd: UniLocalDbHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +77,7 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             .addToBackStack(nombre)
             .commit()
     }
+
     fun abrirMenu(){
         binding.drawerLayout.openDrawer(GravityCompat.START)
     }

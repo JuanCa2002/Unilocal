@@ -30,11 +30,12 @@ import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    private lateinit var db: UniLocalDbHelper
-    var estadoConexion: Boolean = false
     lateinit var correo: String
     lateinit var password: String
     lateinit var dialog: Dialog
+    private lateinit var db: UniLocalDbHelper
+    var estadoConexion: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 if (estadoConexion) {
                     login()
                 } else {
-                    Snackbar.make(binding.root, "No hay internet", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, getString(R.string.no_internet), Snackbar.LENGTH_LONG).show()
                 }
             }
 
@@ -64,8 +65,6 @@ class LoginActivity : AppCompatActivity() {
 
             comprobarConexionInternet()
         }
-
-
     }
     private fun setDialog(show: Boolean) {
         if (show) dialog.show() else dialog.dismiss()
@@ -135,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
                             }.addOnFailureListener { e ->
                                 Snackbar.make(
                                     binding.root,
-                                    "Los datos son erroneos, porfavor confirma",
+                                    getString(R.string.datos_erroneos),
                                     Snackbar.LENGTH_LONG
                                 ).show()
                             }
@@ -151,7 +150,6 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Snackbar.make(binding.root, R.string.txt_datos_erroneos, Snackbar.LENGTH_LONG).show()
         }
-
     }
 
     fun registrar() {

@@ -96,7 +96,7 @@ class FavoritesFragment : Fragment() {
                     }
                 }
         }else{
-            Snackbar.make(binding.root, "No se puede cargar este apartado, en el momento, revisa tu conexion ", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
         }
     }
 

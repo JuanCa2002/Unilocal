@@ -15,34 +15,6 @@ object Places {
         val horario2 = Schedule(2, Schedules.obtenerEntresSemana(),9,20)
         val horario3 = Schedule(3, Schedules.obtenerFinSemana(),14,23)
 
-//    init {
-//        val place1= Place(1,"Los cucos","Muy genial",1,StatusPlace.ACEPTADO,2, Position(4.550923, -75.6557201), "Cra 15 #3-56",1)
-//        place1.schedules.add(horario2)
-//
-//        val place2= Place(2,"Restaurante mariana","Muy genial",2,StatusPlace.ACEPTADO,2,Position(4.5301703, -75.6933855),"Cra 13 #3-56",2)
-//        place2.schedules.add(horario1)
-//
-//        val place3= Place(3,"Cafe tigres","Muy genial",3,StatusPlace.ACEPTADO,5,Position(4.5278566, -75.6933958),"Cra 14 #3-56",3)
-//        place3.schedules.add(horario1)
-//
-//        val place4= Place(4,"Hotel genial","Muy genial",1,StatusPlace.ACEPTADO,1,Position(4.5270961, -75.695078),"Cra 16 #3-56",4)
-//        place4.schedules.add(horario3)
-//
-//        val place5= Place(5,"Hotel zarpos","Muy genial",1,StatusPlace.ACEPTADO,3,Position(4.5270715, -75.6949206),"Cra 19 #3-56",2)
-//        place5.schedules.add(horario1)
-//
-//        val place6= Place(6,"Mall","Muy genial",2,StatusPlace.SIN_REVISAR,4,Position(4.5301703, -75.6933855),"Cra 18 #3-56",5)
-//        place6.schedules.add(horario2)
-//
-//        places.add(place1)
-//        places.add(place2)
-//        places.add(place3)
-//        places.add(place4)
-//        places.add(place5)
-//        places.add(place6)
-//    }
-
-
     fun list():ArrayList<Place>{
         var places: ArrayList<Place> = ArrayList()
         Firebase.firestore
@@ -77,7 +49,6 @@ object Places {
                place = it.toObject(Place::class.java)
                 Log.e("place", place.toString())
             }
-       // Log.e("placeEEE",place.toString())
         return place
     }
 
@@ -91,23 +62,11 @@ object Places {
         places.add( place )
     }
 
-//    fun buscarCategoria(codigoCategoria:Int): ArrayList<Place> {
-//        return places.filter { l -> l.idCategory == codigoCategoria && l.status == StatusPlace.ACEPTADO }.toCollection(ArrayList())
-//    }
-
     fun deletePlace(codePlace:String?){
        Firebase.firestore
            .collection("places")
 
     }
-
-//    fun placesAcceptedByModerator(codeModerator:Int):ArrayList<Place>{
-//        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.ACEPTADO}.toCollection(ArrayList())
-//    }
-//
-//    fun placesDeclinedByModerator(codeModerator:Int):ArrayList<Place>{
-//        return places.filter{p -> p.idModeratorReview == codeModerator && p.status == StatusPlace.RECHAZADO}.toCollection(ArrayList())
-//    }
 
     fun updatePlace(codePlace: Int, place: Place){
         val placeExist = places.firstOrNull{p-> p.id == codePlace}
