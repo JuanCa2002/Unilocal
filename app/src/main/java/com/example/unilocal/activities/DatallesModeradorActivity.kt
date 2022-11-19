@@ -27,11 +27,11 @@ import com.google.firebase.ktx.Firebase
 
 class DatallesModeradorActivity : AppCompatActivity() {
     lateinit var binding: ActivityDatallesModeradorBinding
+    lateinit var moderatorAdapter: ModeratorAdapter
+    lateinit var moderators: ArrayList<User>
     var codeModerator:String? = ""
     var pos: Int = -1
-    lateinit var moderatorAdapter: ModeratorAdapter
     var moderator: User? = null
-    lateinit var moderators: ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

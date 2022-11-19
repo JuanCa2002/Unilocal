@@ -29,17 +29,23 @@
             android:orientation="horizontal"
             android:background="@color/light_gray">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="@string/txt_categoria_Categories"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="@string/txt_categoria_Categories"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/birthday_layout"
@@ -58,16 +64,24 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/blue"
-                android:text="@string/btn_fltrar_categories"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/blue"
+                    android:text="@string/btn_fltrar_categories"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <fragment
@@ -76,7 +90,6 @@
             android:layout_height="wrap_content"
             class="com.example.unilocal.fragments.MenuPrincipalFragment"/>
     </RelativeLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
