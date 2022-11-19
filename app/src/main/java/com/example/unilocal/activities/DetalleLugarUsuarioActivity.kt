@@ -108,11 +108,11 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                        }
 
                    }
+                   loadCategories()
+                   loadCities()
                }
 
         }
-        loadCategories()
-        loadCities()
         binding.btnEliminarLugarUsuario.setOnClickListener{deletePlace()}
         binding.btnGuardarCambiosLugarUsuario.setOnClickListener { updatePlace() }
         binding.btnTomarFoto.setOnClickListener { tomarFoto() }

@@ -17,6 +17,7 @@ import com.example.unilocal.activities.DetalleLugarUsuarioActivity
 import com.example.unilocal.bd.Categories
 import com.example.unilocal.bd.Comments
 import com.example.unilocal.models.Category
+import com.example.unilocal.models.Comment
 import com.example.unilocal.models.Place
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -62,7 +63,6 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
                 schedule.text = "Abre el ${place.obtenerHoraApertura()}"
             }
             status.text = if(estaAbierto){status.context.getString(R.string.abierto) }else{ status.context.getString(R.string.cerrado) }
-            Log.e("key", place.idCategory)
             Firebase.firestore
                 .collection("categoriesF")
                 .whereEqualTo("key",place.idCategory)
@@ -78,12 +78,24 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
             name.text = place.name
             address.text = place.address
             codePlace = place.key
-            val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.key))
-            for (i in 0..qualification){
-                (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))
-            }
+            val comments: ArrayList<Comment> = ArrayList()
+            Firebase.firestore
+                .collection("placesF")
+                .document(place.key)
+                .collection("commentsF")
+                .get()
+                .addOnSuccessListener { c ->
+                    for (doc in c) {
+                        comments.add(doc.toObject(Comment::class.java))
+                    }
+                    val qualification = place.obtenerCalificacionPromedio(comments)
+                    for (i in 0..qualification){
+                        (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))
+                    }
+                }
 
         }
+
 
         override fun onClick(p0: View?) {
             if(origen == "Busqueda"){
@@ -93,7 +105,6 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String):RecyclerView.A
                 name.context.startActivity(intent)
             }else{
                 val intent = Intent(name.context, DetalleLugarUsuarioActivity::class.java)
-                //intent.putExtra("pos",adapterPosition)
                 intent.putExtra("code", codePlace)
                 name.context.startActivity(intent)
             }

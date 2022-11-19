@@ -16,6 +16,7 @@ import com.example.unilocal.bd.Comments
 import com.example.unilocal.bd.Places
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentInfoPlaceBinding
+import com.example.unilocal.models.Comment
 import com.example.unilocal.models.Place
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -59,7 +60,17 @@ class InfoPlaceFragment : Fragment() {
                 }
             }
         }
+        return binding.root
+    }
 
+    fun agregarFavoritos(){
+        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_red))
+        binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
+        Usuarios.agregarFavoritos(code,codePlace)
+
+    }
+
+    fun generarInformacionPorLugar(){
         Firebase.firestore
             .collection("placesF")
             .document(codePlace!!)
@@ -92,12 +103,23 @@ class InfoPlaceFragment : Fragment() {
                     binding.schedulePlace.text = horarios
 
                     if(place != null){
-                        val qualification = place.obtenerCalificacionPromedio(Comments.lista(place.key))
-                        for (i in 0..qualification){
-                            (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
-                        }
-                        binding.txtDescripcionLugar.text = place!!.description
-                        binding.txtDireccionLugar.text = place!!.address
+                        val comments: ArrayList<Comment> = ArrayList()
+                        Firebase.firestore
+                            .collection("placesF")
+                            .document(place.key)
+                            .collection("commentsF")
+                            .get()
+                            .addOnSuccessListener {c->
+                                for(doc in c){
+                                    comments.add(doc.toObject(Comment::class.java))
+                                }
+                                val qualification = place.obtenerCalificacionPromedio(comments)
+                                for (i in 0..qualification){
+                                    (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
+                                }
+                                binding.txtDescripcionLugar.text = place!!.description
+                                binding.txtDireccionLugar.text = place!!.address
+                            }
                     }
                     val favorito = favorites.firstOrNull{f -> f.equals(codePlace)}
                     if(favorito != null){
@@ -111,16 +133,6 @@ class InfoPlaceFragment : Fragment() {
             }.addOnFailureListener{
                 Log.e("Fallo al traer el lugar",it.message.toString())
             }
-
-
-        return binding.root
-    }
-
-    fun agregarFavoritos(){
-        binding.btnFavorito.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_baseline_favorite_red))
-        binding.btnFavorito.setOnClickListener{eliminarFavoritos()}
-        Usuarios.agregarFavoritos(code,codePlace)
-
     }
 
     fun eliminarFavoritos(){
@@ -152,6 +164,11 @@ class InfoPlaceFragment : Fragment() {
                     }
                 }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        generarInformacionPorLugar()
     }
 
     companion object{
