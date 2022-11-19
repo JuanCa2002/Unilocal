@@ -230,8 +230,10 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             .document(user!!.uid)
             .get()
             .addOnSuccessListener {
-                Log.e("referencia",it.toObject(User::class.java)!!.imageReference )
-                FirebaseStorage.getInstance().reference.child(it.toObject(User::class.java)!!.imageReference).delete()
+                if(it.toObject(User::class.java)!!.imageReference != "p-1668873917292.jpg"){
+                    FirebaseStorage.getInstance().reference.child(it.toObject(User::class.java)!!.imageReference).delete()
+                }
+
             }
     }
 

@@ -51,6 +51,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
     lateinit var binding: ActivityDetalleLugarUsuarioBinding
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
+    var datatime: String = ""
+    var imageReference: String = ""
     lateinit var categories: ArrayList<Category>
     lateinit var dialog: Dialog
     lateinit var horarios: ArrayList<Schedule>
@@ -60,6 +62,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
     private var position:Position? = null
     var codePlace:String? = ""
     var imagenes:ArrayList<String> = ArrayList()
+    var imagenesReferencias:ArrayList<String> = ArrayList()
     var codigoArchivo: Int = 0
     var user:FirebaseUser? = null
     var pos: Int = -1
@@ -216,9 +219,12 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
         if( resultCode == Activity.RESULT_OK ){
             setDialog(true)
             val fecha = Date()
+            imageReference = "p-${fecha.time}.jpg"
+            datatime = "/${imageReference}"
+            imagenesReferencias.add(imageReference)
             val storageRef = FirebaseStorage.getInstance()
                 .reference
-                .child("/p-${fecha.time}.jpg")
+                .child(datatime)
             if( codigoArchivo == 1 ){
                 val data = result.data?.extras
                 if( data?.get("data") is Bitmap){
@@ -330,6 +336,7 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                     val phones:ArrayList<String> = ArrayList()
                     phones.add(phone)
                     newPlace.images = imagenes
+                    newPlace.imageReference = imagenesReferencias
                     newPlace.schedules = horarios
                     newPlace.phones= phones
                     newPlace.key = place!!.key

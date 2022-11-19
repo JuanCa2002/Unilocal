@@ -107,6 +107,8 @@ class RegistroActivity : AppCompatActivity() {
                         if(user != null){
                             verificarEmail(user)
                             val userRegister = User( name, nickname, email ,idCity, Rol.USER)
+                            userRegister.imageReference = "p-1668873917292.jpg"
+                            userRegister.imageUri = "https://firebasestorage.googleapis.com/v0/b/unilocal-eam-e8def.appspot.com/o/p-1668873917292.jpg?alt=media&token=e2713363-3420-47fc-8155-c5d5a0370ce0"
                             Firebase.firestore
                                 .collection("users")
                                 .document(user.uid)
