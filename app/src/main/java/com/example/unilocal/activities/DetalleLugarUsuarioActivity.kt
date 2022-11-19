@@ -51,8 +51,6 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
     lateinit var binding: ActivityDetalleLugarUsuarioBinding
     lateinit var placeAdapter: PlaceAdapter
     lateinit var cities: ArrayList<City>
-    var datatime: String = ""
-    var imageReference: String = ""
     lateinit var categories: ArrayList<Category>
     lateinit var dialog: Dialog
     lateinit var horarios: ArrayList<Schedule>
@@ -60,6 +58,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
     private val defaultLocation = LatLng(4.550923, -75.6557201)
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var position:Position? = null
+    var datatime: String = ""
+    var imageReference: String = ""
     var codePlace:String? = ""
     var imagenes:ArrayList<String> = ArrayList()
     var imagenesReferencias:ArrayList<String> = ArrayList()

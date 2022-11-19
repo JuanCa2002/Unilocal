@@ -53,13 +53,13 @@ class CrearLugarActivity : AppCompatActivity(),DialogSchedulesFragment.onHorario
     lateinit var cities: ArrayList<City>
     lateinit var horarios: ArrayList<Schedule>
     lateinit var gMap:GoogleMap
-    var datatime: String = ""
-    var imageReference: String = ""
     lateinit var dialog: Dialog
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val defaultLocation = LatLng(4.550923, -75.6557201)
     private var tienePermiso = false
     private var position:Position? = null
+    var datatime: String = ""
+    var imageReference: String = ""
     var cityPosition: Int = -1
     var newPlace:Place? = null
     var imagenes:ArrayList<String> = ArrayList()
