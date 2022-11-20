@@ -194,30 +194,31 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                 if(selectedImageUri!=null){
                                     storageRef.putFile(selectedImageUri!!).addOnSuccessListener {
                                         storageRef.downloadUrl.addOnSuccessListener {
+                                            imageUri= it.toString()
+                                            newUser.imageReference = imageReference
+                                            newUser.imageUri = imageUri
+                                            verificarEmail(user)
+                                            Firebase.firestore
+                                                .collection("users")
+                                                .document(user.uid)
+                                                .set(newUser)
+                                                .addOnSuccessListener {
+                                                    Snackbar.make(binding.root, getString(R.string.actualizacion_correcta_det_usu), Toast.LENGTH_LONG).show()
+                                                    setDialog(false)
+                                                    Handler(Looper.getMainLooper()).postDelayed({
+                                                        when(person.rol){
+                                                            Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
+                                                            Rol.MODERATOR -> startActivity(Intent(this, ModeratorActivity::class.java))
+                                                            else -> startActivity(Intent(this, GestionModeratorActivity::class.java))
+                                                        }
+                                                    },4000)
+                                                }
                                             Snackbar.make(binding.root, "Nueva imagen subida", Toast.LENGTH_LONG).show()
                                         }
                                     }.addOnFailureListener {
                                         Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
                                     }
                                 }
-                                newUser.imageReference = imageReference
-                                newUser.imageUri = imageUri
-                                verificarEmail(user)
-                                Firebase.firestore
-                                    .collection("users")
-                                    .document(user.uid)
-                                    .set(newUser)
-                                    .addOnSuccessListener {
-                                        Snackbar.make(binding.root, getString(R.string.actualizacion_correcta_det_usu), Toast.LENGTH_LONG).show()
-                                        setDialog(false)
-                                        Handler(Looper.getMainLooper()).postDelayed({
-                                            when(person.rol){
-                                                Rol.USER -> startActivity(Intent(this, MainActivity::class.java))
-                                                Rol.MODERATOR -> startActivity(Intent(this, ModeratorActivity::class.java))
-                                                else -> startActivity(Intent(this, GestionModeratorActivity::class.java))
-                                            }
-                                        },4000)
-                                    }
                             }.addOnFailureListener {
                                 Snackbar.make(binding.root, getString(R.string.correo_invalido_det_usu), Toast.LENGTH_LONG).show()
                                 setDialog(false)
@@ -282,12 +283,11 @@ class DetallesUsuarioActivity : AppCompatActivity() {
 
     fun dibujarImagen(url:Uri){
         setDialog(false)
-        imageUri = url.toString()
 
         val image = binding.imagePerfil
 
         Glide.with( baseContext )
-            .load(imageUri)
+            .load(url)
             .into(image)
     }
 
