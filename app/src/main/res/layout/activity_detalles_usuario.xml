@@ -28,13 +28,13 @@
                     android:layout_marginTop="50dp"
                     android:gravity="center_horizontal">
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image_perfil"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginLeft="60dp"
                         android:foregroundGravity="center"
-                        android:src="@mipmap/ic_launcher_round"></ImageView>
+                        android:src="@mipmap/ic_launcher_round"></de.hdodenhof.circleimageview.CircleImageView>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/btn_asignar_foto_perfil"

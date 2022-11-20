@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.Places
@@ -35,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
     private lateinit var sharedPreferences: SharedPreferences
@@ -79,6 +81,10 @@ class ResultadoBusquedaActivity : AppCompatActivity(),NavigationView.OnNavigatio
                 .get()
                 .addOnSuccessListener { u ->
                     val header = binding.navigationView.getHeaderView(0)
+                    val image = header.findViewById<CircleImageView>(R.id.image_perfil)
+                    Glide.with( baseContext )
+                        .load(u.toObject(User::class.java)!!.imageUri)
+                        .into(image)
                     header.findViewById<TextView>(R.id.name_user_session).text = u.toObject(User::class.java)!!.nombre
                     header.findViewById<TextView>(R.id.email_user_session).text = userLogin!!.email
                 }

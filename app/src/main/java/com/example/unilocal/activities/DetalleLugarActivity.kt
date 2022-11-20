@@ -19,6 +19,7 @@ import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityDetalleLugarBinding
 import com.example.unilocal.fragments.FavoritesFragment
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.User
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -52,6 +53,16 @@ class DetalleLugarActivity : AppCompatActivity() {
                             }
                         }.attach()
                         binding.imagesList.adapter = ImagesViewPager(this, place.images)
+                        Firebase.firestore
+                            .collection("users")
+                            .document(place.idCreator)
+                            .get()
+                            .addOnSuccessListener { u->
+                                val image = binding.imageCreator
+                                Glide.with( baseContext )
+                                    .load(u.toObject(User::class.java)!!.imageUri)
+                                    .into(image)
+                            }
                     }
                 }
         }

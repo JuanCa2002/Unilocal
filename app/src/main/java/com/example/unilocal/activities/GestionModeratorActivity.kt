@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Usuarios
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 
 class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var sharedPreferences: SharedPreferences
@@ -54,7 +56,7 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         }
         comprobarConexionInternet()
         mostrarDatos(false)
-        adapter = ModeratorAdapter(moderators)
+        adapter = ModeratorAdapter(moderators, this)
         binding.listModerators.adapter = adapter
         binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.navigationView.setNavigationItemSelectedListener(this)
@@ -76,6 +78,10 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
                 .get()
                 .addOnSuccessListener {
                     val header = binding.navigationView.getHeaderView(0)
+                    val image = header.findViewById<CircleImageView>(R.id.image_perfil)
+                    Glide.with( baseContext )
+                        .load(it.toObject(User::class.java)!!.imageUri)
+                        .into(image)
                     header.findViewById<TextView>(R.id.name_user_session).text = it.toObject(User::class.java)!!.nombre
                     header.findViewById<TextView>(R.id.email_user_session).text = user!!.email
                 }

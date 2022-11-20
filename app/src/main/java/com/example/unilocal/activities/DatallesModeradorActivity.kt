@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Cities
@@ -55,6 +56,10 @@ class DatallesModeradorActivity : AppCompatActivity() {
                             city!!.key = m.id
                             binding.cityPlace.text = city!!.name
                         }
+                    val image = binding.imageModerator
+                    Glide.with( baseContext )
+                        .load(it.toObject(User::class.java)!!.imageUri)
+                        .into(image)
                     binding.moderatorName.text = moderator!!.nombre
                     binding.nickname.text = moderator!!.nickname
                     binding.modEmail.text = moderator!!.correo
@@ -66,7 +71,7 @@ class DatallesModeradorActivity : AppCompatActivity() {
             binding.btnEliminar.setOnClickListener{deleteModerator()}
         }
         moderators = ArrayList()
-        moderatorAdapter = ModeratorAdapter(moderators)
+        moderatorAdapter = ModeratorAdapter(moderators,this)
 
     }
 

@@ -38,11 +38,12 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/img_perfil">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_moderator"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:foregroundGravity="center"
-                    android:src="@mipmap/ic_launcher_round"></ImageView>
+                    android:src="@mipmap/ic_launcher_round"/>
 
             </LinearLayout>
 

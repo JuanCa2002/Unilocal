@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
         if (userLogin != null) {
             makeRedirection(userLogin)
         } else {
-
             binding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
             db = UniLocalDbHelper(this)
@@ -130,6 +129,7 @@ class LoginActivity : AppCompatActivity() {
                                         R.string.txt_datos_erroneos,
                                         Snackbar.LENGTH_LONG
                                     ).show()
+                                    setDialog(false)
                                 }
                             }.addOnFailureListener { e ->
                                 Snackbar.make(
@@ -137,6 +137,7 @@ class LoginActivity : AppCompatActivity() {
                                     getString(R.string.datos_erroneos),
                                     Snackbar.LENGTH_LONG
                                 ).show()
+                                setDialog(false)
                             }
                     } else {
                         Snackbar.make(
@@ -144,11 +145,13 @@ class LoginActivity : AppCompatActivity() {
                             getString(R.string.correo_no_encontrado),
                             Snackbar.LENGTH_LONG
                         ).show()
+                        setDialog(false)
                     }
                 }
 
         } else {
             Snackbar.make(binding.root, R.string.txt_datos_erroneos, Snackbar.LENGTH_LONG).show()
+            setDialog(false)
         }
     }
 

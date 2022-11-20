@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityModeratorBinding
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     private lateinit var sharedPreferences: SharedPreferences
@@ -130,6 +132,10 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 .get()
                 .addOnSuccessListener {
                     val header = binding.navigationView.getHeaderView(0)
+                    val image = header.findViewById<CircleImageView>(R.id.image_perfil)
+                    Glide.with( baseContext )
+                        .load(it.toObject(User::class.java)!!.imageUri)
+                        .into(image)
                     header.findViewById<TextView>(R.id.name_user_session).text = it.toObject(User::class.java)!!.nombre
                     header.findViewById<TextView>(R.id.email_user_session).text = user!!.email
                 }

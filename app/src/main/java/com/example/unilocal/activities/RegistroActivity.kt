@@ -114,6 +114,15 @@ class RegistroActivity : AppCompatActivity() {
                                 .document(user.uid)
                                 .set(userRegister)
                                 .addOnSuccessListener {
+                                    db.createUser(
+                                        User(
+                                            user.uid,
+                                            userRegister!!.nombre,
+                                            userRegister!!.nickname,
+                                            userRegister!!.correo,
+                                            userRegister!!.idCity
+                                        )
+                                    )
                                     Snackbar.make(binding.root,R.string.registro_exitoso, Snackbar.LENGTH_LONG).show()
                                     setDialog(false)
                                     startActivity(Intent(this, LoginActivity::class.java))

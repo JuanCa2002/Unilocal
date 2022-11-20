@@ -28,10 +28,12 @@
                 android:layout_height="80dp"
                 android:gravity="center">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_creator"
                     android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"></ImageView>
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="2dp"
+                    android:src="@mipmap/ic_launcher"></de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
                     android:id="@+id/name_place"

@@ -179,8 +179,8 @@ class DetallesUsuarioActivity : AppCompatActivity() {
             correo = binding.correoLayout.hint.toString()
         }
         if(nombre.isNotEmpty() && nickname.isNotEmpty() && correo.isNotEmpty() && idCity!=""){
-            eliminarImagenPerfil()
             if(password.isNotEmpty()){
+                eliminarImagenPerfil()
                 val newUser = User(nombre,nickname,correo,idCity,person!!.rol)
                 var user = FirebaseAuth.getInstance().currentUser
                 val credential= EmailAuthProvider.getCredential(user!!.email!!, password)
@@ -188,6 +188,18 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         user!!.updateEmail(correo)
                             .addOnSuccessListener {
+                                val storageRef = FirebaseStorage.getInstance()
+                                    .reference
+                                    .child(datatime)
+                                if(selectedImageUri!=null){
+                                    storageRef.putFile(selectedImageUri!!).addOnSuccessListener {
+                                        storageRef.downloadUrl.addOnSuccessListener {
+                                            Snackbar.make(binding.root, "Nueva imagen subida", Toast.LENGTH_LONG).show()
+                                        }
+                                    }.addOnFailureListener {
+                                        Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                                    }
+                                }
                                 newUser.imageReference = imageReference
                                 newUser.imageUri = imageUri
                                 verificarEmail(user)
@@ -261,18 +273,8 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                 val data = result.data
                 if(data!=null){
                     selectedImageUri = data.data
-                    val storageRef = FirebaseStorage.getInstance()
-                        .reference
-                        .child(datatime)
-                    if(selectedImageUri!=null){
-                        storageRef.putFile(selectedImageUri!!).addOnSuccessListener {
-                            storageRef.downloadUrl.addOnSuccessListener {
-                                dibujarImagen(it)
-                            }
-                        }.addOnFailureListener {
-                            Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
-                        }
-                    }
+                    dibujarImagen(selectedImageUri!!)
+                    setDialog(false)
                 }
             }
         }
