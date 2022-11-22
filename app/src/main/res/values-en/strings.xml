@@ -145,4 +145,16 @@
     <string name="no_internet">No internet</string>
     <string name="cooreo_enviado_email">The email has been sent, check your inbox.</string>
     <string name="nueva_imagen">New uploaded image</string>
+    <string name="estadisticas">Statistics</string>
+    <string name="lugares">Places</string>
+    <string name="cantidad_lugares">Quantity Places</string>
+    <string name="numero_lugares">Number_of_places</string>
+    <string name="usuarios">Users</string>
+    <string name="cantidad_usuarios">Quantity of users</string>
+    <string name="numero_usuarios">Number of users</string>
+    <string name="cantidad_ciudades">Quantity cities</string>
+    <string name="numero_ciudades">Number_cities</string>
+    <string name="ciudades">Cities</string>
+    <string name="numero_categorias">Number of categories</string>
+    <string name="cantidad_categorias">Quantity categories</string>
 </resources>
