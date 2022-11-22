@@ -12,11 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".activities.DetalleLugarActivity"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -24,15 +25,16 @@
                 android:background="@color/black"></View>
 
             <LinearLayout
+                android:id="@+id/layoput_titulo"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center">
+                android:layout_height="100dp"
+                android:gravity="center_vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_creator"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@mipmap/ic_launcher"></de.hdodenhof.circleimageview.CircleImageView>
 
                 <TextView
@@ -42,14 +44,14 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="80dp"
                     android:text="@string/txt_nombre_lugar_detalle_lugar"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/images_list"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="80dp"
+                android:layout_below="@id/layoput_titulo"
                 android:background="@color/gray"/>
 
         </RelativeLayout>
