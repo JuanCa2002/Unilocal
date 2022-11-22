@@ -101,7 +101,6 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String, var context: C
 
         }
 
-
         override fun onClick(p0: View?) {
             if(origen == "Busqueda"){
                 val intent = Intent(name.context, DetalleLugarActivity::class.java)

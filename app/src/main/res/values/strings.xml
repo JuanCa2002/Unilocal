@@ -148,5 +148,6 @@
     <string name="datos_erroneos">Los datos son erroneos, porfavor confirma</string>
     <string name="no_internet">No hay internet</string>
     <string name="cooreo_enviado_email">El correo ha sido enviado, revisa tu bandeja de mensajes</string>
+    <string name="nueva_imagen">Nueva imagen subida</string>
 
 </resources>

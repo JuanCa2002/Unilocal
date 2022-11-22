@@ -46,8 +46,8 @@ class DetallesUsuarioActivity : AppCompatActivity() {
     lateinit var cities: ArrayList<City>
     lateinit var bd: UniLocalDbHelper
     lateinit var dialog: Dialog
-    var user:FirebaseUser? = null
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    var user:FirebaseUser? = null
     var estadoConexion: Boolean = false
     var imageUri:String = ""
     var imageReference:String = ""
@@ -213,7 +213,7 @@ class DetallesUsuarioActivity : AppCompatActivity() {
                                                         }
                                                     },4000)
                                                 }
-                                            Snackbar.make(binding.root, "Nueva imagen subida", Toast.LENGTH_LONG).show()
+                                            Snackbar.make(binding.root, getString(R.string.nueva_imagen), Toast.LENGTH_LONG).show()
                                         }
                                     }.addOnFailureListener {
                                         Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
