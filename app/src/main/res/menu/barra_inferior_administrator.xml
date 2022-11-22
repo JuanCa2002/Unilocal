@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_pendiente"
+        android:id="@+id/menu_moderadores"
         android:icon="@drawable/ic_baseline_warning_24"
-        android:title="@string/pendientes"/>
+        android:title="Moderadores"/>
 
     <item
         android:id="@+id/menu_inicio"
@@ -12,8 +12,8 @@
         android:title="Inicio"/>
 
     <item
-        android:id="@+id/menu_registro"
+        android:id="@+id/menu_estadisticas"
         android:icon="@drawable/ic_baseline_app_registration_24"
-        android:title="@string/registro"/>
+        android:title="Estadisticas"/>
 
 </menu>

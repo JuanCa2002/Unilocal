@@ -35,6 +35,7 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var binding: ActivityModeratorBinding
     lateinit var bd: UniLocalDbHelper
+    private var MENU_INICIO = "Inicio"
     private var MENU_PENDIENTES = "Pendiente"
     private var MENU_REGISTRO = "Registro"
     var codeModerator: String = ""
@@ -60,6 +61,7 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             when(it.itemId){
                 R.id.menu_pendiente -> changeFragments(1,MENU_PENDIENTES)
                 R.id.menu_registro -> changeFragments(2,MENU_REGISTRO)
+                R.id.menu_inicio -> changeFragments(3, MENU_INICIO)
             }
             true
         }
@@ -72,8 +74,10 @@ class ModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         var fragment: Fragment
         if(valor ==  1){
             fragment = PendientesPlaceFragment.newInstance(codeModerator)
-        }else{
+        }else if ( valor == 2){
             fragment = RegistreFragment.newInstance(codeModerator)
+        }else{
+            fragment = InicioFragment.newInstance("Moderator")
         }
         supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
             .addToBackStack(nombre)

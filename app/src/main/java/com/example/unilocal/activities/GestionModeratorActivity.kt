@@ -13,12 +13,14 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.ActivityGestionModeratorBinding
+import com.example.unilocal.fragments.*
 import com.example.unilocal.models.Rol
 import com.example.unilocal.models.StatusUser
 import com.example.unilocal.models.User
@@ -35,11 +37,11 @@ import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 
 class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var sharedPreferences: SharedPreferences
     lateinit var binding: ActivityGestionModeratorBinding
-    lateinit var moderators : ArrayList<User>
     lateinit var bd: UniLocalDbHelper
-    lateinit var adapter: ModeratorAdapter
+    private var MENU_INICIO = "Inicio"
+    private var MENU_MODERADORES = "Moderadores"
+    private var MENU_ESTADISTICAS = "Estadisticas"
     var user:FirebaseUser? = null
     var estadoConexion: Boolean = false
     var codeAdministrador: String? = ""
@@ -48,19 +50,25 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         super.onCreate(savedInstanceState)
         binding = ActivityGestionModeratorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        moderators = ArrayList()
         bd = UniLocalDbHelper(this)
         user = FirebaseAuth.getInstance().currentUser
         if(user != null){
             codeAdministrador= user!!.uid
         }
+
+        changeFragments(1, MENU_MODERADORES)
+        binding.barraInferior.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.menu_moderadores-> changeFragments(1,MENU_MODERADORES)
+                R.id.menu_inicio -> changeFragments(2,MENU_INICIO)
+                R.id.menu_estadisticas -> changeFragments(3, MENU_ESTADISTICAS)
+            }
+            true
+        }
+
         comprobarConexionInternet()
         mostrarDatos(false)
-        adapter = ModeratorAdapter(moderators, this)
-        binding.listModerators.adapter = adapter
-        binding.listModerators.layoutManager  = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         binding.navigationView.setNavigationItemSelectedListener(this)
-        binding.btnCreateModerator.setOnClickListener { irCrearModerator() }
 
         var menu = this.findViewById<Button>(R.id.btn_menu)
         menu.setOnClickListener { abrirMenu()}
@@ -68,6 +76,20 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
 
     fun abrirMenu(){
         binding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+
+    fun changeFragments(valor:Int, nombre:String){
+        var fragment: Fragment
+        if(valor ==  1){
+            fragment = ModeradoresFragment()
+        }else if(valor == 2){
+            fragment = InicioFragment.newInstance("Administrator")
+        }else{
+            fragment = EstadisticasFragment()
+        }
+        supportFragmentManager.beginTransaction().replace(binding.contenidoPrincipal.id,fragment)
+            .addToBackStack(nombre)
+            .commit()
     }
 
     fun mostrarDatos(estado:Boolean){
@@ -136,11 +158,6 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         finish()
     }
 
-    fun irCrearModerator(){
-        val intent = Intent(this, CrearModeradorActivity::class.java)
-        startActivity(intent)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.navPerfil -> abrirPerfil()
@@ -163,27 +180,5 @@ class GestionModeratorActivity : AppCompatActivity(), NavigationView.OnNavigatio
         val intent = Intent(this, CategoriesActivity::class.java)
         intent.putExtra("code",codeAdministrador)
         startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        moderators.clear()
-        if(estadoConexion){
-            Firebase.firestore
-                .collection("users")
-                .whereEqualTo("rol", Rol.MODERATOR)
-                .whereEqualTo("status", StatusUser.HABILITADO)
-                .get()
-                .addOnSuccessListener {
-                    for(doc in it){
-                        val moderator = doc.toObject(User::class.java)
-                        moderator.key = doc.id
-                        moderators.add(moderator)
-                    }
-                   adapter.notifyDataSetChanged()
-                }
-        }else{
-            Snackbar.make(binding.root, getString(R.string.no_cargar_apartado), Snackbar.LENGTH_LONG).show()
-        }
     }
 }

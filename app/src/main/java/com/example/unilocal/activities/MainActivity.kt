@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         if(valor ==  1){
             fragment = FavoritesFragment()
         }else if(valor == 2){
-            fragment = InicioFragment()
+            fragment = InicioFragment.newInstance("Main")
         }else{
             fragment = MyPlacesFragment()
         }

@@ -13,7 +13,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.example.unilocal.R
 import com.example.unilocal.activities.DetalleLugarActivity
+import com.example.unilocal.activities.GestionModeratorActivity
 import com.example.unilocal.activities.MainActivity
+import com.example.unilocal.activities.ModeratorActivity
 import com.example.unilocal.bd.Categories
 import com.example.unilocal.bd.Cities
 import com.example.unilocal.bd.Places
@@ -37,15 +39,20 @@ import com.google.firebase.ktx.Firebase
 class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
     private var tienePermiso = false
+    var estado: Boolean = false
     private val defaultLocation = LatLng(4.550923, -75.6557201)
     lateinit var bd:UniLocalDbHelper
     lateinit var binding: FragmentInicioBinding
     lateinit var gMap:GoogleMap
+    var origen:String? = ""
     var code:Int = -1
     var bundle:Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(arguments != null){
+            origen = requireArguments().getString("origen")
+        }
         bd = UniLocalDbHelper(requireContext())
         getLocationPermission()
     }
@@ -76,7 +83,11 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
         } catch (e: SecurityException) {
             e.printStackTrace()
         }
-        val estado = (requireActivity()as MainActivity).estadoConexion
+         when(origen) {
+                "Main"-> estado = (requireActivity() as MainActivity).estadoConexion
+                "Moderator" -> estado = (requireActivity() as ModeratorActivity).estadoConexion
+                else -> estado = (requireActivity() as GestionModeratorActivity).estadoConexion
+        }
         if(estado){
             Firebase.firestore
                 .collection("placesF")
@@ -141,6 +152,16 @@ class InicioFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowCli
         val intent = Intent(requireContext(), DetalleLugarActivity::class.java)
         intent.putExtra("code",p0.tag.toString())
         startActivity(intent)
+    }
+
+    companion object{
+        fun newInstance(origen: String):InicioFragment{
+            val args = Bundle()
+            args.putString("origen",origen)
+            val fragment = InicioFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
 }
