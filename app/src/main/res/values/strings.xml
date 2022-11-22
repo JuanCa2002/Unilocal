@@ -149,5 +149,18 @@
     <string name="no_internet">No hay internet</string>
     <string name="cooreo_enviado_email">El correo ha sido enviado, revisa tu bandeja de mensajes</string>
     <string name="nueva_imagen">Nueva imagen subida</string>
+    <string name="estadisticas">Estadisticas</string>
+    <string name="lugares">Lugares</string>
+    <string name="cantidad_lugares">Cantidad Lugares</string>
+    <string name="numero_lugares">Numero_lugares</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="cantidad_usuarios">Cantidad Usuarios</string>
+    <string name="numero_usuarios">Numero usuarios</string>
+    <string name="cantidad_ciudades">Cantidad ciudades</string>
+    <string name="numero_ciudades">Numero_ciudades</string>
+    <string name="ciudades">Ciudades</string>
+    <string name="numero_categorias">Numero categorias</string>
+    <string name="cantidad_categorias">Cantidad categorias</string>
+
 
 </resources>

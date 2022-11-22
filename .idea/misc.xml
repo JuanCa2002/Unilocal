@@ -9,7 +9,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_lugar.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_crear_moderador.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_datalles_moderador.xml" value="0.33" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalle_lugar_usuario.xml" value="0.18" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_detalles_usuario.xml" value="0.13360507246376813" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_gestion_moderator.xml" value="0.1" />
@@ -17,7 +17,6 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_moderator.xml" value="0.33" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_navigation_principal.xml" value="0.1" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_recuperar_contrasena.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_registro.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/activity_resultado_busqueda.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/app_bar_navigation.xml" value="0.17074275362318841" />
@@ -25,29 +24,22 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/content_navigation2.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/dialogo_progreso.xml" value="0.23357664233576642" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_aceptados.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_comments_place.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_dialog_schedules.xml" value="0.22" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_estadisticas.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_favorites.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_gallery.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_image.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_info_place.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_inicio.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_menu_principal.xml" value="0.25" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_moderadores.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/fragment_slideshow.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_comment_layout.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_layout.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/item_moderator_layout.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/nav_header_navigation.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/layout/nav_header_navigation2.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/menu/activity_navigation_principal_drawer.xml" value="0.2" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/menu/barra_inferior.xml" value="0.2" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/menu/barra_inferior_administrator.xml" value="0.2" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/menu/barra_inferior_moderator.xml" value="0.2" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/menu/navigation_principal.xml" value="0.2" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/Unilocal/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.116" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.2" />
@@ -71,11 +63,13 @@
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_aceptados.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_comments_place.xml" value="0.33" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_dialog_schedules.xml" value="0.23867753623188406" />
+        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_estadisticas.xml" value="0.5" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_favorites.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_image.xml" value="0.23867753623188406" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_info_place.xml" value="0.25" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_inicio.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_menu_principal.xml" value="0.22" />
+        <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_moderadores.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_my_places.xml" value="0.5" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_pendientes_place.xml" value="0.2418478260869565" />
         <entry key="..\:/Users/luisa/Desktop/Programas Universidad/Apps Moviles/Unilocal/app/src/main/res/layout/fragment_rechazados.xml" value="0.2418478260869565" />
