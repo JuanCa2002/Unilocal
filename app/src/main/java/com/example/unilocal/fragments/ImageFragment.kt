@@ -77,13 +77,13 @@ class ImageFragment : Fragment() {
                         .document(key!!)
                         .set(place)
                         .addOnSuccessListener {
-                            Snackbar.make(binding.root, "Se ha eliminado esta imagen del lugar", Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, getString(R.string.imagen_correcta), Snackbar.LENGTH_LONG).show()
                             val intent = Intent(requireContext(), DetalleLugarUsuarioActivity::class.java)
                             intent.putExtra("code", key)
                             startActivity(intent)
                         }
                 }else{
-                    Snackbar.make(binding.root, "El lugar no se puede quedar sin al menos una imagen", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, getString(R.string.lugar_sin_imagen), Snackbar.LENGTH_LONG).show()
                 }
             }
     }

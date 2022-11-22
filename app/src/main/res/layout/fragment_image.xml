@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:adjustViewBounds="true"
     android:scaleType="centerCrop"
     tools:context=".fragments.ImageFragment">
@@ -17,11 +18,13 @@
     <Button
         android:visibility="gone"
         android:id="@+id/btn_eliminar_imagen"
-        android:layout_marginTop="10dp"
-        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/black"
-        android:layout_height="60dp"
         android:backgroundTint="@color/red"
-        android:text="Delete"></Button>
+        android:text="@string/eliminar_imagen"></Button>
 
 </RelativeLayout>

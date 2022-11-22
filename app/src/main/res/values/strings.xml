@@ -161,6 +161,8 @@
     <string name="ciudades">Ciudades</string>
     <string name="numero_categorias">Numero categorias</string>
     <string name="cantidad_categorias">Cantidad categorias</string>
-
+    <string name="imagen_correcta">Se ha eliminado esta imagen del lugar</string>
+    <string name="lugar_sin_imagen">El lugar no se puede quedar sin al menos una imagen</string>
+    <string name="eliminar_imagen">Eliminar imagen</string>
 
 </resources>

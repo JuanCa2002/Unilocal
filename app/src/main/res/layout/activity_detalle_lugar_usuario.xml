@@ -20,14 +20,14 @@
             <RelativeLayout
                 android:id="@+id/parte_imagen"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/images_list"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="match_parent"
                     android:background="@color/gray" />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
