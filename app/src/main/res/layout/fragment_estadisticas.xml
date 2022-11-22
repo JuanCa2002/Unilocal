@@ -9,129 +9,195 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/stock_places"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/icon_places"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="70">
+            android:id="@+id/layout_titulo"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:background="@color/white"
+            android:layout_marginBottom="20dp">
 
             <TextView
-                android:id="@+id/places_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lugares"
-                android:layout_marginBottom="5dp"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:id="@+id/stock_places_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Cantidad_lugares"/>
-
+                android:text="@string/estadisticas"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"></TextView>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/stock_users"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="5dp"
-        android:layout_below="@+id/stock_places"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/icon_users"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:orientation="vertical"
+            android:id="@+id/stock_places"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="70">
+            android:gravity="center_vertical"
+            android:layout_below="@id/layout_titulo"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp"
+            android:background="@color/white">
 
-            <TextView
-                android:id="@+id/users_text"
-                android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon_places"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_baseline_maps_home_work_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Usuarios"
-                android:layout_marginBottom="5dp"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:textColor="@color/black"/>
+                android:layout_weight="70"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
 
-            <TextView
-                android:id="@+id/stock_users_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Cantidad usuarios"/>
+                <TextView
+                    android:id="@+id/places_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/lugares"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:text="@string/cantidad_lugares"/>
+
+                    <TextView
+                        android:id="@+id/stock_places_number"
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/numero_lugares" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/stock_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stock_places"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon_users"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_baseline_people_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:id="@+id/users_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/usuarios"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:text="@string/cantidad_usuarios"/>
+
+                    <TextView
+                        android:id="@+id/stock_users_number"
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/numero_usuarios" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/stock_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="5dp"
             android:layout_below="@+id/stock_users"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon_categories"
-                android:src="@mipmap/ic_launcher_round"
                 android:layout_width="80dp"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp"
+                android:src="@drawable/ic_baseline_library_books_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:orientation="vertical"
                 android:layout_height="wrap_content"
-                android:layout_weight="70">
+                android:layout_weight="70"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
 
                 <TextView
                     android:id="@+id/categories_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Categorias"
                     android:layout_marginBottom="5dp"
-                    android:textStyle="bold"
+                    android:text="@string/categorias"
+                    android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/stock_categories_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="Cantidad categorias"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="@string/cantidad_categorias"/>
+
+                    <TextView
+                        android:id="@+id/stock_categories_number"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/numero_categorias" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -141,43 +207,60 @@
             android:id="@+id/stock_cities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="5dp"
             android:layout_below="@+id/stock_categories"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:layout_marginBottom="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon_cities"
-                android:src="@mipmap/ic_launcher_round"
                 android:layout_width="80dp"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp"
+                android:src="@drawable/ic_baseline_location_on_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:orientation="vertical"
                 android:layout_height="wrap_content"
-                android:layout_weight="70">
+                android:layout_weight="70"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
 
                 <TextView
                     android:id="@+id/cities_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ciudades"
                     android:layout_marginBottom="5dp"
-                    android:textStyle="bold"
+                    android:text="@string/ciudades"
+                    android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:textColor="@color/black"/>
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/stock_cities_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="Cantidad ciudades"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="40"
+                        android:text="@string/cantidad_ciudades"/>
+
+                    <TextView
+                        android:id="@+id/stock_cities_number"
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/numero_ciudades" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
+
 </FrameLayout>
