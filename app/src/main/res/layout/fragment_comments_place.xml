@@ -14,22 +14,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/campo_txt_comentario">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/imagen_comentario"></ImageView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/imagen_comentario"></ImageView>
+
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 app:boxStrokeWidth="0dp"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
                 android:layout_alignRight="@+id/imagen_comentario">
 
                 <EditText
@@ -96,15 +105,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
                 android:layout_below="@id/campo_txt_comentario">
 
                 <Button
                     android:id="@+id/btn_enviar"
-                    android:layout_width="150dp"
-                    android:layout_marginLeft="230dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="20dp"
                     android:backgroundTint="@color/color1"
+                    android:drawableEnd="@drawable/ic_baseline_send_24"
                     android:text="@string/txt_enviar_comentario"
                     android:textColor="@color/black"></Button>
 
@@ -127,8 +138,8 @@
                 android:id="@+id/lista_comentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="50dp" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
 
             <TextView
                 android:id="@+id/sin_comentarios"
