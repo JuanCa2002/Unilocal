@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.unilocal.R
+import com.example.unilocal.adapter.ImagesViewPager
 import com.example.unilocal.adapter.ModeratorAdapter
 import com.example.unilocal.adapter.PlaceAdapter
 import com.example.unilocal.bd.*
@@ -101,7 +102,9 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                        place = doc.toObject(Place::class.java)
                        place!!.key = doc.id
                        if(place != null){
+                           imagenesReferencias = place!!.imageReference
                            imagenes = place!!.images
+                           binding.imagesList.adapter = ImagesViewPager(this, imagenes, "Dueño",place!!.imageReference,place!!.key)
                            horarios = place!!.schedules
                            position = place!!.position
                            gMap.addMarker(MarkerOptions().position(LatLng(place!!.position!!.lat, place!!.position!!.lng)).title(place!!.name).visible(true))!!.tag = place!!.key

@@ -52,7 +52,7 @@ class DetalleLugarActivity : AppCompatActivity() {
                                 1 -> tab.text = getString(R.string.txt_comentario)
                             }
                         }.attach()
-                        binding.imagesList.adapter = ImagesViewPager(this, place.images)
+                        binding.imagesList.adapter = ImagesViewPager(this, place.images, "Visualizacion", place.imageReference, place.key)
                         Firebase.firestore
                             .collection("users")
                             .document(place.idCreator)
