@@ -137,7 +137,7 @@ class InfoPlaceFragment : Fragment(), OnMapReadyCallback {
                                     comments.add(doc.toObject(Comment::class.java))
                                 }
                                 val qualification = place.obtenerCalificacionPromedio(comments)
-                                for (i in 0..qualification){
+                                for (i in 0 until qualification){
                                     (binding.listStars[i] as TextView).setTextColor(ContextCompat.getColor(binding.listStars.context,R.color.yellow))
                                 }
                                 binding.txtDescripcionLugar.text = place!!.description
