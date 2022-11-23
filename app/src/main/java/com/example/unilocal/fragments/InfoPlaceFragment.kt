@@ -18,15 +18,24 @@ import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.databinding.FragmentInfoPlaceBinding
 import com.example.unilocal.models.Comment
 import com.example.unilocal.models.Place
+import com.example.unilocal.models.Position
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 
-class InfoPlaceFragment : Fragment() {
+class InfoPlaceFragment : Fragment(), OnMapReadyCallback {
     lateinit var binding: FragmentInfoPlaceBinding
     lateinit var placeAdapter: PlaceAdapter
+    lateinit var gMap:GoogleMap
+    private val defaultLocation = LatLng(4.550923, -75.6557201)
     lateinit var favorites: ArrayList<String?>
     var codePlace:String?= ""
     var code:String? = ""
@@ -38,6 +47,14 @@ class InfoPlaceFragment : Fragment() {
         if(arguments != null){
             codePlace = requireArguments().getString("id_lugar")
         }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        gMap = googleMap
+        gMap.uiSettings.isZoomControlsEnabled = true
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,15f))
+
     }
 
     override fun onCreateView(
@@ -60,6 +77,9 @@ class InfoPlaceFragment : Fragment() {
                 }
             }
         }
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapa_crear_lugar) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         return binding.root
     }
 
@@ -90,6 +110,9 @@ class InfoPlaceFragment : Fragment() {
                         telefonos = R.string.no_hay_telefono.toString()
                     }
 
+                    gMap.addMarker(MarkerOptions().position(LatLng(place!!.position!!.lat, place!!.position!!.lng)).title(place!!.name).visible(true))!!.tag = place!!.key
+                    val location = LatLng(place!!.position!!.lat, place!!.position!!.lng)
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15f))
                     binding.phonePlace.text = telefonos
 
                     var horarios = ""

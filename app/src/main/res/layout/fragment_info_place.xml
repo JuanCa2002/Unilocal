@@ -209,6 +209,13 @@
 
         </LinearLayout>
 
+        <fragment
+            android:id="@+id/mapa_crear_lugar"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_below="@id/phone_place_linear"
+            android:layout_height="450dp" />
+
     </RelativeLayout>
 
 </ScrollView>

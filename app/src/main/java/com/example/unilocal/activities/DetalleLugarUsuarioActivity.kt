@@ -108,6 +108,8 @@ class DetalleLugarUsuarioActivity : AppCompatActivity(), OnMapReadyCallback, Dia
                            horarios = place!!.schedules
                            position = place!!.position
                            gMap.addMarker(MarkerOptions().position(LatLng(place!!.position!!.lat, place!!.position!!.lng)).title(place!!.name).visible(true))!!.tag = place!!.key
+                           val location = LatLng(place!!.position!!.lat, place!!.position!!.lng)
+                           gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,15f))
                            binding.nombreLayout.hint = place!!.name
                            binding.telefonoLayout.hint = place!!.phones[0]
                            binding.campoDireccionLayout.hint= place!!.address
