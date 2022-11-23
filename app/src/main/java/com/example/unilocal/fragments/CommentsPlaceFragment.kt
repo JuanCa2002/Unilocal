@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.adapter.CommentAdapter
 import com.example.unilocal.bd.Comments
@@ -18,6 +19,7 @@ import com.example.unilocal.bd.Places
 import com.example.unilocal.databinding.FragmentCommentsPlaceBinding
 import com.example.unilocal.databinding.FragmentInfoPlaceBinding
 import com.example.unilocal.models.Comment
+import com.example.unilocal.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -46,6 +48,18 @@ class CommentsPlaceFragment : Fragment() {
     ): View? {
         binding = FragmentCommentsPlaceBinding.inflate(inflater,container,false)
         colorPorDefecto = binding.s1.textColors.defaultColor
+        val user = FirebaseAuth.getInstance().currentUser
+        if(user != null){
+            Firebase.firestore
+                .collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener {
+                    Glide.with(requireContext())
+                        .load(it.toObject(User::class.java)!!.imageUri)
+                        .into(binding.imagenComentario)
+                }
+        }
         Firebase.firestore
             .collection("placesF")
             .document(codigoLugar!!)

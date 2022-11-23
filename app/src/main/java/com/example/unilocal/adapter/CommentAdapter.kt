@@ -3,8 +3,10 @@ package com.example.unilocal.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.unilocal.R
 import com.example.unilocal.bd.Usuarios
 import com.example.unilocal.models.Comment
@@ -14,6 +16,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 
 class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
@@ -32,6 +35,7 @@ class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<Comm
     inner class ViewHolder(var itemView: View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val nickname: TextView = itemView.findViewById(R.id.nickname_user)
         val date: TextView = itemView.findViewById(R.id.date_comment)
+        val image:CircleImageView = itemView.findViewById(R.id.image_user)
         val text: TextView = itemView.findViewById(R.id.text_comment)
 
         init {
@@ -46,6 +50,9 @@ class CommentAdapter(var comments:ArrayList<Comment>): RecyclerView.Adapter<Comm
                 .addOnSuccessListener { u ->
                         val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
                         val user = u.toObject(User::class.java)
+                        Glide.with(nickname.context)
+                            .load(user!!.imageUri)
+                            .into(image)
                         nickname.text = user!!.nickname
                         date.text = simpleDateFormat.format(comment.creationDate.time)
                         text.text = comment.text

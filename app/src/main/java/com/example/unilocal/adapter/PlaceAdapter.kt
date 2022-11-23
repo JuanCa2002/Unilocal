@@ -94,7 +94,7 @@ class PlaceAdapter(var places:ArrayList<Place>,var origen:String, var context: C
                         comments.add(doc.toObject(Comment::class.java))
                     }
                     val qualification = place.obtenerCalificacionPromedio(comments)
-                    for (i in 0..qualification){
+                    for (i in 0 until qualification){
                         (stars[i] as TextView).setTextColor(ContextCompat.getColor(stars.context,R.color.yellow))
                     }
                 }
